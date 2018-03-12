@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Disaster Report</string>
+
+    <!-- Category name for topAttraction [CHAR LIMIT=20] -->
+    <string name="category_earthquake">EarthQuakes</string>
+    <string name="category_floods">Floods</string>
+    <string name="category_hurricanes">Hurricanes</string>
+    <string name="category_thunder_storm">Thunder Storm</string>
+    <string name="category_tsunamis">Tsunamis</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
