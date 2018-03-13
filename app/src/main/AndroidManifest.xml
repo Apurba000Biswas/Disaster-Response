@@ -22,9 +22,18 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings_title">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.apurba.disaster.disasterreport.MainActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.apurba.disaster.disasterreport.MainActivity"/>
+        </activity>
+
+        <activity
+            android:name=".EarthQuakeDetailsActivity"
+            android:label="@string/title_activity_catagory"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
 
     </application>

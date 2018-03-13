@@ -63,8 +63,15 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
                 String url = clickedEarthQuake.getUrl();
 
                 //Implicit intent that contains a url to got
+                /*
                 Intent intent = new Intent(Intent.ACTION_VIEW); // ACTION_VIEW is used to open Web browser
                 intent.setData(Uri.parse(url));
+                startActivity(intent);
+                */
+                Intent intent = new Intent(getActivity(), EarthQuakeDetailsActivity.class);
+                //String textFieldValue = resturent.getCatagoryName();
+                //intent.putExtra(EXTRA_MESSAGE, textFieldValue);
+                //intent.putExtra(EXTRA_MESSAGE_2, resturent.getImageResourceId());
                 startActivity(intent);
             }
         });
@@ -92,6 +99,8 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         return isConnected;
     }
 
+
+    // implements the loader callback methods
 
     @Override
     public Loader<List<EarthQuakeItem>> onCreateLoader(int i, Bundle bundle) {

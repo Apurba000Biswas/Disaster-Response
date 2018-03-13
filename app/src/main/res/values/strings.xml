@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Disaster Report</string>
 
     <!-- Default text to show with the earthquake location ("Near the Pacific-Antarctic Ridge")
@@ -45,6 +45,14 @@
     <string name="settings_max_result_label">Maximum Result</string>
     <string name="settings_max_result_key" translatable="false">max_result</string>
     <string name="settings_max_result_default" translatable="false">20</string>
+
+    <!-- Label for perceived strength value [CHAR LIMIT=40] -->
+    <string name="perceived_strength">Perceived Strength</string>
+
+    <!-- Number of people who reported perceived strength for an earthquake [CHAR LIMIT=NONE] -->
+    <string name="num_people_felt_it"><xliff:g id="number" example="10">%s</xliff:g> people felt it</string>
+
+    <string name="title_activity_catagory">CatagoryActivity</string>
 
 
 </resources>

@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#4c4459</color>
     <color name="colorPrimaryDark">#241d30</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FFCC0000</color>
 
     <!-- Color for an earthquake with magnitude 0 and 2 -->
     <color name="magnitude1">#4A7BA7</color>
