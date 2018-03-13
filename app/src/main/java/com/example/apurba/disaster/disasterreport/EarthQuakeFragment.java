@@ -31,6 +31,10 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
     public static final String LOG_TAG = EarthQuakeFragment.class.getName();
     private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
+    public static final String EXTRA_MESSAGE_1 = "location";
+    public static final String EXTRA_MESSAGE_2 = "magnitude";
+    public static final String EXTRA_MESSAGE_3 = "url";
+
     private EarthQuakeItemAdapter mAdapter;
     private TextView mEmptyStateTextView;
     private View loading_indicator;
@@ -60,7 +64,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EarthQuakeItem clickedEarthQuake = earthquakes.get(i);
-                String url = clickedEarthQuake.getUrl();
+
 
                 //Implicit intent that contains a url to got
                 /*
@@ -70,7 +74,12 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
                 */
                 Intent intent = new Intent(getActivity(), EarthQuakeDetailsActivity.class);
                 //String textFieldValue = resturent.getCatagoryName();
-                //intent.putExtra(EXTRA_MESSAGE, textFieldValue);
+                String url = clickedEarthQuake.getUrl();
+                String location = clickedEarthQuake.getLocation();
+                double magnitude =  clickedEarthQuake.getMagnitude();
+                intent.putExtra(EXTRA_MESSAGE_1, location);
+                intent.putExtra(EXTRA_MESSAGE_2, magnitude);
+                intent.putExtra(EXTRA_MESSAGE_3, url);
                 //intent.putExtra(EXTRA_MESSAGE_2, resturent.getImageResourceId());
                 startActivity(intent);
             }

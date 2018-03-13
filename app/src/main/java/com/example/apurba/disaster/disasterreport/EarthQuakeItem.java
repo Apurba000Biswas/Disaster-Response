@@ -37,7 +37,9 @@ public class EarthQuakeItem {
     public String getUrl(){
         return mUrl;
     }
-
+    public String getLocation(){
+        return mLocation;
+    }
     /**
      * Split the location String into two string
      *
