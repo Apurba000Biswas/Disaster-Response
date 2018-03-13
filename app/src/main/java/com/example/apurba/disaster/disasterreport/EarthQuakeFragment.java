@@ -65,22 +65,13 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 EarthQuakeItem clickedEarthQuake = earthquakes.get(i);
 
-
-                //Implicit intent that contains a url to got
-                /*
-                Intent intent = new Intent(Intent.ACTION_VIEW); // ACTION_VIEW is used to open Web browser
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
-                */
                 Intent intent = new Intent(getActivity(), EarthQuakeDetailsActivity.class);
-                //String textFieldValue = resturent.getCatagoryName();
                 String url = clickedEarthQuake.getUrl();
                 String location = clickedEarthQuake.getLocation();
                 double magnitude =  clickedEarthQuake.getMagnitude();
                 intent.putExtra(EXTRA_MESSAGE_1, location);
                 intent.putExtra(EXTRA_MESSAGE_2, magnitude);
                 intent.putExtra(EXTRA_MESSAGE_3, url);
-                //intent.putExtra(EXTRA_MESSAGE_2, resturent.getImageResourceId());
                 startActivity(intent);
             }
         });

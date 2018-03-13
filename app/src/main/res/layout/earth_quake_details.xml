@@ -49,4 +49,11 @@
         android:textColor="#FFFFFF"
         android:textAllCaps="true"
         android:textAppearance="?android:textAppearanceMedium" />
+
+    <com.facebook.share.widget.ShareButton
+        android:id="@+id/fb_share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#140019"/>
+
 </LinearLayout>

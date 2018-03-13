@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:background="#FFFFFF"
+        android:background="#140019"
         android:dividerHeight="0dp"/>
 
     <!-- Empty view is only visible when the list has no items. -->

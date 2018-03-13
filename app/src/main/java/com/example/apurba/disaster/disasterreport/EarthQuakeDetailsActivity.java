@@ -7,13 +7,16 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import android.widget.TextView;
+
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
 
 import java.text.DecimalFormat;
 
@@ -39,6 +42,12 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         int magnitudeColor = getMagnitudeColor(magnitude);
         magnitudeCircle.setColor(magnitudeColor);
 
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
+                .build();
+
+        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
     }
     private String formatedMagnitude(double mag){
         DecimalFormat decimalFormatter = new DecimalFormat("0.0");
