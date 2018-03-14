@@ -13,6 +13,9 @@ import android.support.annotation.Nullable;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.share.model.ShareLinkContent;
@@ -30,7 +33,7 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_1);
         double magnitude = intent.getDoubleExtra(EarthQuakeFragment.EXTRA_MESSAGE_2, 0.0);
-        String url = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
+        final String url = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
 
         TextView locationTextView = findViewById(R.id.title);
         locationTextView.setText(location);
@@ -48,6 +51,17 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
 
         ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
         shareButton.setShareContent(content);
+
+        Button moreButton = findViewById(R.id.more_button);
+        moreButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //Implicit intent that contains a url to got
+                Intent intent = new Intent(Intent.ACTION_VIEW); // ACTION_VIEW is used to open Web browser
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
     }
     private String formatedMagnitude(double mag){
         DecimalFormat decimalFormatter = new DecimalFormat("0.0");
