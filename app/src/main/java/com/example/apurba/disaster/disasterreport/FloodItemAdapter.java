@@ -18,12 +18,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ImageAdapter extends BaseAdapter{
+public class FloodItemAdapter extends BaseAdapter{
 
     private Context mContext;
     private List<FloodItem> mFloods;
 
-    public ImageAdapter(Context c, List<FloodItem> floods) {
+    public FloodItemAdapter(Context c, List<FloodItem> floods) {
         mContext = c;
         mFloods = floods;
     }

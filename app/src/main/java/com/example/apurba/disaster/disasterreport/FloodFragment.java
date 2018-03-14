@@ -19,6 +19,9 @@ import java.util.List;
  */
 public class FloodFragment extends Fragment {
 
+    private TextView mEmptyStateTextView;
+    private View loading_indicator;
+
 
     public FloodFragment() {
         // Required empty public constructor
@@ -48,7 +51,12 @@ public class FloodFragment extends Fragment {
         floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
 
         GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(getActivity(), floods));
+        gridview.setAdapter(new FloodItemAdapter(getActivity(), floods));
+
+        mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
+        gridview.setEmptyView(mEmptyStateTextView);
+        loading_indicator = rootView.findViewById(R.id.loading_spinner);
+        loading_indicator.setVisibility(View.GONE);
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
