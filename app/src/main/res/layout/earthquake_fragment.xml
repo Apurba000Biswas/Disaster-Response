@@ -13,6 +13,7 @@
         android:background="#140019"
         android:dividerHeight="0dp"/>
 
+
     <!-- Empty view is only visible when the list has no items. -->
     <TextView
         android:id="@+id/empty_view"

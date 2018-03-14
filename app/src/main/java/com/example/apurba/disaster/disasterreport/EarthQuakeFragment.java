@@ -46,7 +46,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.disaster_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.earthquake_fragment, container, false);
 
         //List of earthquake data
         final List<EarthQuakeItem> earthquakes =  new ArrayList<EarthQuakeItem>();
