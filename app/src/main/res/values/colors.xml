@@ -35,6 +35,10 @@
     <color name="magnitude10plus">#C03823</color>
 
 
+    <color name="background">#140019</color>
+
+    <color name="circlebackground">#FF6D00</color>
+
     <!-- Text color for the details of the earthquake in the list item -->
     <color name="textColorEarthquakeDetails">#2B3D4D</color>B4BAC0
 

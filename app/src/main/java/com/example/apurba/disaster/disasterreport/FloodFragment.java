@@ -40,6 +40,12 @@ public class FloodFragment extends Fragment {
         floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
         floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
         floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
 
         GridView gridview = (GridView) rootView.findViewById(R.id.gridview);
         gridview.setAdapter(new ImageAdapter(getActivity(), floods));

@@ -4,7 +4,10 @@ package com.example.apurba.disaster.disasterreport;
  * Created by Apurba on 3/14/2018.
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,7 @@ public class ImageAdapter extends BaseAdapter{
     }
 
     // create a new ImageView for each item referenced by the Adapter
+    @SuppressLint("ResourceAsColor")
     public View getView(int position, View convertView, ViewGroup parent) {
         View gridFloodView = convertView;
         if (convertView == null) {
@@ -47,10 +51,13 @@ public class ImageAdapter extends BaseAdapter{
         TextView severityLevelTextView = gridFloodView.findViewById(R.id.severityLevel);
         TextView severityTextView = gridFloodView.findViewById(R.id.severity);
         TextView eaAreaTextView = gridFloodView.findViewById(R.id.ea_areaName);
+        GradientDrawable magnitudeCircle = (GradientDrawable) severityLevelTextView.getBackground();
+        magnitudeCircle.setColor(ContextCompat.getColor(mContext, R.color.circlebackground));
 
         severityLevelTextView.setText(currentFlood.getSeverityLevel());
         severityTextView.setText(currentFlood.getSeverity());
         eaAreaTextView.setText(currentFlood.getEaAreaName());
+
 
         return gridFloodView;
     }
