@@ -37,6 +37,8 @@
 
     <color name="main_background">#FFFFFF</color>
 
+    <color name="grid_backround">#42709f</color>
+
     <color name="circlebackground">#FF6D00</color>
 
     <!-- Text color for the details of the earthquake in the list item -->
