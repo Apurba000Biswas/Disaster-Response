@@ -52,6 +52,8 @@
     <!-- Number of people who reported perceived strength for an earthquake [CHAR LIMIT=NONE] -->
     <string name="num_people_felt_it"><xliff:g id="number" example="10">%s</xliff:g> people felt it</string>
 
+    <string name="no_floods">No Flood Found</string>
+
     <string name="title_activity_catagory">CatagoryActivity</string>
 
     <string name="facebook_app_id">1790487541257003</string>
