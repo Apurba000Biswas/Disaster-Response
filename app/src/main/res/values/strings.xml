@@ -29,7 +29,6 @@
     <string name="settings_min_magnitude_default" translatable="false">6</string>
 
 
-
     <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
     <string name="settings_order_by_label">Order By(Earthquake)</string>
     <string name="settings_order_by_key" translatable="false">order_by</string>
@@ -42,9 +41,6 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_most_recent_label">Most Recent</string>
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
-
-
-
 
 
     <!-- Strings For minimum severity Preference [CHAR LIMIT=30] -->
@@ -69,9 +65,6 @@
     <string name="settings_min_severity_level_4_value" translatable="false">4</string>
 
 
-
-
-
     <!-- Strings For Maximum result Preference [CHAR LIMIT=30] -->
     <string name="settings_max_result_label">Maximum Result</string>
     <string name="settings_max_result_key" translatable="false">max_result</string>
@@ -81,7 +74,7 @@
     <string name="perceived_strength">Perceived Strength</string>
 
     <!-- Number of people who reported perceived strength for an earthquake [CHAR LIMIT=NONE] -->
-    <string name="num_people_felt_it"><xliff:g id="number" example="10">%s</xliff:g> people felt it</string>
+    <string name="num_people_felt_it"><xliff:g example="10" id="number">%s</xliff:g> people felt it</string>
 
     <string name="no_floods">No Flood Found</string>
 

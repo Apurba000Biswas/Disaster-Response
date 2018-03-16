@@ -11,7 +11,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         // Required empty public constructor
     }
 
-    /*---------------------------------------------------------------Methods---------------------------------------------------------------*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.flood_fragment, container, false);
@@ -86,6 +84,9 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         return isConnected;
     }
 
+    /**
+     * Inittialize the loader with loader manager with appropriate url
+     */
     @Override
     public Loader<List<FloodItem>> onCreateLoader(int id, Bundle args) {
 
@@ -107,6 +108,9 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         return new FloodLoader(getActivity(),uriBuilder.toString());
     }
 
+    /**
+     * After load finish sets the adapter with loaded arrayList
+     */
     @Override
     public void onLoadFinished(Loader<List<FloodItem>> loader, List<FloodItem> flood) {
         loading_indicator.setVisibility(View.GONE);
@@ -119,6 +123,10 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         mEmptyStateTextView.setText(R.string.no_floods);
 
     }
+
+    /**
+     * when loader reset to load it clear the adapter data
+     */
     @Override
     public void onLoaderReset(Loader<List<FloodItem>> loader) {
         mAdapter.clear();

@@ -41,7 +41,6 @@ public class FloodItemAdapter extends BaseAdapter{
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     @SuppressLint("ResourceAsColor")
     public View getView(int position, View convertView, ViewGroup parent) {
         View gridFloodView = convertView;
@@ -64,7 +63,7 @@ public class FloodItemAdapter extends BaseAdapter{
     }
 
     /**
-     * Returns the approriate color for Magnitude text field
+     * Returns the approriate color for Severity text field
      */
     private int getSeverityCircleColor(int magnitude){
         int colorResourceId;

@@ -46,6 +46,9 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
         return floods;
     }
 
+    /**
+     * Extract data from the Jason response after receving tha data
+     */
     private static List<FloodItem> extractItemsFromJSON(String floodJASON){
         if (TextUtils.isEmpty(floodJASON)) {
             return null;
