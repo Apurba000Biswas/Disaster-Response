@@ -11,11 +11,21 @@ public class FloodItem {
     private int mSevertyLevel;
     private String mSeverity;
     private String mEaAreaName;
+    private String mCounty;
+    private String mRiverOrSea;
+    private String mMessage;
+    private String mTimeMessageChanged;
+    private String mTimeRaised;
 
-    public FloodItem(int severtyLevel, String severty, String eaAreaName){
+    public FloodItem(int severtyLevel, String severty, String eaAreaName, String county, String riverOrSea, String message, String timeMessageChanged, String timeRaised){
         mSevertyLevel = severtyLevel;
         mSeverity = severty;
         mEaAreaName = eaAreaName;
+        mCounty = county;
+        mRiverOrSea = riverOrSea;
+        mMessage = message;
+        mTimeMessageChanged = timeMessageChanged;
+        mTimeRaised = timeRaised;
     }
 
     public String getSeverityLevel(){
@@ -27,5 +37,20 @@ public class FloodItem {
     }
     public String getEaAreaName(){
         return mEaAreaName;
+    }
+    public String getCounty(){
+        return mCounty;
+    }
+    public String getRiverOrSea(){
+        return mRiverOrSea;
+    }
+    public String getMessage(){
+        return mMessage;
+    }
+    public String getTimeMessageChanged(){
+        return mTimeMessageChanged;
+    }
+    public String getTimeRaised(){
+        return mTimeRaised;
     }
 }
