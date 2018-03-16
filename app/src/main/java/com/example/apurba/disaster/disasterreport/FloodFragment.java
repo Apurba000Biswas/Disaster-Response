@@ -27,11 +27,19 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class FloodFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FloodItem>> {
-    private String LOG_TAG = FloodFragment.class.getSimpleName();
+    private static final String LOG_TAG = FloodFragment.class.getSimpleName();
+    private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";//min-severity=3&_limit=50
+    public static final String EXTRA_MESSAGE1 = "eaAreaName";
+    public static final String EXTRA_MESSAGE2 = "county";
+    public static final String EXTRA_MESSAGE3 = "riverOrSea";
+    public static final String EXTRA_MESSAGE4 = "severity";
+    public static final String EXTRA_MESSAGE5 = "severityLevel";
+    public static final String EXTRA_MESSAGE6 = "timeRaised";
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
-    private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";//min-severity=3&_limit=50
+    private List<FloodItem> floods;
+
     private FloodItemAdapter mAdapter;
     private GridView gridview;
 
@@ -44,21 +52,39 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.flood_fragment, container, false);
 
-        List<FloodItem> floods = new ArrayList<FloodItem>();
-        //floods.add(new FloodItem(3, "Flood Alert", "Maxico"));
+        floods = new ArrayList<FloodItem>();
+        //floods.add(new FloodItem(3, "Flood Alert", "Maxico","XX","XX","XX","XX","XX"));
 
         gridview = (GridView) rootView.findViewById(R.id.gridview);
         mAdapter = new FloodItemAdapter(getActivity(), floods);
+        gridview.setAdapter(mAdapter);
 
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
         gridview.setEmptyView(mEmptyStateTextView);
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                FloodItem currentFlood = floods.get(position);
+
+                Toast.makeText(getActivity(), "" + /*position*/floods.get(position).getSeverity(), Toast.LENGTH_SHORT).show();
+
+                String eaAreaName = currentFlood.getEaAreaName();
+                String county = currentFlood.getCounty();
+                String riverOrSea = currentFlood.getRiverOrSea();
+                String severity = currentFlood.getSeverity();
+                String severityLevel = currentFlood.getSeverityLevel();
+                String timeRaised = currentFlood.getTimeRaised();
 
                 Intent intent = new Intent(getActivity(), FloodDetailsActivity.class);
+                intent.putExtra(EXTRA_MESSAGE1, eaAreaName);
+                intent.putExtra(EXTRA_MESSAGE2, county);
+                intent.putExtra(EXTRA_MESSAGE3, riverOrSea);
+                intent.putExtra(EXTRA_MESSAGE4, severity);
+                intent.putExtra(EXTRA_MESSAGE5, severityLevel);
+                intent.putExtra(EXTRA_MESSAGE6, timeRaised);
+
                 startActivity(intent);
             }
         });
@@ -119,7 +145,8 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         mAdapter.clear();
 
         if (flood != null && !flood.isEmpty()) {
-            mAdapter.addAll(flood);
+            floods = flood;
+            mAdapter.addAll(floods);
             gridview.setAdapter(mAdapter);
         }
         mEmptyStateTextView.setText(R.string.no_floods);
