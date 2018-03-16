@@ -2,6 +2,7 @@ package com.example.apurba.disaster.disasterreport;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -56,8 +57,9 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Toast.makeText(getActivity(), "" + position,
-                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), FloodDetailsActivity.class);
+                startActivity(intent);
             }
         });
 

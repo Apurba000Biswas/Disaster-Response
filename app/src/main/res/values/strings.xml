@@ -78,7 +78,9 @@
 
     <string name="no_floods">No Flood Found</string>
 
-    <string name="title_activity_catagory">CatagoryActivity</string>
+    <string name="title_activity_catagory">Earthquake Details</string>
+
+    <string name="title_activity_flood_details">Flood Details</string>
 
     <string name="facebook_app_id">1790487541257003</string>
 
