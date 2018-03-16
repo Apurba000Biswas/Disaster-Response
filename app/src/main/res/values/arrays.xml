@@ -9,4 +9,19 @@
         <item>@string/settings_order_by_magnitude_value</item>
         <item>@string/settings_order_by_most_recent_value</item>
     </string-array>
+
+    <string-array name="settings_min_severity_level_labels">
+        <item>@string/settings_min_severity_level_1_label</item>
+        <item>@string/settings_min_severity_level_2_label</item>
+        <item>@string/settings_min_severity_level_3_label</item>
+        <item>@string/settings_min_severity_level_4_label</item>
+    </string-array>
+
+    <string-array name="settings_min_severity_level_values">
+        <item>@string/settings_min_severity_level_1_value</item>
+        <item>@string/settings_min_severity_level_2_value</item>
+        <item>@string/settings_min_severity_level_3_value</item>
+        <item>@string/settings_min_severity_level_4_value</item>
+    </string-array>
+
 </resources>

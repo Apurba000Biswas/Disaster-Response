@@ -1,7 +1,13 @@
 package com.example.apurba.disaster.disasterreport;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -25,7 +31,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
-    private static final String URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3&_limit=50";
+    private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";//min-severity=3&_limit=50
     private FloodItemAdapter mAdapter;
     private GridView gridview;
 
@@ -57,15 +63,48 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
             }
         });
 
-        LoaderManager loaderManager = getLoaderManager();
-        loaderManager.initLoader(0, null, FloodFragment.this).forceLoad();
+        if (isConnectedToInternet()){
+            LoaderManager loaderManager = getLoaderManager();
+            loaderManager.initLoader(0, null, FloodFragment.this).forceLoad();
+        }else{
+            loading_indicator.setVisibility(View.GONE);
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
+        }
 
         return rootView;
     }
 
+    /**
+     * Check for internet connection
+     */
+    private boolean isConnectedToInternet(){
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
+
     @Override
     public Loader<List<FloodItem>> onCreateLoader(int id, Bundle args) {
-        return new FloodLoader(getActivity(),URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String minSeverityLevel = sharedPrefs.getString(
+                getString(R.string.settings_min_severity_level_key),
+                getString(R.string.settings_min_severity_level_default));
+
+        String maxResult = sharedPrefs.getString(
+                getString(R.string.settings_max_result_key),
+                getString(R.string.settings_max_result_default));
+
+        Uri baseUri = Uri.parse(ENVIRONMENT_DATA_URL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+
+        uriBuilder.appendQueryParameter("_limit", maxResult);
+        uriBuilder.appendQueryParameter("min-severity", minSeverityLevel);
+
+        return new FloodLoader(getActivity(),uriBuilder.toString());
     }
 
     @Override
@@ -80,9 +119,8 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         mEmptyStateTextView.setText(R.string.no_floods);
 
     }
-
     @Override
     public void onLoaderReset(Loader<List<FloodItem>> loader) {
-
+        mAdapter.clear();
     }
 }

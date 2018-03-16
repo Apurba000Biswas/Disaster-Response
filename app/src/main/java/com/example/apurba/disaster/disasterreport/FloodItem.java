@@ -53,4 +53,8 @@ public class FloodItem {
     public String getTimeRaised(){
         return mTimeRaised;
     }
+
+    public int getSevertyLevelInt(){
+        return mSevertyLevel;
+    }
 }

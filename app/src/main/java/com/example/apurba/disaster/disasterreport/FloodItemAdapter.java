@@ -52,14 +52,41 @@ public class FloodItemAdapter extends BaseAdapter{
         TextView severityLevelTextView = gridFloodView.findViewById(R.id.severityLevel);
         TextView severityTextView = gridFloodView.findViewById(R.id.severity);
         TextView eaAreaTextView = gridFloodView.findViewById(R.id.ea_areaName);
-        GradientDrawable magnitudeCircle = (GradientDrawable) severityLevelTextView.getBackground();
-        magnitudeCircle.setColor(ContextCompat.getColor(mContext, R.color.circlebackground));
+
+        GradientDrawable severityLevelCircle = (GradientDrawable) severityLevelTextView.getBackground();
+        severityLevelCircle.setColor(getSeverityCircleColor(currentFlood.getSevertyLevelInt()));
 
         severityLevelTextView.setText(currentFlood.getSeverityLevel());
         severityTextView.setText(currentFlood.getSeverity());
         eaAreaTextView.setText(currentFlood.getEaAreaName());
 
         return gridFloodView;
+    }
+
+    /**
+     * Returns the approriate color for Magnitude text field
+     */
+    private int getSeverityCircleColor(int magnitude){
+        int colorResourceId;
+        switch (magnitude){
+            case 0 :
+            case 1 :
+                colorResourceId = R.color.severity1;
+                break;
+            case 2 :
+                colorResourceId = R.color.severity2;
+                break;
+            case 3 :
+                colorResourceId = R.color.severity3;
+                break;
+            case 4 :
+                colorResourceId = R.color.severity4;
+                break;
+            default:
+                colorResourceId = R.color.wrongcolor;
+                break;
+        }
+        return ContextCompat.getColor(mContext, colorResourceId);
     }
 
     public void addAll(List<FloodItem> floods){

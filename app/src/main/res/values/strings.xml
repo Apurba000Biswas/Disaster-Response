@@ -21,15 +21,17 @@
     <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
-    <string name="settings_title">Earthquake Settings</string>
+    <string name="settings_title">Disaster Settings</string>
 
     <!-- Strings For Minimum Magnitude Preference [CHAR LIMIT=30] -->
     <string name="settings_min_magnitude_label">Minimum Magnitude</string>
     <string name="settings_min_magnitude_key" translatable="false">min_magnitude</string>
     <string name="settings_min_magnitude_default" translatable="false">6</string>
 
+
+
     <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
-    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_label">Order By(Earthquake)</string>
     <string name="settings_order_by_key" translatable="false">order_by</string>
     <string name="settings_order_by_default" translatable="false">@string/settings_order_by_magnitude_value</string>
 
@@ -40,6 +42,35 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_most_recent_label">Most Recent</string>
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
+
+
+
+
+
+    <!-- Strings For minimum severity Preference [CHAR LIMIT=30] -->
+    <string name="settings_min_severity_level_label">Minimum Severity Level(Flood)</string>
+    <string name="settings_min_severity_level_key" translatable="false">min_severity</string>
+    <string name="settings_min_severity_level_default" translatable="false">@string/settings_min_severity_level_3_value</string>
+
+    <!-- Label for minimum severity level option-->
+    <string name="settings_min_severity_level_1_label">LEVEL-1(Severe Flood Warning)</string>
+    <string name="settings_min_severity_level_1_value" translatable="false">1</string>
+
+    <!-- Label for minimum severity level option-->
+    <string name="settings_min_severity_level_2_label">LEVEL-2(Flood Warning)</string>
+    <string name="settings_min_severity_level_2_value" translatable="false">2</string>
+
+    <!-- Label for minimum severity level option-->
+    <string name="settings_min_severity_level_3_label">LEVEL-3(Flood Alert)</string>
+    <string name="settings_min_severity_level_3_value" translatable="false">3</string>
+
+    <!-- Label for minimum severity level option-->
+    <string name="settings_min_severity_level_4_label">LEVEL-4(Warning no Longer in Force)</string>
+    <string name="settings_min_severity_level_4_value" translatable="false">4</string>
+
+
+
+
 
     <!-- Strings For Maximum result Preference [CHAR LIMIT=30] -->
     <string name="settings_max_result_label">Maximum Result</string>

@@ -24,4 +24,11 @@
         android:selectAllOnFocus="true"
         android:title="@string/settings_max_result_label" />
 
+    <ListPreference
+        android:defaultValue="@string/settings_min_severity_level_default"
+        android:entries="@array/settings_min_severity_level_labels"
+        android:entryValues="@array/settings_min_severity_level_values"
+        android:key="@string/settings_min_severity_level_key"
+        android:title="@string/settings_min_severity_level_label" />
+
 </PreferenceScreen>

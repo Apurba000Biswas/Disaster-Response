@@ -37,7 +37,12 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
             return null;
         }
         String jasonResponse = QueryUtils.requestToApi(url);
-        List<FloodItem> floods = extractItemsFromJSON(jasonResponse);
+        List<FloodItem> floods =extractItemsFromJSON(jasonResponse);//new ArrayList<FloodItem>();
+        /*floods.add(new FloodItem(1,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
+        floods.add(new FloodItem(4,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
+        floods.add(new FloodItem(3,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
+        floods.add(new FloodItem(2,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
+        */
         return floods;
     }
 

@@ -42,7 +42,6 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
         List<EarthQuakeItem> earthquakeData = extractFeatureFromJson(jasonResponse);
         return earthquakeData;
     }
-
     /**
      * Return a list of {@link EarthQuakeItem} objects that has been built up from
      * parsing a JSON response.
