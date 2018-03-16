@@ -1,15 +1,10 @@
 package com.example.apurba.disaster.disasterreport;
 
 /*
- * Created by Apurba on 3/13/2018.
+ * Created by Apurba on 3/16/2018.
  */
 
-import android.text.TextUtils;
 import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,27 +14,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
 
-public class EqQueryUtils {
+public class QueryUtils {
 
-    public static final String LOG_TAG = EqQueryUtils.class.getSimpleName();
+    private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
-    private EqQueryUtils() {
+    private QueryUtils(){
     }
 
-    /*------------------------------------------------------------------Methods---------------------------------------------------------------------**/
-
-    public static List<EarthQuakeItem> fetchEarthquakeData(String requestUrl) {
-        Log.i(LOG_TAG, "TEST: called fetchEarthquakeData() ");
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public static String requestToApi(String requestUrl){
         URL url = createUrl(requestUrl);
         String jsonResponse = null;
         try {
@@ -47,8 +30,7 @@ public class EqQueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
-        List<EarthQuakeItem> earthquakeData = extractFeatureFromJson(jsonResponse);
-        return earthquakeData;
+        return jsonResponse;
     }
 
     /**
@@ -99,7 +81,6 @@ public class EqQueryUtils {
         }
         return jsonResponse;
     }
-
     /**
      * Convert the {@link InputStream} into a String which contains the
      * whole JSON response from the server.
@@ -116,34 +97,5 @@ public class EqQueryUtils {
             }
         }
         return output.toString();
-    }
-
-    /**
-     * Return a list of {@link EarthQuakeItem} objects that has been built up from
-     * parsing a JSON response.
-     */
-    private static List<EarthQuakeItem> extractFeatureFromJson(String earthquakeJSON) {
-        if (TextUtils.isEmpty(earthquakeJSON)) {
-            return null;
-        }
-        List<EarthQuakeItem> earthquakes = new ArrayList<>();
-        try {
-            // build up a list of Earthquake objects with the corresponding data.
-            JSONObject jsonObj = new JSONObject(earthquakeJSON);
-            JSONArray features = jsonObj.getJSONArray("features");
-            // looping through All features
-            for (int i = 0; i < features.length(); i++){
-                JSONObject earthquake = features.getJSONObject(i);
-                JSONObject properties = earthquake.getJSONObject("properties");
-                double magnitude = properties.getDouble("mag");
-                String place = properties.getString("place");
-                long time = properties.getLong("time");
-                String url = properties.getString("url");
-                earthquakes.add(new EarthQuakeItem(magnitude, place, time, url));
-            }
-        } catch (JSONException e) {
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
-        }
-        return earthquakes;
     }
 }
