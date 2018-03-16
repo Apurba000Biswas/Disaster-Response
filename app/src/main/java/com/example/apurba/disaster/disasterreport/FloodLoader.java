@@ -25,7 +25,7 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
 
     @Override
     public List<FloodItem> loadInBackground() {
-        List<FloodItem> floods = FloodQueryUtils.fetchFloodData();
+        List<FloodItem> floods = FloodQueryUtils.fetchFloodData(url);
         return floods;
     }
 }

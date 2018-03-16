@@ -25,7 +25,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
-    private static final String URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
+    private static final String URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3&_limit=50";
     private FloodItemAdapter mAdapter;
     private GridView gridview;
 
