@@ -39,6 +39,9 @@ public class SettingsActivity extends AppCompatActivity {
 
             Preference maxResult = findPreference(getString(R.string.settings_max_result_key));
             bindPreferenceSummaryToValue(maxResult);
+
+            Preference minSeverityLevel = findPreference((getString(R.string.settings_min_severity_level_key)));
+            bindPreferenceSummaryToValue(minSeverityLevel);
         }
 
         private void bindPreferenceSummaryToValue(Preference preference) {
