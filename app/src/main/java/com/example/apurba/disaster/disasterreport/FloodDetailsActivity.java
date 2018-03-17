@@ -1,6 +1,8 @@
 package com.example.apurba.disaster.disasterreport;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -20,11 +22,15 @@ public class FloodDetailsActivity extends AppCompatActivity {
         String severityLevel = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE5);
         String timeRaised = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE6);
         String message = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE7);
+        int severityLevelInt = intent.getIntExtra(FloodFragment.EXTRA_MESSAGE8, 0);
 
-        setAllViews(eaAreaName, county, riverOrSea, severity, severityLevel, timeRaised, message);
+        setAllViews(eaAreaName, county, riverOrSea, severity, severityLevel, timeRaised, message, severityLevelInt);
     }
 
-    private void setAllViews(String eaAreaName,String county,String riverOrSea,String severity,String severityLevel,String timeRaised, String message){
+    /**
+     * Sets all views with given text
+     */
+    private void setAllViews(String eaAreaName,String county,String riverOrSea,String severity,String severityLevel,String timeRaised, String message, int severityLevelInt){
 
         TextView eaAreaNameTextView = findViewById(R.id.ea_areaname_text_field);
         TextView countyTextView = findViewById(R.id.county_text_field);
@@ -41,5 +47,31 @@ public class FloodDetailsActivity extends AppCompatActivity {
         severityLevelTextView.setText(severityLevel);
         timeRaisedTextView.setText(timeRaised);
         messageTextView.setText(message);
+
+        GradientDrawable severityCircle = (GradientDrawable) severityLevelTextView.getBackground();
+        int circleColor = getSeverityColor(severityLevelInt);
+        severityCircle.setColor(circleColor);
+    }
+
+    private int getSeverityColor(int severotyLevel){
+        int circleColorResourceId;
+        switch (severotyLevel){
+            case 1:
+                circleColorResourceId = R.color.severity1;
+                break;
+            case 2:
+                circleColorResourceId = R.color.severity2;
+                break;
+            case 3:
+                circleColorResourceId = R.color.severity3;
+                break;
+            case 4:
+                circleColorResourceId = R.color.severity4;
+                break;
+            default:
+                circleColorResourceId = R.color.wrongcolor;
+                break;
+        }
+        return ContextCompat.getColor(this, circleColorResourceId);
     }
 }
