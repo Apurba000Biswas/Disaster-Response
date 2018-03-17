@@ -37,7 +37,6 @@ public class FloodDetailsActivity extends AppCompatActivity {
                 .build();
         ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
         shareButton.setShareContent(content);
-
     }
 
     /**
@@ -66,6 +65,9 @@ public class FloodDetailsActivity extends AppCompatActivity {
         severityCircle.setColor(circleColor);
     }
 
+    /**
+     *  Return Color for circle
+     */
     private int getSeverityColor(int severotyLevel){
         int circleColorResourceId;
         switch (severotyLevel){

@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class FloodFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FloodItem>> {
     private static final String LOG_TAG = FloodFragment.class.getSimpleName();
-    private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";//min-severity=3&_limit=50
+    private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";
 
     public static final String EXTRA_MESSAGE1 = "eaAreaName";
     public static final String EXTRA_MESSAGE2 = "county";
