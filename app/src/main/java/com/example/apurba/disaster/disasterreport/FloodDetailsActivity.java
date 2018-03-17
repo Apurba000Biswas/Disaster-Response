@@ -2,12 +2,18 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareButton;
+
 public class FloodDetailsActivity extends AppCompatActivity {
+
+    private static final String SHARE_URL = "https://www.gov.uk/government/organisations/environment-agency";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +29,15 @@ public class FloodDetailsActivity extends AppCompatActivity {
         String timeRaised = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE6);
         String message = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE7);
         int severityLevelInt = intent.getIntExtra(FloodFragment.EXTRA_MESSAGE8, 0);
-
         setAllViews(eaAreaName, county, riverOrSea, severity, severityLevel, timeRaised, message, severityLevelInt);
+
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(SHARE_URL))
+                .setQuote("Flood Severity Level = " + severityLevel + "\nGeographical Area: " + county)
+                .build();
+        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
+
     }
 
     /**

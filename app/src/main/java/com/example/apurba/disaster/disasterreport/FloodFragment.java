@@ -29,6 +29,7 @@ import java.util.List;
 public class FloodFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FloodItem>> {
     private static final String LOG_TAG = FloodFragment.class.getSimpleName();
     private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";//min-severity=3&_limit=50
+
     public static final String EXTRA_MESSAGE1 = "eaAreaName";
     public static final String EXTRA_MESSAGE2 = "county";
     public static final String EXTRA_MESSAGE3 = "riverOrSea";
@@ -70,7 +71,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 FloodItem currentFlood = floods.get(position);
 
-                Toast.makeText(getActivity(), "" + /*position*/floods.get(position).getSeverity(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "" + /*position*/floods.get(position).getSeverity(), Toast.LENGTH_SHORT).show();
 
                 String eaAreaName = currentFlood.getEaAreaName();
                 String county = currentFlood.getCounty();
