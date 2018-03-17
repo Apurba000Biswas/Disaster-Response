@@ -19,11 +19,12 @@ public class FloodDetailsActivity extends AppCompatActivity {
         String severity = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE4);
         String severityLevel = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE5);
         String timeRaised = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE6);
+        String message = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE7);
 
-        setAllViews(eaAreaName, county, riverOrSea, severity, severityLevel, timeRaised);
+        setAllViews(eaAreaName, county, riverOrSea, severity, severityLevel, timeRaised, message);
     }
 
-    private void setAllViews(String eaAreaName,String county,String riverOrSea,String severity,String severityLevel,String timeRaised){
+    private void setAllViews(String eaAreaName,String county,String riverOrSea,String severity,String severityLevel,String timeRaised, String message){
 
         TextView eaAreaNameTextView = findViewById(R.id.ea_areaname_text_field);
         TextView countyTextView = findViewById(R.id.county_text_field);
@@ -31,6 +32,7 @@ public class FloodDetailsActivity extends AppCompatActivity {
         TextView severitytextView = findViewById(R.id.severity_text_field);
         TextView severityLevelTextView = findViewById(R.id.severityLevel_text_field);
         TextView timeRaisedTextView = findViewById(R.id.time_raised_text_field);
+        TextView messageTextView = findViewById(R.id.mesgga_text_field);
 
         eaAreaNameTextView.setText(eaAreaName);
         countyTextView.setText(county);
@@ -38,5 +40,6 @@ public class FloodDetailsActivity extends AppCompatActivity {
         severitytextView.setText(severity);
         severityLevelTextView.setText(severityLevel);
         timeRaisedTextView.setText(timeRaised);
+        messageTextView.setText(message);
     }
 }

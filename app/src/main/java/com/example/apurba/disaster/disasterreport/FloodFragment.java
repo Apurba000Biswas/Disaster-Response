@@ -35,6 +35,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     public static final String EXTRA_MESSAGE4 = "severity";
     public static final String EXTRA_MESSAGE5 = "severityLevel";
     public static final String EXTRA_MESSAGE6 = "timeRaised";
+    public static final String EXTRA_MESSAGE7 = "message";
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
@@ -76,6 +77,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                 String severity = currentFlood.getSeverity();
                 String severityLevel = currentFlood.getSeverityLevel();
                 String timeRaised = currentFlood.getTimeRaised();
+                String message = currentFlood.getMessage();
 
                 Intent intent = new Intent(getActivity(), FloodDetailsActivity.class);
                 intent.putExtra(EXTRA_MESSAGE1, eaAreaName);
@@ -84,6 +86,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                 intent.putExtra(EXTRA_MESSAGE4, severity);
                 intent.putExtra(EXTRA_MESSAGE5, severityLevel);
                 intent.putExtra(EXTRA_MESSAGE6, timeRaised);
+                intent.putExtra(EXTRA_MESSAGE7, message);
 
                 startActivity(intent);
             }
