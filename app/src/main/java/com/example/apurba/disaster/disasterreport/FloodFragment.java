@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +55,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         View rootView = inflater.inflate(R.layout.flood_fragment, container, false);
 
         floods = new ArrayList<FloodItem>();
-        //floods.add(new FloodItem(3, "Flood Alert", "Maxico","XX","XX","XX","XX","XX"));
 
         gridview = (GridView) rootView.findViewById(R.id.gridview);
         mAdapter = new FloodItemAdapter(getActivity(), floods);
@@ -70,8 +68,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 FloodItem currentFlood = floods.get(position);
-
-                //Toast.makeText(getActivity(), "" + /*position*/floods.get(position).getSeverity(), Toast.LENGTH_SHORT).show();
 
                 String eaAreaName = currentFlood.getEaAreaName();
                 String county = currentFlood.getCounty();
