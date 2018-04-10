@@ -26,8 +26,6 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
             return new FloodFragment();
         }else if (position == 2){
             return new HurricaneFragment();
-        }else if(position == 3){
-            return new ThunderStormFragment();
         }else {
             return new TsunamiFragment();
         }
@@ -35,7 +33,7 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 4;
     }
 
     @Override
@@ -46,8 +44,6 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
             return mContext.getString(R.string.category_floods);
         }else if(position == 2){
             return mContext.getString(R.string.category_hurricanes);
-        }else if(position == 3){
-            return mContext.getString(R.string.category_thunder_storm);
         }else {
             return mContext.getString(R.string.category_tsunamis);
         }
