@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 /**
@@ -21,9 +23,24 @@ public class HurricaneFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
+        View rootView = inflater.inflate(R.layout.hurricane_fragment, container, false);
+
+        WebView wv = (WebView) rootView.findViewById(R.id.webView);
+        wv.setWebViewClient(new MyBrowser());
+        wv.getSettings().setLoadsImagesAutomatically(true);
+        wv.getSettings().setJavaScriptEnabled(true);
+        wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        wv.loadUrl("http://www.thehurricanetracker.org/live-tracker");
+
+        return rootView;
+    }
+
+    private class MyBrowser extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
     }
 
 }
