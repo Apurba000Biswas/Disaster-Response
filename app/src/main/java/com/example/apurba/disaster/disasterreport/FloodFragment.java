@@ -64,7 +64,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         gridview.setEmptyView(mEmptyStateTextView);
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 FloodItem currentFlood = floods.get(position);

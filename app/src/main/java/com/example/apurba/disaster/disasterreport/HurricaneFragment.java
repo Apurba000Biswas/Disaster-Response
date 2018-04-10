@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +19,15 @@ import android.widget.TextView;
  */
 public class HurricaneFragment extends Fragment {
 
-
-
     public HurricaneFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.hurricane_fragment, container, false);
 
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
-
-
 
         if (isConnectedToInternet()){
             WebView wv = (WebView) rootView.findViewById(R.id.webView);
@@ -47,7 +41,6 @@ public class HurricaneFragment extends Fragment {
             TextView emptyState = rootView.findViewById(R.id.empty_view);
             emptyState.setText(R.string.no_internet_connection);
         }
-
 
         return rootView;
     }
@@ -64,7 +57,9 @@ public class HurricaneFragment extends Fragment {
         return isConnected;
     }
 
-
+    /**
+     * Creates a new browser to load the web pages
+     */
     private class MyBrowser extends WebViewClient {
         private ProgressBar loading_indicator;
 
@@ -85,5 +80,4 @@ public class HurricaneFragment extends Fragment {
             loading_indicator.setVisibility(View.GONE);
         }
     }
-
 }
