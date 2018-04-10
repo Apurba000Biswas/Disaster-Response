@@ -1,8 +1,12 @@
 package com.example.apurba.disaster.disasterreport;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +33,37 @@ public class HurricaneFragment extends Fragment {
 
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-        WebView wv = (WebView) rootView.findViewById(R.id.webView);
-        wv.setWebViewClient(new MyBrowser(loading_indicator));
-        wv.getSettings().setLoadsImagesAutomatically(true);
-        wv.getSettings().setJavaScriptEnabled(true);
-        wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        wv.loadUrl("http://www.thehurricanetracker.org/live-tracker");
+
+
+        if (isConnectedToInternet()){
+            WebView wv = (WebView) rootView.findViewById(R.id.webView);
+            wv.setWebViewClient(new MyBrowser(loading_indicator));
+            wv.getSettings().setLoadsImagesAutomatically(true);
+            wv.getSettings().setJavaScriptEnabled(true);
+            wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+            wv.loadUrl("http://www.thehurricanetracker.org/live-tracker");
+        }else{
+            loading_indicator.setVisibility(View.GONE);
+            TextView emptyState = rootView.findViewById(R.id.empty_view);
+            emptyState.setText(R.string.no_internet_connection);
+        }
 
 
         return rootView;
     }
+
+    /**
+     * Check for internet connection
+     */
+    private boolean isConnectedToInternet(){
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        return isConnected;
+    }
+
 
     private class MyBrowser extends WebViewClient {
         private ProgressBar loading_indicator;
