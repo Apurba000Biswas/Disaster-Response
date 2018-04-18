@@ -35,7 +35,7 @@ public class HurricaneFragment extends Fragment {
             wv.getSettings().setLoadsImagesAutomatically(true);
             wv.getSettings().setJavaScriptEnabled(true);
             wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-            wv.loadUrl("http://www.thehurricanetracker.org/live-tracker");
+            wv.loadUrl("http://www.myfoxhurricane.com");
         }else{
             loading_indicator.setVisibility(View.GONE);
             TextView emptyState = rootView.findViewById(R.id.empty_view);
