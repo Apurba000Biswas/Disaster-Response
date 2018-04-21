@@ -1,6 +1,7 @@
 package com.example.apurba.disaster.disasterreport;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -22,6 +24,7 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
 
     public static final String LOG_TAG = EarthQuakeFragment.class.getName();
     private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
+    private static final String USGS_URL = "https://earthquake.usgs.gov/earthquakes/map/";
 
     public static final String EXTRA_MESSAGE_1 = "location";
     public static final String EXTRA_MESSAGE_2 = "magnitude";
@@ -60,6 +64,22 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
 
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
         earthquakeListView.setEmptyView(mEmptyStateTextView);
+
+        // Setup FAB to open Website View Activity
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(getActivity(), WebsiteViewActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE_3, USGS_URL);
+                    startActivity(intent);
+
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 

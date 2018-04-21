@@ -5,6 +5,7 @@ package com.example.apurba.disaster.disasterreport;
  */
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
@@ -14,9 +15,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
@@ -25,14 +26,16 @@ import java.text.DecimalFormat;
 
 
 public class EarthQuakeDetailsActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE = "url for selected earthquake";
+    public static final String EXTRA_MESSAGE2 = "title";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earth_quake_details);
 
         Intent intent = getIntent();
-        String location = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_1);
-        double magnitude = intent.getDoubleExtra(EarthQuakeFragment.EXTRA_MESSAGE_2, 0.0);
+        final String location = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_1);
+        final double magnitude = intent.getDoubleExtra(EarthQuakeFragment.EXTRA_MESSAGE_2, 0.0);
         final String url = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
 
         TextView locationTextView = findViewById(R.id.title);
@@ -55,10 +58,14 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         Button moreButton = findViewById(R.id.more_button);
         moreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Implicit intent that contains a url to got
-                Intent intent = new Intent(Intent.ACTION_VIEW); // ACTION_VIEW is used to open Web browser
-                intent.setData(Uri.parse(url));
-                startActivity(intent);
+                try {
+                    Intent intent = new Intent(EarthQuakeDetailsActivity.this, WebsiteViewActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE, url);
+                    intent.putExtra(EXTRA_MESSAGE2, "" + magnitude + " " + location);
+                    startActivity(intent);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(EarthQuakeDetailsActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

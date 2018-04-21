@@ -1,6 +1,7 @@
 package com.example.apurba.disaster.disasterreport;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ import java.util.List;
 public class FloodFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FloodItem>> {
     private static final String LOG_TAG = FloodFragment.class.getSimpleName();
     private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";
+    private static final String ENVIRONMENT_WEBSITE_URL = "https://flood-warning-information.service.gov.uk/warnings";
 
     public static final String EXTRA_MESSAGE1 = "eaAreaName";
     public static final String EXTRA_MESSAGE2 = "county";
@@ -37,6 +41,8 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     public static final String EXTRA_MESSAGE6 = "timeRaised";
     public static final String EXTRA_MESSAGE7 = "message";
     public static final String EXTRA_MESSAGE8 = "severityLevelInt";
+    public static final String EXTRA_MESSAGE9 = "uri for web view";
+
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
@@ -63,6 +69,21 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
         gridview.setEmptyView(mEmptyStateTextView);
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
+
+        // Setup FAB to open Website View Activity
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(getActivity(), WebsiteViewActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE9, ENVIRONMENT_WEBSITE_URL);
+                    startActivity(intent);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

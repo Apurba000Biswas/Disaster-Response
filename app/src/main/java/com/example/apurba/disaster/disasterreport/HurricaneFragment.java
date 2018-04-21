@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.support.v4.app.LoaderManager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HurricaneFragment extends Fragment implements LoaderManager.LoaderCallbacks<WebView>{
+public class HurricaneFragment extends Fragment{
     private static final String HURRICANE_URL = "http://www.myfoxhurricane.com";
     private WebView mWebView ;
 
@@ -28,28 +26,8 @@ public class HurricaneFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public Loader<WebView> onCreateLoader(int id, Bundle args) {
-        mWebView.setWebViewClient(new MyBrowser());
-        mWebView.getSettings().setLoadsImagesAutomatically(true);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWebView.loadUrl(HURRICANE_URL);
-        return null;
-    }
-
-    @Override
-    public void onLoadFinished(Loader<WebView> loader, WebView data) {
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<WebView> loader) {
-
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.hurricane_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.website_activity, container, false);
 
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
@@ -91,10 +69,6 @@ public class HurricaneFragment extends Fragment implements LoaderManager.LoaderC
             this.loading_indicator = progressBar;
             loading_indicator.setVisibility(View.VISIBLE);
         }
-        public MyBrowser(){
-            loading_indicator = null;
-        }
-
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
