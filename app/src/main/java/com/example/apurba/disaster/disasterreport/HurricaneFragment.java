@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,37 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.support.v4.app.LoaderManager;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HurricaneFragment extends Fragment {
+public class HurricaneFragment extends Fragment implements LoaderManager.LoaderCallbacks<WebView>{
+    private static final String HURRICANE_URL = "http://www.myfoxhurricane.com";
+    private WebView mWebView ;
 
     public HurricaneFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public Loader<WebView> onCreateLoader(int id, Bundle args) {
+        mWebView.setWebViewClient(new MyBrowser());
+        mWebView.getSettings().setLoadsImagesAutomatically(true);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        mWebView.loadUrl(HURRICANE_URL);
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<WebView> loader, WebView data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<WebView> loader) {
+
     }
 
     @Override
@@ -30,12 +54,12 @@ public class HurricaneFragment extends Fragment {
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
         if (isConnectedToInternet()){
-            WebView wv = (WebView) rootView.findViewById(R.id.webView);
+            WebView wv = rootView.findViewById(R.id.webView);
             wv.setWebViewClient(new MyBrowser(loading_indicator));
             wv.getSettings().setLoadsImagesAutomatically(true);
             wv.getSettings().setJavaScriptEnabled(true);
             wv.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-            wv.loadUrl("http://www.myfoxhurricane.com");
+            wv.loadUrl(HURRICANE_URL);
         }else{
             loading_indicator.setVisibility(View.GONE);
             TextView emptyState = rootView.findViewById(R.id.empty_view);
@@ -64,8 +88,11 @@ public class HurricaneFragment extends Fragment {
         private ProgressBar loading_indicator;
 
         public MyBrowser(ProgressBar progressBar){
-            this.loading_indicator=progressBar;
-            progressBar.setVisibility(View.VISIBLE);
+            this.loading_indicator = progressBar;
+            loading_indicator.setVisibility(View.VISIBLE);
+        }
+        public MyBrowser(){
+            loading_indicator = null;
         }
 
         @Override
@@ -77,7 +104,7 @@ public class HurricaneFragment extends Fragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            loading_indicator.setVisibility(View.GONE);
+            if (loading_indicator != null) loading_indicator.setVisibility(View.GONE);
         }
     }
 }

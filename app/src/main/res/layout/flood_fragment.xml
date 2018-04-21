@@ -16,6 +16,7 @@
         android:verticalSpacing="15dp"
         android:horizontalSpacing="15dp"
         android:stretchMode="columnWidth"
+        android:drawSelectorOnTop="true"
         android:gravity="center" />
 
     <!-- Empty view is only visible when the list has no items. -->

@@ -36,13 +36,13 @@
 
     <style name="Level">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">#FFFFFF</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="value">
         <item name="android:textAppearance">?android:textAppearanceSmall</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textColorEarthquakeDetails</item>
         <item name="android:textStyle">bold</item>
     </style>
 

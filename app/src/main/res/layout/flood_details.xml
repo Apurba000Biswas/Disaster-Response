@@ -2,63 +2,81 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
         android:orientation="vertical"
         android:paddingBottom="16dp"
         tools:context="com.example.apurba.disaster.disasterreport.FloodDetailsActivity">
 
-
-        <!-- ea_CardView_layout -->
-        <LinearLayout
-            android:id="@+id/card_holder1"
+        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/main_content"
             android:layout_width="match_parent"
-            android:layout_height="230dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true">
 
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card_view"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="8dp">
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
 
-                <LinearLayout
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleMarginStart="48dp"
+                app:expandedTitleMarginEnd="64dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:id="@+id/severityLevel_text_field"
+                                android:layout_width="180dp"
+                                android:layout_height="180dp"
+                                android:gravity="center"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/magnitude_circle"
+                                android:textColor="@android:color/white"
+                                android:textSize="100sp" />
+                            <TextView
+                                android:id="@+id/severity_text_field"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="Severity"
+                                android:gravity="center"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin" />
 
-                    <TextView
-                        android:id="@+id/severityLevel_text_field"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/magnitude_circle"
-                        android:gravity="center"
-                        android:textColor="@android:color/white"
-                        android:textSize="80sp" />
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+        </android.support.design.widget.CoordinatorLayout>
 
-                    <TextView
-                        android:id="@+id/severity_text_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:paddingTop="16dp"
-                        android:text="Severity"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
 
-                </LinearLayout>
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
 
 
         <LinearLayout
@@ -67,6 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/time_raised_text_holder"
             android:layout_marginTop="16dp"
+            android:drawSelectorOnTop="true"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -74,6 +93,7 @@
                 android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp"
                 android:layout_margin="10dp"
+                card_view:cardBackgroundColor="@color/colorPrimary"
                 card_view:cardElevation="6dp">
 
                 <LinearLayout
@@ -81,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical"
+                    android:background="@color/colorPrimary"
                     android:padding="16dp">
 
                     <TextView
@@ -88,8 +109,8 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="18dp"
                         android:text="Info"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <!-- ea_areaname_text -->
@@ -198,6 +219,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:drawSelectorOnTop="true"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
@@ -206,6 +228,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                card_view:cardBackgroundColor="@color/colorPrimary"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardElevation="6dp">
 
@@ -220,8 +243,8 @@
                         android:layout_height="match_parent"
                         android:paddingBottom="10dp"
                         android:text="Message"
-                        android:textColor="#000000"
-                        android:textSize="18sp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -230,7 +253,7 @@
                         android:layout_height="match_parent"
                         android:text="Mesaage Value"
                         android:textColor="@color/textColorEarthquakeDetails"
-                        android:textSize="13sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
@@ -240,8 +263,8 @@
         <com.facebook.share.widget.ShareButton
             android:id="@+id/fb_share_button"
             android:layout_width="83dp"
+            android:drawSelectorOnTop="true"
             android:layout_height="35dp"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
             android:layout_marginTop="20dp"
