@@ -8,8 +8,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,30 +28,43 @@ public class WebsiteViewActivity extends AppCompatActivity {
         setContentView(R.layout.website_activity);
 
         Intent intent = getIntent();
-        final String urlForEarthquake = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
-        final String urlForSelectedEarthQuake = intent.getStringExtra(EarthQuakeDetailsActivity.EXTRA_MESSAGE);
-        final String title = intent.getStringExtra(EarthQuakeDetailsActivity.EXTRA_MESSAGE2);
-        final String urlForFlood = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE9);
+        String urlForEarthquake = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
+        String urlForSelectedEarthQuake = intent.getStringExtra(EarthQuakeDetailsActivity.EXTRA_MESSAGE);
+        String title = intent.getStringExtra(EarthQuakeDetailsActivity.EXTRA_MESSAGE2);
+        String urlForFlood = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE9);
+
+        final String mUrl = getValidUrl(urlForEarthquake, urlForFlood, urlForSelectedEarthQuake, title);
 
         ProgressBar loading_indicator = findViewById(R.id.loading_spinner);
         if (isConnectedToInternet()){
-            if (!TextUtils.isEmpty(urlForEarthquake)){
-                setTitle("Earthquakes");
-                startWebView(urlForEarthquake, loading_indicator);
-            }else if (!TextUtils.isEmpty(urlForFlood)){
-                setTitle("Floods");
-                startWebView(urlForFlood, loading_indicator);
-            }else{
-                setTitle(title);
-                startWebView(urlForSelectedEarthQuake, loading_indicator);
-            }
+            startWebView(mUrl, loading_indicator);
         }else{
             loading_indicator.setVisibility(View.GONE);
             TextView emptyState = findViewById(R.id.empty_view);
             emptyState.setText(R.string.no_internet_connection);
         }
+        // Setup FAB to open Website View Activity
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mUrl));
+                startActivity(intent);
+            }
+        });
     }
-
+    private String getValidUrl(String urlForEarthquake, String urlForFlood, String urlForSelectedEarthQuake, String title){
+        if (!TextUtils.isEmpty(urlForEarthquake)){
+            setTitle("Earthquakes");
+            return urlForEarthquake;
+        }else if (!TextUtils.isEmpty(urlForFlood)){
+            setTitle("Floods");
+            return urlForFlood;
+        }else{
+            setTitle(title);
+            return urlForSelectedEarthQuake;
+        }
+    }
     private void startWebView(String url, ProgressBar loading_indicator){
         WebView wv = findViewById(R.id.webView);
         wv.setWebViewClient(new MyBrowser(loading_indicator));

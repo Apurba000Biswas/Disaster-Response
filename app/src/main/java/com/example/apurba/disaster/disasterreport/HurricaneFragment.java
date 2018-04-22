@@ -1,10 +1,14 @@
 package com.example.apurba.disaster.disasterreport;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +17,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +48,20 @@ public class HurricaneFragment extends Fragment{
             TextView emptyState = rootView.findViewById(R.id.empty_view);
             emptyState.setText(R.string.no_internet_connection);
         }
+
+        // Setup FAB to open Website View Activity
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(HURRICANE_URL));
+                    startActivity(intent);
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         return rootView;
     }
