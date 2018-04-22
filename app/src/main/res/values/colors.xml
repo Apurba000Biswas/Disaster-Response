@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#003561</color>
+    <color name="colorPrimary">#002a54</color>
     <color name="colorPrimaryDark">#002a54</color>
     <color name="colorAccent">#002a54</color>
 
-    <!-- Color for an earthquake with magnitude 0 and 2 -->
+    <color name="appLevel">#002a54</color>
+
+    <!-- Color for an earthquake with magnitude 0 and 2   #002a54  -->
     <color name="magnitude1">#4A7BA7</color>
 
     <!-- Magnitude circle color for an earthquake with magnitude between 2 and 3 -->

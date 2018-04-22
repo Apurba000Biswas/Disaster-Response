@@ -9,8 +9,12 @@
         <item name="actionBarStyle">@style/DisasterReportBarStyle</item>
     </style>
 
+
+
+
+
     <!-- App bar style -->
-    <style name="DisasterReportBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="DisasterReportBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid">
         <!-- Remove the shadow below the app bar -->
         <item name="elevation">0dp</item>
     </style>
