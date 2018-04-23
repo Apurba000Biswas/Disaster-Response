@@ -66,7 +66,14 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
                 String county = floodArea.getString("county");
                 String riverOrSea = floodArea.getString("riverOrSea");
 
-                String message = flood.getString("message");
+                String message;
+                try{
+                    message = flood.getString("message");
+                }catch (JSONException e){
+                    message = "No Message provided";
+                }
+
+                //String message = flood.getString("message");
                 String severity = flood.getString("severity");
                 int severityLevel = flood.getInt("severityLevel");
                 String timeMessageChanged = flood.getString("timeMessageChanged");

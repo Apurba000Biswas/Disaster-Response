@@ -14,12 +14,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,15 +39,16 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
     public static final String EXTRA_MESSAGE_2 = "magnitude";
     public static final String EXTRA_MESSAGE_3 = "url";
 
-    private EarthQuakeItemAdapter mAdapter;
+   // private EarthQuakeItemAdapter mAdapter;
     private TextView mEmptyStateTextView;
     private View loading_indicator;
+
+    private RecyclerView recyclerView;
+    private EarthQuakeItemAdapterRecycler mAdapter;
 
     public EarthQuakeFragment() {
         // Required empty public constructor
     }
-
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.earthquake_fragment, container, false);
@@ -55,12 +56,15 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         //List of earthquake data
         final List<EarthQuakeItem> earthquakes =  new ArrayList<EarthQuakeItem>();
 
-        ListView earthquakeListView = (ListView)rootView.findViewById(R.id.list);
-        mAdapter = new EarthQuakeItemAdapter(getActivity(), earthquakes);
-        earthquakeListView.setAdapter(mAdapter);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        mAdapter = new EarthQuakeItemAdapterRecycler(getActivity(),earthquakes);
+        //recyclerView.setAdapter(mAdapter);
 
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
-        earthquakeListView.setEmptyView(mEmptyStateTextView);
 
         // Setup FAB to open Website View Activity
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
@@ -79,23 +83,6 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         });
 
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
-
-        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                EarthQuakeItem clickedEarthQuake = earthquakes.get(i);
-
-                Intent intent = new Intent(getActivity(), EarthQuakeDetailsActivity.class);
-                String url = clickedEarthQuake.getUrl();
-                String location = clickedEarthQuake.getLocation();
-                double magnitude =  clickedEarthQuake.getMagnitude();
-                intent.putExtra(EXTRA_MESSAGE_1, location);
-                intent.putExtra(EXTRA_MESSAGE_2, magnitude);
-                intent.putExtra(EXTRA_MESSAGE_3, url);
-                startActivity(intent);
-            }
-        });
-
 
         if(isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager();
@@ -119,9 +106,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         return isConnected;
     }
 
-
     // implements the loader callback methods
-
     @Override
     public Loader<List<EarthQuakeItem>> onCreateLoader(int i, Bundle bundle) {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -152,18 +137,25 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         Log.i(LOG_TAG, "TEST: called onLoadFinished() ");
         loading_indicator.setVisibility(View.GONE);
 
-        mAdapter.clear();
+        //mAdapter.clear();
+        mAdapter.clearData();
 
-        // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
-        // data set. This will trigger the ListView to update.
-        if (earthquakes != null && !earthquakes.isEmpty()) {
-            mAdapter.addAll(earthquakes);
+        if (earthquakes.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
         }
+        else {
+            mAdapter.addAllData(earthquakes);
+            recyclerView.setAdapter(mAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+            mEmptyStateTextView.setVisibility(View.GONE);
+        }
+
         mEmptyStateTextView.setText(R.string.no_earthquakes);
     }
     @Override
     public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
         Log.i(LOG_TAG, "TEST: called onLoadReset() ");
-        mAdapter.clear();
+        mAdapter.clearData();
     }
 }
