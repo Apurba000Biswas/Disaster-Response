@@ -1,6 +1,9 @@
 package com.example.apurba.disaster.disasterreport;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         ViewPager viewPager = findViewById(R.id.viewpager);
         disasterFragmentPagerAdapater adapter = new disasterFragmentPagerAdapater(MainActivity.this, getSupportFragmentManager());

@@ -14,6 +14,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,10 +49,10 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
-    private List<FloodItem> floods;
+    private List<FloodItem> mDataset;
 
-    private FloodItemAdapter mAdapter;
-    private GridView gridview;
+    private FoodItemAdapterRecycler mAdapter;
+    private RecyclerView recyclerView;
 
 
     public FloodFragment() {
@@ -60,14 +63,17 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.flood_fragment, container, false);
 
-        floods = new ArrayList<FloodItem>();
+        mDataset = new ArrayList<FloodItem>();
 
-        gridview = (GridView) rootView.findViewById(R.id.gridview);
-        mAdapter = new FloodItemAdapter(getActivity(), floods);
-        gridview.setAdapter(mAdapter);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new FoodItemAdapterRecycler(getActivity(), mDataset);
 
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
-        gridview.setEmptyView(mEmptyStateTextView);
+       //gridview.setEmptyView(mEmptyStateTextView);
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
         // Setup FAB to open Website View Activity
@@ -84,6 +90,8 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                 }
             }
         });
+
+        /**
 
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -111,6 +119,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                 startActivity(intent);
             }
         });
+         */
 
         if (isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager();
@@ -165,12 +174,18 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onLoadFinished(Loader<List<FloodItem>> loader, List<FloodItem> flood) {
         loading_indicator.setVisibility(View.GONE);
-        mAdapter.clear();
 
-        if (flood != null && !flood.isEmpty()) {
-            floods = flood;
-            mAdapter.addAll(floods);
-            gridview.setAdapter(mAdapter);
+        mAdapter.clearData();
+
+        if (flood.isEmpty()) {
+            recyclerView.setVisibility(View.GONE);
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
+        }
+        else {
+            mAdapter.addAllData(flood);
+            recyclerView.setAdapter(mAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+            mEmptyStateTextView.setVisibility(View.GONE);
         }
         mEmptyStateTextView.setText(R.string.no_floods);
 
@@ -181,6 +196,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
      */
     @Override
     public void onLoaderReset(Loader<List<FloodItem>> loader) {
-        mAdapter.clear();
+        //mAdapter.clear();
+        mAdapter.clearData();
     }
 }

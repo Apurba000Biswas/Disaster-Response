@@ -5,6 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">#FFFFFF</item>
 
     </style>
 
@@ -34,6 +35,7 @@
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
+        <item name="android:textColor">#FFFFFF</item>
         <item name="elevation">10dp</item>
     </style>
 
