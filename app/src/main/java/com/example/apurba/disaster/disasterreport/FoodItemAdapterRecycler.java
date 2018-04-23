@@ -6,6 +6,7 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE1;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE2;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE3;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE4;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE5;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE6;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE7;
+import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE8;
 
 public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapterRecycler.ViewHolder>{
 
@@ -115,6 +125,28 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
+            FloodItem clickedFlood = mDataset.get(getAdapterPosition());
+
+            String eaAreaName = clickedFlood.getEaAreaName();
+            String county = clickedFlood.getCounty();
+            String riverOrSea = clickedFlood.getRiverOrSea();
+            String severity = clickedFlood.getSeverity();
+            String severityLevel = clickedFlood.getSeverityLevel();
+            String timeRaised = clickedFlood.getTimeRaised();
+            String message = clickedFlood.getMessage();
+            int severityLevelInt = clickedFlood.getSevertyLevelInt();
+
+            Intent intent = new Intent(context, FloodDetailsActivity.class);
+            intent.putExtra(EXTRA_MESSAGE1, eaAreaName);
+            intent.putExtra(EXTRA_MESSAGE2, county);
+            intent.putExtra(EXTRA_MESSAGE3, riverOrSea);
+            intent.putExtra(EXTRA_MESSAGE4, severity);
+            intent.putExtra(EXTRA_MESSAGE5, severityLevel);
+            intent.putExtra(EXTRA_MESSAGE6, timeRaised);
+            intent.putExtra(EXTRA_MESSAGE7, message);
+            intent.putExtra(EXTRA_MESSAGE8, severityLevelInt);
+
+            context.startActivity(intent);
 
         }
     }
