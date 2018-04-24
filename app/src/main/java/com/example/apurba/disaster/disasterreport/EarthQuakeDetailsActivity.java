@@ -34,6 +34,8 @@ import java.text.DecimalFormat;
 public class EarthQuakeDetailsActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "url for selected earthquake";
     public static final String EXTRA_MESSAGE2 = "title";
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

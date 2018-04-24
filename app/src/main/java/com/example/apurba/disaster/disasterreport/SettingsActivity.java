@@ -20,8 +20,6 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-
-
         // getWindow().setBackgroundDrawableResource(R.color.backGround);
     }
 

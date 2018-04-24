@@ -47,7 +47,6 @@
         </activity>
 
         <activity android:name=".FloodDetailsActivity"
-            android:label="@string/title_activity_flood_details"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
