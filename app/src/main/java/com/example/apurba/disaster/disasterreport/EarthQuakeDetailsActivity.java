@@ -7,6 +7,9 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +17,9 @@ import android.support.annotation.Nullable;
 
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,6 +38,17 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earth_quake_details);
+
+        //setTitle("Earthquake Details");
+        String title = "Earthquake Details";
+        SpannableString s = new SpannableString(title);
+        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(s);
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
+        upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
 
         Intent intent = getIntent();
         final String location = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_1);
@@ -70,6 +87,8 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         });
 
     }
+
+
     private String formatedMagnitude(double mag){
         DecimalFormat decimalFormatter = new DecimalFormat("0.0");
         return decimalFormatter.format(mag);
