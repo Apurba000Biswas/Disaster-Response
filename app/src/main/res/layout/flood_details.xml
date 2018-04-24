@@ -13,77 +13,42 @@
         android:paddingBottom="16dp"
         tools:context="com.example.apurba.disaster.disasterreport.FloodDetailsActivity">
 
-        <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/main_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true">
-
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/appbar"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:fitsSystemWindows="true">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+            <LinearLayout
+                android:id="@+id/severityLevel_holder"
+                android:background="@color/colorPrimary"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginStart="48dp"
-                app:expandedTitleMarginEnd="64dp">
+                android:layout_height="300dp"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+                android:padding="16dp">
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="16dp">
-
-                            <TextView
-                                android:id="@+id/severityLevel_text_field"
-                                android:layout_width="180dp"
-                                android:layout_height="180dp"
-                                android:gravity="center"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@drawable/magnitude_circle"
-                                android:textColor="@android:color/white"
-                                android:textSize="100sp" />
-                            <TextView
-                                android:id="@+id/severity_text_field"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:text="Severity"
-                                android:gravity="center"
-                                android:textColor="#FFFFFF"
-                                android:textSize="20sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
+                <TextView
+                    android:id="@+id/severityLevel_text_field"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/magnitude_circle"
+                    android:textColor="@android:color/white"
+                    android:textSize="100sp" />
+                <TextView
+                    android:id="@+id/severity_text_field"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:layout_collapseMode="pin" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Severity"
+                    android:gravity="center"
+                    android:textColor="@color/flood_details"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            </android.support.design.widget.CollapsingToolbarLayout>
-        </android.support.design.widget.AppBarLayout>
-        </android.support.design.widget.CoordinatorLayout>
-
-
-
+            </LinearLayout>
+        
 
         <LinearLayout
             android:id="@+id/card_holder_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/time_raised_text_holder"
             android:layout_marginTop="16dp"
             android:drawSelectorOnTop="true"
             android:orientation="vertical">
@@ -109,8 +74,8 @@
                         android:layout_height="wrap_content"
                         android:paddingBottom="18dp"
                         android:text="Info"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textColor="@color/flood_details"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <!-- ea_areaname_text -->
@@ -220,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:drawSelectorOnTop="true"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="10dp"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -243,8 +208,8 @@
                         android:layout_height="match_parent"
                         android:paddingBottom="10dp"
                         android:text="Message"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
+                        android:textColor="@color/flood_details"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -265,9 +230,11 @@
             android:layout_width="83dp"
             android:drawSelectorOnTop="true"
             android:layout_height="35dp"
+            android:textColor="@color/flood_details"
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
+            android:elevation="10dp"
             android:background="@color/colorPrimary" />
     </LinearLayout>
 </ScrollView>

@@ -47,7 +47,7 @@
 
     <style name="Level">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColor">#FF8F00</item>
         <item name="android:textAllCaps">true</item>
     </style>
 

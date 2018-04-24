@@ -39,6 +39,8 @@
 
     <color name="main_background">#FFFFFF</color>
 
+    <color name="flood_details">#FF8F00</color>
+
     <color name="grid_backround">#42709f</color>
 
     <color name="circlebackground">#FF6D00</color>
