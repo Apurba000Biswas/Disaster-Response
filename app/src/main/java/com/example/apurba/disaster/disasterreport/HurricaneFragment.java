@@ -23,7 +23,7 @@ import android.widget.Toast;
  * A simple {@link Fragment} subclass.
  */
 public class HurricaneFragment extends Fragment{
-    private static final String HURRICANE_URL = "http://www.myfoxhurricane.com";
+    private static final String HURRICANE_URL = "https://www.weatherbug.com/alerts/hurricane/";
     private WebView mWebView ;
 
     public HurricaneFragment() {
@@ -32,7 +32,7 @@ public class HurricaneFragment extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.website_activity, container, false);
+        View rootView = inflater.inflate(R.layout.hurricane_fragment, container, false);
 
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
