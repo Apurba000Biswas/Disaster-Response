@@ -39,7 +39,19 @@ public class WebsiteViewActivity extends AppCompatActivity {
         String title = intent.getStringExtra(EarthQuakeDetailsActivity.EXTRA_MESSAGE2);
         String urlForFlood = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE9);
 
-        final String mUrl = getValidUrl(urlForEarthquake, urlForFlood, urlForSelectedEarthQuake, title);
+        String urlForTsunami = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE1);
+        String urlForAvalanches = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE2);
+        String urlForWildFire = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE3);
+        String urlForDrought = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE4);
+        String urlForTornado = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE5);
+
+        final String mUrl = getValidUrl(urlForEarthquake, urlForFlood, urlForSelectedEarthQuake,
+                urlForTsunami,
+                urlForAvalanches,
+                urlForWildFire,
+                urlForDrought,
+                urlForTornado,
+                title);
 
         ProgressBar loading_indicator = findViewById(R.id.loading_spinner);
         if (isConnectedToInternet()){
@@ -59,16 +71,37 @@ public class WebsiteViewActivity extends AppCompatActivity {
             }
         });
     }
-    private String getValidUrl(String urlForEarthquake, String urlForFlood, String urlForSelectedEarthQuake, String title){
+    private String getValidUrl(String urlForEarthquake, String urlForFlood, String urlForSelectedEarthQuake,
+                               String urlForTsunami,
+                               String urlForAvalanches,
+                               String urlForWildFire,
+                               String urlForDrought,
+                               String urlForTornado,
+                               String title){
         if (!TextUtils.isEmpty(urlForEarthquake)){
             setbarStyle("Earthquakes");
             return urlForEarthquake;
         }else if (!TextUtils.isEmpty(urlForFlood)){
             setbarStyle("Floods");
             return urlForFlood;
-        }else{
+        }else if (!TextUtils.isEmpty(urlForTsunami)){
+            setbarStyle("Tsunami");
+            return urlForTsunami;
+        }else if(!TextUtils.isEmpty(urlForAvalanches)){
+            setbarStyle("Avalanches");
+            return urlForAvalanches;
+        }else if (!TextUtils.isEmpty(urlForWildFire)){
+            setbarStyle("Wild Fire");
+            return urlForWildFire;
+        }else if (!TextUtils.isEmpty(urlForDrought)){
+            setbarStyle("Drought");
+            return urlForDrought;
+        }else if (!TextUtils.isEmpty(urlForTornado)){
+            setbarStyle("Tornado");
+            return urlForTornado;
+        } else {
             setbarStyle(title);
-            return urlForSelectedEarthQuake;
+            return urlForSelectedEarthQuake ;
         }
     }
 
