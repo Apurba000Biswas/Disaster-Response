@@ -49,23 +49,6 @@ public class OtherFragment extends Fragment {
         setOnclickWebViewActivity(tornadoCardView,5);
 
 
-        /**
-        FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    Intent intent = new Intent(getActivity(), WebsiteViewActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE_3, USGS_URL);
-                    startActivity(intent);
-
-                }catch (ActivityNotFoundException e){
-                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-         **/
-
         return rootView;
     }
 
@@ -74,7 +57,6 @@ public class OtherFragment extends Fragment {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Ok i am on " + mKey ,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), WebsiteViewActivity.class);
                 switch (mKey){
                     case 1:
