@@ -22,17 +22,16 @@ import android.widget.Toast;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HurricaneFragment extends Fragment{
+public class HurricanFragment extends Fragment{
     private static final String HURRICANE_URL = "https://www.weatherbug.com/alerts/hurricane/";
-    private WebView mWebView ;
 
-    public HurricaneFragment() {
+    public HurricanFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.hurricane_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.website_fragment, container, false);
 
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
 

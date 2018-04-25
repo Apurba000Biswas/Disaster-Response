@@ -25,9 +25,9 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
         }else if (position == 1){
             return new FloodFragment();
         }else if (position == 2){
-            return new HurricaneFragment();
+            return new HurricanFragment();
         }else {
-            return new TsunamiFragment();
+            return new OtherFragment();
         }
     }
 
