@@ -45,7 +45,7 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
         }else if(position == 2){
             return mContext.getString(R.string.category_hurricanes);
         }else {
-            return mContext.getString(R.string.category_tsunamis);
+            return mContext.getString(R.string.category_others);
         }
     }
 }

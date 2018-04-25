@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +24,11 @@ import android.widget.Toast;
  * A simple {@link Fragment} subclass.
  */
 public class OtherFragment extends Fragment {
-    private static final String TSUNAMI_URL = "https://www.google.com/search?ei=1qTgWs63GofgvgSYhZaQCA&q=disaster+list&oq=disaster+li&gs_l=psy-ab.3.0.0l10.2061.7332.0.8388.15.13.2.0.0.0.265.1817.0j8j2.10.0....0...1.1.64.psy-ab..4.11.1619...35i39k1j0i22i30k1j0i22i10i30k1j0i67k1j0i20i263k1.0.yZoAfC0YAzY";
-
+    private static final String TSUNAMI_URL = "";
+    private static final String AVALANCHES_URL = "";
+    private static final String WILDFIRE_URL = "";
+    private static final String DROUGHT_URL = "";
+    private static final String TORNADO_URL = "";
 
     public OtherFragment() {
         // Required empty public constructor
@@ -34,7 +38,46 @@ public class OtherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.others_fragment, container, false);
 
+        CardView tsunamiCardView = rootView.findViewById(R.id.tsunami_card);
+        CardView avalanchesCardView = rootView.findViewById(R.id.avalanches_card);
+        CardView wildFireCardView = rootView.findViewById(R.id.wildfire_card);
+        CardView droughtCardView = rootView.findViewById(R.id.drought_card);
+        CardView tornadoCardView = rootView.findViewById(R.id.tornado_card);
+
+        startWebViewActivity(tsunamiCardView,TSUNAMI_URL);
+        startWebViewActivity(avalanchesCardView,AVALANCHES_URL);
+        startWebViewActivity(wildFireCardView,WILDFIRE_URL);
+        startWebViewActivity(droughtCardView,DROUGHT_URL);
+        startWebViewActivity(tornadoCardView,TORNADO_URL);
+
+
+        /**
+        FloatingActionButton fab = rootView.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    Intent intent = new Intent(getActivity(), WebsiteViewActivity.class);
+                    intent.putExtra(EXTRA_MESSAGE_3, USGS_URL);
+                    startActivity(intent);
+
+                }catch (ActivityNotFoundException e){
+                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+         **/
+
         return rootView;
+    }
+
+    private void startWebViewActivity(CardView cardView, String url){
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Ok i am on" ,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
