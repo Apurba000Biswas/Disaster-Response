@@ -6,6 +6,9 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,7 +16,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -55,16 +61,29 @@ public class WebsiteViewActivity extends AppCompatActivity {
     }
     private String getValidUrl(String urlForEarthquake, String urlForFlood, String urlForSelectedEarthQuake, String title){
         if (!TextUtils.isEmpty(urlForEarthquake)){
-            setTitle("Earthquakes");
+            setbarStyle("Earthquakes");
             return urlForEarthquake;
         }else if (!TextUtils.isEmpty(urlForFlood)){
-            setTitle("Floods");
+            setbarStyle("Floods");
             return urlForFlood;
         }else{
-            setTitle(title);
+            setbarStyle(title);
             return urlForSelectedEarthQuake;
         }
     }
+
+    private void setbarStyle(String title){
+
+        SpannableString s = new SpannableString(title);
+        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(s);
+
+        final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
+        upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+    }
+
     private void startWebView(String url, ProgressBar loading_indicator){
         WebView wv = findViewById(R.id.webView);
         wv.setWebViewClient(new MyBrowser(loading_indicator));
