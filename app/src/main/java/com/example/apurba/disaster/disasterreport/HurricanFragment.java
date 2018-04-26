@@ -25,6 +25,7 @@ import android.widget.Toast;
 public class HurricanFragment extends Fragment{
     private static final String HURRICANE_URL = "https://www.weatherbug.com/alerts/hurricane/";
 
+    // suitable constructor
     public HurricanFragment() {
         // Required empty public constructor
     }
@@ -34,8 +35,10 @@ public class HurricanFragment extends Fragment{
         View rootView = inflater.inflate(R.layout.website_fragment, container, false);
 
         ProgressBar loading_indicator = rootView.findViewById(R.id.loading_spinner);
+        HelperClass mHelper = new HelperClass(getActivity());
 
-        if (isConnectedToInternet()){
+        if (mHelper.isConnectedToInternet()){
+            // if connected to internet load website
             WebView wv = rootView.findViewById(R.id.webView);
             wv.setWebViewClient(new MyBrowser(loading_indicator));
             wv.getSettings().setLoadsImagesAutomatically(true);
@@ -66,18 +69,6 @@ public class HurricanFragment extends Fragment{
     }
 
     /**
-     * Check for internet connection
-     */
-    private boolean isConnectedToInternet(){
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        return isConnected;
-    }
-
-    /**
      * Creates a new browser to load the web pages
      */
     private class MyBrowser extends WebViewClient {
@@ -92,7 +83,6 @@ public class HurricanFragment extends Fragment{
             view.loadUrl(url);
             return true;
         }
-
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);

@@ -2,13 +2,15 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 4/24/2018.
+ *
+ * FoodItemAdapterRecycler:
+ * Supply floods data to the recycler view
  */
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +37,11 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
         mDataset = Dataset;
         mContext = context;
     }
-
+    // clears all data from the list
     public void clearData(){
         mDataset.clear();
     }
-
+    // add data from given list to the current list
     public void addAllData(List<FloodItem> dataset){
         mDataset = dataset;
     }
@@ -50,10 +52,12 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
         return  new ViewHolder(view, mDataset);
     }
 
+    // binds all views with the layout
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         FloodItem currentFlood = mDataset.get(position);
-        int severityLevelCircleColor = getSeverityCircleColor(currentFlood.getSevertyLevelInt());
+        HelperClass mHelper = new HelperClass(mContext);
+        int severityLevelCircleColor = mHelper.getSeverityCircleColor(currentFlood.getSevertyLevelInt());
         holder.severityLevelCircle.setColor(severityLevelCircleColor);
         holder.severityLevel.setText(currentFlood.getSeverityLevel());
         holder.severity.setText(currentFlood.getSeverity());
@@ -65,42 +69,12 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
         return mDataset.size();
     }
 
-    /**
-     * Returns the approriate color for Severity text field
-     */
-    private int getSeverityCircleColor(int magnitude){
-        int colorResourceId;
-        switch (magnitude){
-            case 0 :
-            case 1 :
-                colorResourceId = R.color.severity1;
-                break;
-            case 2 :
-                colorResourceId = R.color.severity2;
-                break;
-            case 3 :
-                colorResourceId = R.color.severity3;
-                break;
-            case 4 :
-                colorResourceId = R.color.severity4;
-                break;
-            default:
-                colorResourceId = R.color.wrongcolor;
-                break;
-        }
-        return ContextCompat.getColor(mContext, colorResourceId);
-    }
 
-
-
-
-
-
+    // creates a viw holder that holds each single item in the recycler view
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public View mView;
         private List<FloodItem> mDataset;
-        //public TextView mTextView;
 
         public TextView severityLevel ;
         public TextView severity;
@@ -113,20 +87,23 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
             mView = v;
             v.setOnClickListener(this);
             mDataset = dataset;
-            setUpAllViews();
+            initAllViews();
         }
-        private void setUpAllViews(){
+        // initializes all views
+        private void initAllViews(){
             severityLevel = mView.findViewById(R.id.severityLevel);
             severity = mView.findViewById(R.id.severity);
             ea_areaName = mView.findViewById(R.id.ea_areaName);
             severityLevelCircle = (GradientDrawable) severityLevel.getBackground();
         }
 
+        // when clciked happen in  a item , this method starts details activity with the clicked item
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
             FloodItem clickedFlood = mDataset.get(getAdapterPosition());
 
+            // get all info of the current flood
             String eaAreaName = clickedFlood.getEaAreaName();
             String county = clickedFlood.getCounty();
             String riverOrSea = clickedFlood.getRiverOrSea();
@@ -136,6 +113,7 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
             String message = clickedFlood.getMessage();
             int severityLevelInt = clickedFlood.getSevertyLevelInt();
 
+            // put those info to the intent
             Intent intent = new Intent(context, FloodDetailsActivity.class);
             intent.putExtra(EXTRA_MESSAGE1, eaAreaName);
             intent.putExtra(EXTRA_MESSAGE2, county);
@@ -146,8 +124,8 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
             intent.putExtra(EXTRA_MESSAGE7, message);
             intent.putExtra(EXTRA_MESSAGE8, severityLevelInt);
 
+            // start the activity
             context.startActivity(intent);
-
         }
     }
 }

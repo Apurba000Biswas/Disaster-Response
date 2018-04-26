@@ -48,10 +48,9 @@ public class OtherFragment extends Fragment {
         setOnclickWebViewActivity(droughtCardView,4);
         setOnclickWebViewActivity(tornadoCardView,5);
 
-
         return rootView;
     }
-
+    // start web view activity when clicked on a card view
     private void setOnclickWebViewActivity(final CardView cardView , int key){
         final int mKey = key;
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -81,5 +80,4 @@ public class OtherFragment extends Fragment {
 
         });
     }
-
 }

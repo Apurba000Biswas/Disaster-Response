@@ -17,7 +17,16 @@ public class FloodItem {
     private String mTimeMessageChanged;
     private String mTimeRaised;
 
-    public FloodItem(int severtyLevel, String severty, String eaAreaName, String county, String riverOrSea, String message, String timeMessageChanged, String timeRaised){
+    // suitable constructor
+    public FloodItem(int severtyLevel,
+                     String severty,
+                     String eaAreaName,
+                     String county,
+                     String riverOrSea,
+                     String message,
+                     String timeMessageChanged,
+                     String timeRaised){
+
         mSevertyLevel = severtyLevel;
         mSeverity = severty;
         mEaAreaName = eaAreaName;
@@ -47,13 +56,9 @@ public class FloodItem {
     public String getMessage(){
         return mMessage;
     }
-    public String getTimeMessageChanged(){
-        return mTimeMessageChanged;
-    }
     public String getTimeRaised(){
         return mTimeRaised;
     }
-
     public int getSevertyLevelInt(){
         return mSevertyLevel;
     }

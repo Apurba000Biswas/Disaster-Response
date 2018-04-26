@@ -2,6 +2,9 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 3/13/2018.
+ *
+ * EarthquakeLoader:
+ * loads the earthquake items in background thread
  */
 
 import android.content.Context;
@@ -18,9 +21,9 @@ import java.util.List;
 
 public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
 
-    public static final String LOG_TAG = EarthquakeLoader.class.getSimpleName();
     String url;
 
+    // suitable constructor
     public EarthquakeLoader(Context context, String url) {
         super(context);
         this.url = url;
@@ -28,19 +31,18 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
 
     @Override
     protected void onStartLoading() {
-        Log.i(LOG_TAG, "TEST: called onStartLoading() ");
         forceLoad();
     }
 
     @Override
     public List<EarthQuakeItem> loadInBackground() {
-        Log.i(LOG_TAG, "TEST: called loadInBackground() ");
         if (url.length() < 1) {
             return null;
         }
+        // get jasonResponse
         String jasonResponse = QueryUtils.requestToApi(url);
-        List<EarthQuakeItem> earthquakeData = extractFeatureFromJson(jasonResponse);
-        return earthquakeData;
+        // make a list from jason data and return it
+        return extractFeatureFromJson(jasonResponse);
     }
     /**
      * Return a list of {@link EarthQuakeItem} objects that has been built up from
@@ -48,6 +50,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
      */
     private static List<EarthQuakeItem> extractFeatureFromJson(String earthquakeJSON) {
         if (TextUtils.isEmpty(earthquakeJSON)) {
+            // if response is empty then return null
             return null;
         }
         List<EarthQuakeItem> earthquakes = new ArrayList<>();
@@ -66,7 +69,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
                 earthquakes.add(new EarthQuakeItem(magnitude, place, time, url));
             }
         } catch (JSONException e) {
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("EarthqakeLoader", "Problem parsing the earthquake JSON results", e);
         }
         return earthquakes;
     }

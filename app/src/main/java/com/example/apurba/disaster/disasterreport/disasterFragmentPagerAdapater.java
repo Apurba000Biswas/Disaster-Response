@@ -2,6 +2,8 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 3/12/2018.
+ * disasterFragmentPagerAdapater:
+ * set different disaster types in the view pager
  */
 
 import android.content.Context;
@@ -9,15 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+
 public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
 
     private Context mContext;
 
     public disasterFragmentPagerAdapater(Context context, FragmentManager fm){
         super(fm);
-        this.mContext = context;
+        mContext = context;
     }
 
+    /**
+     * Returns new fragments to create depending on position of the tab layout
+     */
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
@@ -31,11 +37,17 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
         }
     }
 
+    /**
+     *  returns how many fragment to create
+     */
     @Override
     public int getCount() {
         return 4;
     }
 
+    /**
+     * returns page tittle for each tab
+     */
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0){

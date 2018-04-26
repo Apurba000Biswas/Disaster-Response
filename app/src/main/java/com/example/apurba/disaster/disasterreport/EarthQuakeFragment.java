@@ -1,12 +1,13 @@
 package com.example.apurba.disaster.disasterreport;
 
 
+/*
+ * Created by Apurba on 3/13/2018.
+ */
+
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,7 +17,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +28,10 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * creates a fragment for earthquake
  */
 public class EarthQuakeFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> {
 
-    public static final String LOG_TAG = EarthQuakeFragment.class.getName();
     private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
     private static final String USGS_URL = "https://earthquake.usgs.gov/earthquakes/map/";
 
@@ -84,7 +84,9 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
 
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-        if(isConnectedToInternet()){
+        HelperClass mHelper = new HelperClass(getActivity());
+
+        if(mHelper.isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(0, null, EarthQuakeFragment.this).forceLoad();
         }else {
@@ -94,21 +96,10 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         return rootView;
     }
 
-    /**
-     * Check for internet connection
-     */
-    private boolean isConnectedToInternet(){
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        return isConnected;
-    }
-
-    // implements the loader callback methods
+    // Creates a loader to load from url in background thread
     @Override
     public Loader<List<EarthQuakeItem>> onCreateLoader(int i, Bundle bundle) {
+        //get settings from shared preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String minMagnitude = sharedPrefs.getString(
                 getString(R.string.settings_min_magnitude_key),
@@ -122,6 +113,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
                 getString(R.string.settings_max_result_key),
                 getString(R.string.settings_max_result_default));
 
+        // set up the url with appropriate settings
         Uri baseUri = Uri.parse(USGS_REQUEST_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
@@ -132,30 +124,39 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
 
         return new EarthquakeLoader(getActivity(), uriBuilder.toString());
     }
+
+    /**
+     * After load finish sets the adapter with loaded arrayList
+     */
     @Override
     public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
-        Log.i(LOG_TAG, "TEST: called onLoadFinished() ");
         loading_indicator.setVisibility(View.GONE);
 
         //mAdapter.clear();
         mAdapter.clearData();
 
-        if (earthquakes.isEmpty()) {
-            recyclerView.setVisibility(View.GONE);
-            mEmptyStateTextView.setVisibility(View.VISIBLE);
+        try {
+            if (earthquakes.isEmpty()) {
+                recyclerView.setVisibility(View.GONE);
+                mEmptyStateTextView.setVisibility(View.VISIBLE);
+            }
+            else {
+                mAdapter.addAllData(earthquakes);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.setVisibility(View.VISIBLE);
+                mEmptyStateTextView.setVisibility(View.GONE);
+            }
+        }catch (NullPointerException ex){
+            mEmptyStateTextView.setText("There was a problem");
         }
-        else {
-            mAdapter.addAllData(earthquakes);
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.setVisibility(View.VISIBLE);
-            mEmptyStateTextView.setVisibility(View.GONE);
-        }
-
         mEmptyStateTextView.setText(R.string.no_earthquakes);
     }
+
+    /**
+     * when loader reset to load it clear the adapter data
+     */
     @Override
     public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
-        Log.i(LOG_TAG, "TEST: called onLoadReset() ");
         mAdapter.clearData();
     }
 }

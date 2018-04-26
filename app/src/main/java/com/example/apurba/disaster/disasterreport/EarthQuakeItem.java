@@ -2,6 +2,8 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 3/13/2018.
+ * EarthQuakeItem:
+ * represents each earthquake item
  */
 
 public class EarthQuakeItem {
@@ -15,34 +17,40 @@ public class EarthQuakeItem {
     private String mUrl;
     private long mTimeInMilliseconds;
 
+    // suitable constructor
     public EarthQuakeItem(double magnitude, String location, long timeInMillisecond, String url){
         this.mMagnitude = magnitude;
         this.mTimeInMilliseconds = timeInMillisecond;
         this.mLocation = location;
         this.mUrl = url;
     }
-    /*------------------------------------------------------------------Methods---------------------------------------------------------------------**/
+
+    // returns current items magnitude
     public double getMagnitude(){
         return mMagnitude;
     }
+    // returns current items time(milliseconds)
     public long getTimeInMilliseconds(){
         return mTimeInMilliseconds;
     }
+    //returns current items location offset
     public String getLocationOffset(){
         return locationOffset;
     }
+    // returns current items primary location
     public String getPrimaryLocation(){
         return primaryLocation;
     }
+    // returns current items url
     public String getUrl(){
         return mUrl;
     }
+    // returns current items location
     public String getLocation(){
         return mLocation;
     }
     /**
      * Split the location String into two string
-     *
      */
     public void splitLocation(){
         if(mLocation.contains(LOCATION_SEPARATOR)) {

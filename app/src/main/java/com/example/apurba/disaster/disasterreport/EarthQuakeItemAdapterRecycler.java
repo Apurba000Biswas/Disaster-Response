@@ -2,21 +2,21 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 4/23/2018.
+ *
+ * EarthQuakeItemAdapterRecycler:
+ * supply data to the recycler view to be populated
  */
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -35,15 +35,18 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         mContext = context;
     }
 
+    // clears all data now exists in the list
     public void clearData(){
         mDataset.clear();
     }
-
+    // add all supplied data in the list
     public void addAllData(List<EarthQuakeItem> dataset){
         mDataset = dataset;
     }
 
-
+    /**
+     * returns a view holder
+     */
     @Override
     public EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
@@ -51,15 +54,19 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         return  new ViewHolder(view, mDataset);
     }
 
+    /**
+     * binds all views in the view holder
+     */
     @Override
     public void onBindViewHolder(EarthQuakeItemAdapterRecycler.ViewHolder holder, int position) {
         //holder.mTextView.setText(mDataset.get(position));
         EarthQuakeItem currentEarthQuake = mDataset.get(position);
         // Get the appropriate background color based on the current earthquake magnitude
-        int magnitudeColor = getMagnitudeColor(currentEarthQuake.getMagnitude());
+        HelperClass mHelper = new HelperClass(mContext);
+        int magnitudeColor = mHelper.getMagnitudeColor(currentEarthQuake.getMagnitude());
         holder.magnitudeCircle.setColor(magnitudeColor);
         // set magnitude text
-        holder.magnitudeView.setText(formatedMagnitude(currentEarthQuake.getMagnitude()));
+        holder.magnitudeView.setText(mHelper.formatedMagnitude(currentEarthQuake.getMagnitude()));
 
         // split the loaction of current Earthquake
         currentEarthQuake.splitLocation();
@@ -74,18 +81,10 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         holder.mTime.setText(formatTime(dateObject));
     }
 
+    // returns the size of the dataset
     @Override
     public int getItemCount() {
         return mDataset.size();
-    }
-
-    /**
-     * Return the formatted magnitude string showing 1 decimal place (i.e. "3.2")
-     * from a decimal magnitude value.
-     */
-    private String formatedMagnitude(double mag){
-        DecimalFormat decimalFormatter = new DecimalFormat("0.0");
-        return decimalFormatter.format(mag);
     }
 
     /**
@@ -103,54 +102,11 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         return timeFormat.format(dateObject);
     }
 
-
-    /**
-     * Returns the approriate color for Magnitude text field
-     */
-    private int getMagnitudeColor(double magnitude){
-        int magnitudeColorResourceId;
-        int magnitudeFloor = (int) Math.floor(magnitude);
-        switch (magnitudeFloor){
-            case 0 :
-            case 1 :
-                magnitudeColorResourceId = R.color.magnitude1;
-                break;
-            case 2 :
-                magnitudeColorResourceId = R.color.magnitude2;
-                break;
-            case 3 :
-                magnitudeColorResourceId = R.color.magnitude3;
-                break;
-            case 4 :
-                magnitudeColorResourceId = R.color.magnitude4;
-                break;
-            case 5 :
-                magnitudeColorResourceId = R.color.magnitude5;
-                break;
-            case 6 :
-                magnitudeColorResourceId = R.color.magnitude6;
-                break;
-            case 7 :
-                magnitudeColorResourceId = R.color.magnitude7;
-                break;
-            case 8 :
-                magnitudeColorResourceId = R.color.magnitude8;
-                break;
-            case 9 :
-                magnitudeColorResourceId = R.color.magnitude9;
-                break;
-            default:
-                magnitudeColorResourceId = R.color.magnitude10plus;
-                break;
-        }
-        return ContextCompat.getColor(mContext, magnitudeColorResourceId);
-    }
-
+    // creates view holder and respond to click
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public View mView;
         private List<EarthQuakeItem> mDataset;
-        //public TextView mTextView;
 
         public TextView magnitudeView ;
         public TextView mLoacationOffset;
@@ -165,10 +121,10 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
             mView = v;
             v.setOnClickListener(this);
             mDataset = dataset;
-            //mTextView = v.findViewById(R.id.text_view);
-            setUpAllViews();
+            initAllViews();
         }
-        private void setUpAllViews(){
+        // initializes all fileds to its appropriate view
+        private void initAllViews(){
             magnitudeView = mView.findViewById(R.id.magnitude_text_field);
             mLoacationOffset = mView.findViewById(R.id.location_offset);
             mPrimaryLoaction = mView.findViewById(R.id.primary_location);
@@ -177,18 +133,24 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
             magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
         }
 
+        // response when a click occurs in a recycler view item
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
+            // get clcicked item
             EarthQuakeItem clickedEarthQuake = mDataset.get(getAdapterPosition());
 
+            // creates intent to start its details activity
             Intent intent = new Intent(context, EarthQuakeDetailsActivity.class);
             String url = clickedEarthQuake.getUrl();
             String location = clickedEarthQuake.getLocation();
             double magnitude =  clickedEarthQuake.getMagnitude();
+
+            // put some extra message to the intent
             intent.putExtra(EXTRA_MESSAGE_1, location);
             intent.putExtra(EXTRA_MESSAGE_2, magnitude);
             intent.putExtra(EXTRA_MESSAGE_3, url);
+            // start the activity
             context.startActivity(intent);
         }
     }

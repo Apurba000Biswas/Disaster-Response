@@ -2,6 +2,9 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 3/13/2018.
+ *
+ * SettingsActivity:
+ * creates settings activity to take users input
  */
 
 import android.content.SharedPreferences;
@@ -19,8 +22,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-
-        // getWindow().setBackgroundDrawableResource(R.color.backGround);
     }
 
     public static class EarthquakePreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
@@ -29,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings_main);
-
 
             Preference minMagnitude = findPreference(getString(R.string.settings_min_magnitude_key));
             bindPreferenceSummaryToValue(minMagnitude);

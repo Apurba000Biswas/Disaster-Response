@@ -2,6 +2,9 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 3/15/2018.
+ *
+ * FloodLoader:
+ * loads flood item in background thread
  */
 
 import android.content.Context;
@@ -21,6 +24,7 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
     public static final String LOG_TAG = FloodLoader.class.getSimpleName();
     String url;
 
+    // suitable constructor
     public FloodLoader(Context context, String url) {
         super(context);
         this.url = url;
@@ -37,13 +41,7 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
             return null;
         }
         String jasonResponse = QueryUtils.requestToApi(url);
-        List<FloodItem> floods =extractItemsFromJSON(jasonResponse);//new ArrayList<FloodItem>();
-        /*floods.add(new FloodItem(1,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
-        floods.add(new FloodItem(4,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
-        floods.add(new FloodItem(3,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
-        floods.add(new FloodItem(2,"severity flood worning","North", "Wesex", "XX", "XX","XX", "XX"));
-        */
-        return floods;
+        return extractItemsFromJSON(jasonResponse);
     }
 
     /**

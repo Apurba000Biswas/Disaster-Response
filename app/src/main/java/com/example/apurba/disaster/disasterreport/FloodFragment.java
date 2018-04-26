@@ -2,11 +2,8 @@ package com.example.apurba.disaster.disasterreport;
 
 
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,13 +12,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +24,9 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Creates a fragment for flood
  */
 public class FloodFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FloodItem>> {
-    private static final String LOG_TAG = FloodFragment.class.getSimpleName();
     private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";
     private static final String ENVIRONMENT_WEBSITE_URL = "https://flood-warning-information.service.gov.uk/warnings";
 
@@ -46,7 +40,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     public static final String EXTRA_MESSAGE8 = "severityLevelInt";
     public static final String EXTRA_MESSAGE9 = "uri for web view";
 
-
     private TextView mEmptyStateTextView;
     private View loading_indicator;
     private List<FloodItem> mDataset;
@@ -54,7 +47,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     private FoodItemAdapterRecycler mAdapter;
     private RecyclerView recyclerView;
 
-
+    // suitable constructor
     public FloodFragment() {
         // Required empty public constructor
     }
@@ -63,17 +56,17 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.flood_fragment, container, false);
 
+        // initialize the dtatset
         mDataset = new ArrayList<FloodItem>();
 
+        // set the recycler view with grid layout manager
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new FoodItemAdapterRecycler(getActivity(), mDataset);
-
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
-       //gridview.setEmptyView(mEmptyStateTextView);
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
         // Setup FAB to open Website View Activity
@@ -91,37 +84,10 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
             }
         });
 
-        /**
+        HelperClass mHelper = new HelperClass(getActivity());
 
-        gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                FloodItem currentFlood = floods.get(position);
-
-                String eaAreaName = currentFlood.getEaAreaName();
-                String county = currentFlood.getCounty();
-                String riverOrSea = currentFlood.getRiverOrSea();
-                String severity = currentFlood.getSeverity();
-                String severityLevel = currentFlood.getSeverityLevel();
-                String timeRaised = currentFlood.getTimeRaised();
-                String message = currentFlood.getMessage();
-                int severityLevelInt = currentFlood.getSevertyLevelInt();
-
-                Intent intent = new Intent(getActivity(), FloodDetailsActivity.class);
-                intent.putExtra(EXTRA_MESSAGE1, eaAreaName);
-                intent.putExtra(EXTRA_MESSAGE2, county);
-                intent.putExtra(EXTRA_MESSAGE3, riverOrSea);
-                intent.putExtra(EXTRA_MESSAGE4, severity);
-                intent.putExtra(EXTRA_MESSAGE5, severityLevel);
-                intent.putExtra(EXTRA_MESSAGE6, timeRaised);
-                intent.putExtra(EXTRA_MESSAGE7, message);
-                intent.putExtra(EXTRA_MESSAGE8, severityLevelInt);
-
-                startActivity(intent);
-            }
-        });
-         */
-
-        if (isConnectedToInternet()){
+        // check for internet connection and load data form url in background thread
+        if (mHelper.isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(0, null, FloodFragment.this).forceLoad();
         }else{
@@ -133,23 +99,11 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     /**
-     * Check for internet connection
-     */
-    private boolean isConnectedToInternet(){
-        ConnectivityManager cm =
-                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        return isConnected;
-    }
-
-    /**
-     * Inittialize the loader with loader manager with appropriate url
+     * Inittialize the loader with appropriate url
      */
     @Override
     public Loader<List<FloodItem>> onCreateLoader(int id, Bundle args) {
-
+        // get settings from shared preferencs
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String minSeverityLevel = sharedPrefs.getString(
                 getString(R.string.settings_min_severity_level_key),
@@ -159,6 +113,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                 getString(R.string.settings_max_result_key),
                 getString(R.string.settings_max_result_default));
 
+        //set up appropriate url with settings
         Uri baseUri = Uri.parse(ENVIRONMENT_DATA_URL);
         Uri.Builder uriBuilder = baseUri.buildUpon();
 
@@ -188,7 +143,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
             mEmptyStateTextView.setVisibility(View.GONE);
         }
         mEmptyStateTextView.setText(R.string.no_floods);
-
     }
 
     /**
@@ -196,7 +150,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
      */
     @Override
     public void onLoaderReset(Loader<List<FloodItem>> loader) {
-        //mAdapter.clear();
         mAdapter.clearData();
     }
 }

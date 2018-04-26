@@ -2,6 +2,9 @@ package com.example.apurba.disaster.disasterreport;
 
 /*
  * Created by Apurba on 4/21/2018.
+ *
+ *  WebsiteViewActivity:
+ *  creates a website view activity
  */
 
 import android.content.Context;
@@ -33,6 +36,7 @@ public class WebsiteViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.website_activity);
 
+        // receive intent and with its all possible extra messages
         Intent intent = getIntent();
         String urlForEarthquake = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
         String urlForSelectedEarthQuake = intent.getStringExtra(EarthQuakeDetailsActivity.EXTRA_MESSAGE);
@@ -45,6 +49,7 @@ public class WebsiteViewActivity extends AppCompatActivity {
         String urlForDrought = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE4);
         String urlForTornado = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE5);
 
+        // finds which activity sends the intent to open a website
         final String mUrl = getValidUrl(urlForEarthquake, urlForFlood, urlForSelectedEarthQuake,
                 urlForTsunami,
                 urlForAvalanches,
@@ -55,13 +60,15 @@ public class WebsiteViewActivity extends AppCompatActivity {
 
         ProgressBar loading_indicator = findViewById(R.id.loading_spinner);
         if (isConnectedToInternet()){
+            // if connected then load the website
             startWebView(mUrl, loading_indicator);
         }else{
+            // not connected then show empty view
             loading_indicator.setVisibility(View.GONE);
             TextView emptyState = findViewById(R.id.empty_view);
             emptyState.setText(R.string.no_internet_connection);
         }
-        // Setup FAB to open Website View Activity
+        // Setup FAB to open Website in a browser
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +78,11 @@ public class WebsiteViewActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * find out which activity sends the intent and return its corresponding
+     * valid url. Also set up the bar tittle
+     */
     private String getValidUrl(String urlForEarthquake, String urlForFlood, String urlForSelectedEarthQuake,
                                String urlForTsunami,
                                String urlForAvalanches,
@@ -105,18 +117,23 @@ public class WebsiteViewActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * set up customized bar style
+     */
     private void setbarStyle(String title){
 
+        // make custome tittle
         SpannableString s = new SpannableString(title);
         s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
 
+        // make custom barstyle
         final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
         upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
-
     }
 
+    // creates a browser and load the url
     private void startWebView(String url, ProgressBar loading_indicator){
         WebView wv = findViewById(R.id.webView);
         wv.setWebViewClient(new MyBrowser(loading_indicator));
