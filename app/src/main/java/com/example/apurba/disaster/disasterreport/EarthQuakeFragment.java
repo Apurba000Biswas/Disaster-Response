@@ -131,8 +131,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
         loading_indicator.setVisibility(View.GONE);
-
-        //mAdapter.clear();
+        
         mAdapter.clearData();
 
         try {
