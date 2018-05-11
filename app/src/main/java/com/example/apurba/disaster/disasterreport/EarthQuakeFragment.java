@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class EarthQuakeFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> {
 
-    private static final String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
+    private static final String USGS_REQUEST_URL =  "https://earthquake.usgs.gov/fdsnws/event/1/query";
     private static final String USGS_URL = "https://earthquake.usgs.gov/earthquakes/map/";
 
     public static final String EXTRA_MESSAGE_1 = "location";
@@ -131,10 +131,10 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
         loading_indicator.setVisibility(View.GONE);
-        
+
         mAdapter.clearData();
 
-        try {
+        if (earthquakes != null){
             if (earthquakes.isEmpty()) {
                 recyclerView.setVisibility(View.GONE);
                 mEmptyStateTextView.setVisibility(View.VISIBLE);
@@ -145,9 +145,8 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
                 recyclerView.setVisibility(View.VISIBLE);
                 mEmptyStateTextView.setVisibility(View.GONE);
             }
-        }catch (NullPointerException ex){
-            mEmptyStateTextView.setText("There was a problem");
         }
+        
         mEmptyStateTextView.setText(R.string.no_earthquakes);
     }
 

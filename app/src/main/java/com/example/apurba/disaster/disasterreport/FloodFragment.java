@@ -132,16 +132,20 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
 
         mAdapter.clearData();
 
-        if (flood.isEmpty()) {
-            recyclerView.setVisibility(View.GONE);
-            mEmptyStateTextView.setVisibility(View.VISIBLE);
+        if(flood != null){
+            if (flood.isEmpty()) {
+                recyclerView.setVisibility(View.GONE);
+                mEmptyStateTextView.setVisibility(View.VISIBLE);
+            }
+            else {
+                mAdapter.addAllData(flood);
+                recyclerView.setAdapter(mAdapter);
+                recyclerView.setVisibility(View.VISIBLE);
+                mEmptyStateTextView.setVisibility(View.GONE);
+            }
         }
-        else {
-            mAdapter.addAllData(flood);
-            recyclerView.setAdapter(mAdapter);
-            recyclerView.setVisibility(View.VISIBLE);
-            mEmptyStateTextView.setVisibility(View.GONE);
-        }
+
+
         mEmptyStateTextView.setText(R.string.no_floods);
     }
 

@@ -95,4 +95,9 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
