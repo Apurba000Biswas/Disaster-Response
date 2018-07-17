@@ -31,6 +31,8 @@ import com.facebook.share.widget.ShareButton;
 
 
 public class EarthQuakeDetailsActivity extends AppCompatActivity {
+
+
     public static final String EXTRA_MESSAGE = "url for selected earthquake";
     public static final String EXTRA_MESSAGE2 = "title";
     public static final String TITTLE = "Earthquake Details";
@@ -50,6 +52,18 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
         upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
+
+        /**
+        getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+         */
+
+
 
         // receive the intent
         Intent intent = getIntent();
@@ -100,4 +114,5 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
     public void onBackPressed() {
         finish();
     }
+
 }

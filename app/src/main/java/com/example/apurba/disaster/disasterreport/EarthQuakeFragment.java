@@ -146,7 +146,7 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
                 mEmptyStateTextView.setVisibility(View.GONE);
             }
         }
-        
+
         mEmptyStateTextView.setText(R.string.no_earthquakes);
     }
 

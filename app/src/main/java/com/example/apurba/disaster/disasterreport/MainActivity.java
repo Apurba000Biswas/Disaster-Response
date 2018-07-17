@@ -23,24 +23,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            // disable the up arrow of the toolbar
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-            CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
-            collapsingToolbar.setTitle(TITTLE_NAME);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // disable the up arrow of the toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-            ViewPager viewPager = findViewById(R.id.viewpager);
-            disasterFragmentPagerAdapater adapter = new disasterFragmentPagerAdapater(MainActivity.this, getSupportFragmentManager());
-            viewPager.setAdapter(adapter);
+        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
+        collapsingToolbar.setTitle(TITTLE_NAME);
 
-            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-            tabLayout.setupWithViewPager(viewPager);
-        }catch (Exception ex){
-            Toast.makeText(this, "There was a problem " + ex.getMessage(), Toast.LENGTH_SHORT ).show();
-        }
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        disasterFragmentPagerAdapater adapter = new disasterFragmentPagerAdapater(MainActivity.this, getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     /**
