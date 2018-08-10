@@ -1,7 +1,6 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Disaster Response</string>
 
-
     <!-- Default text to show with the earthquake location ("Near the Pacific-Antarctic Ridge")
   if no specific kilometer distance from the primary location is given [CHAR LIMIT=30] -->
     <string name="near_the">Near the</string>
@@ -18,7 +17,6 @@
     <string name="category_others">Others</string>
     <string name="hello_blank_fragment">heloo</string>
 
-
     <!-- Settings Menu Item [CHAR LIMIT=NONE] -->
     <string name="settings_menu_item">Settings</string>
     <!-- Settings Activity Title [CHAR LIMIT=NONE] -->
@@ -28,7 +26,6 @@
     <string name="settings_min_magnitude_label">Minimum Magnitude</string>
     <string name="settings_min_magnitude_key" translatable="false">min_magnitude</string>
     <string name="settings_min_magnitude_default" translatable="false">3</string>
-
 
     <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
     <string name="settings_order_by_label">Order By(Earthquake)</string>
@@ -42,7 +39,6 @@
     <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
     <string name="settings_order_by_most_recent_label">Most Recent</string>
     <string name="settings_order_by_most_recent_value" translatable="false">time</string>
-
 
     <!-- Strings For minimum severity Preference [CHAR LIMIT=30] -->
     <string name="settings_min_severity_level_label">Minimum Severity Level(Flood)</string>
@@ -84,6 +80,10 @@
     <string name="title_activity_flood_details">Flood Details</string>
 
     <string name="facebook_app_id">1790487541257003</string>
+
+    <!-- the usgs website request url -->
+    <string name="usgs_request_url">https://earthquake.usgs.gov/fdsnws/event/1/query</string>
+    <string name="usgs_url">https://earthquake.usgs.gov/earthquakes/map/"</string>
 
 
 </resources>

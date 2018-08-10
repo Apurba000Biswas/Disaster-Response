@@ -1,10 +1,10 @@
 package com.example.apurba.disaster.disasterreport;
 
-/*
+/** EarthQuakeItemAdapterRecycler class:
+
  * Created by Apurba on 4/23/2018.
- *
- * EarthQuakeItemAdapterRecycler:
- * supply data to the recycler view to be populated
+ * A simple {@link android.support.v7.widget.RecyclerView.Adapter} subclass
+ * supply all data to the recycler view to be populated
  */
 
 import android.app.Activity;
@@ -29,13 +29,14 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
 
     private List<EarthQuakeItem> mDataset;
     private Activity mContext;
-    // Provide a suitable constructor (depends on the kind of dataset)
+
+    // suitable constructor - initialize the instance variables
     public EarthQuakeItemAdapterRecycler(Activity context, List<EarthQuakeItem> Dataset) {
         mDataset = Dataset;
         mContext = context;
     }
 
-    // clears all data now exists in the list
+    // clears all data those are now exists in the list
     public void clearData(){
         mDataset.clear();
     }
@@ -44,8 +45,14 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         mDataset = dataset;
     }
 
-    /**
-     * returns a view holder
+    /** public EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder() method
+     * The LayoutManager calls this method.
+     * This method first inflate view from "earth_quake_item_list.xml" xml file
+     * then pass this view as parameter to the ViewHolder constructor and get a viewHolder
+     * object and returns it.
+     * @param parent - used to inflate view from xml file
+     * @param viewType - remain unused
+     * @return - EarthQuakeItemAdapterRecycler.ViewHolder object
      */
     @Override
     public EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -54,34 +61,40 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         return  new ViewHolder(view, mDataset);
     }
 
-    /**
-     * binds all views in the view holder
+    /** public void onBindViewHolder() method
+     *  This method gets called after calling onCreateViewHolder by LayoutManager to
+     *  binds all views to the view holder
+     * @param holder - its the viewHolder that gets bind with its data
+     * @param position - its the position of the viewHolder in the recyclerView
      */
     @Override
     public void onBindViewHolder(EarthQuakeItemAdapterRecycler.ViewHolder holder, int position) {
-        //holder.mTextView.setText(mDataset.get(position));
         EarthQuakeItem currentEarthQuake = mDataset.get(position);
-        // Get the appropriate background color based on the current earthquake magnitude
+
+        // set the appropriate background color based on the current earthquake magnitude
         HelperClass mHelper = new HelperClass(mContext);
         int magnitudeColor = mHelper.getMagnitudeColor(currentEarthQuake.getMagnitude());
         holder.magnitudeCircle.setColor(magnitudeColor);
+
         // set magnitude text
         holder.magnitudeView.setText(mHelper.formatedMagnitude(currentEarthQuake.getMagnitude()));
 
-        // split the loaction of current Earthquake
-        currentEarthQuake.splitLocation();
         //set Loaction offset
-        holder.mLoacationOffset.setText(currentEarthQuake.getLocationOffset());
+        currentEarthQuake.splitLocation();
+        holder.mLocationOffset.setText(currentEarthQuake.getLocationOffset());
+
         //set primary Location
-        holder.mPrimaryLoaction.setText(currentEarthQuake.getPrimaryLocation());
-        // create human readable formate for date and then display it
+        holder.mPrimaryLocation.setText(currentEarthQuake.getPrimaryLocation());
+
+        // set human readable formate for date
         Date dateObject = new Date(currentEarthQuake.getTimeInMilliseconds());
         holder.mDate.setText(formatDate(dateObject));
+
         // set time
         holder.mTime.setText(formatTime(dateObject));
     }
 
-    // returns the size of the dataset
+    // returns the size of the dataset (called by the LayoutManager)
     @Override
     public int getItemCount() {
         return mDataset.size();
@@ -94,6 +107,7 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
     }
+
     /**
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
@@ -102,20 +116,24 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
         return timeFormat.format(dateObject);
     }
 
-    // creates view holder and respond to click
+    /** ViewHolder class (inner static class)
+     * A simple {@link RecyclerView.ViewHolder} subclass
+     * This class also implements {@link View.OnClickListener} interface
+     * This instance get bounded on the recyclerView
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public View mView;
         private List<EarthQuakeItem> mDataset;
 
         public TextView magnitudeView ;
-        public TextView mLoacationOffset;
-        public TextView mPrimaryLoaction;
+        public TextView mLocationOffset;
+        public TextView mPrimaryLocation;
         public TextView mDate;
         public TextView mTime;
         public GradientDrawable magnitudeCircle;
 
-        // Constructor
+        // Constructor - also initialize all fields with views
         public ViewHolder(View v, List<EarthQuakeItem> dataset) {
             super(v);
             mView = v;
@@ -123,11 +141,12 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
             mDataset = dataset;
             initAllViews();
         }
-        // initializes all fileds to its appropriate view
+
+        // initializes all fields to its appropriate view
         private void initAllViews(){
             magnitudeView = mView.findViewById(R.id.magnitude_text_field);
-            mLoacationOffset = mView.findViewById(R.id.location_offset);
-            mPrimaryLoaction = mView.findViewById(R.id.primary_location);
+            mLocationOffset = mView.findViewById(R.id.location_offset);
+            mPrimaryLocation = mView.findViewById(R.id.primary_location);
             mDate = mView.findViewById(R.id.date_text_field);
             mTime = mView.findViewById(R.id.time);
             magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
@@ -140,7 +159,7 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
             // get clcicked item
             EarthQuakeItem clickedEarthQuake = mDataset.get(getAdapterPosition());
 
-            // creates intent to start its details activity
+            // create intent to start its details activity
             Intent intent = new Intent(context, EarthQuakeDetailsActivity.class);
             String url = clickedEarthQuake.getUrl();
             String location = clickedEarthQuake.getLocation();

@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--
+   This file used to create view in the erthquake fragment to show the earthquake data
+   It holds all the view in a RelativeLayot, so it give us to override views each other
+   when data are not available the recycler view remain empty so it can show the empty
+   state message . The layout also contain a ProgressBar which indicate the loading state
+   Lastly layout also contain a FloatingActionButton in the bottom right corner of the
+   layout which used to trigger details activity.
+   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

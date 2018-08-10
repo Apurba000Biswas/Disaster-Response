@@ -1,9 +1,15 @@
 package com.example.apurba.disaster.disasterreport;
 
-/*
+/** disasterFragmentPagerAdapater class
+ *
+ * A simple {@link android.support.v4.app.FragmentPagerAdapter} subclass.
  * Created by Apurba on 3/12/2018.
- * disasterFragmentPagerAdapater:
- * set different disaster types in the view pager
+ * creates four diiferent fragment :
+ * 1. EarthQuakeFragment
+ * 2. FloodFragment
+ * 3. HurricanFragment
+ * 4. OtherFragment
+ * and attach them in four differnt positions with apropriate Tittle
  */
 
 import android.content.Context;
@@ -11,18 +17,22 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-
 public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
 
+    // requested activity
     private Context mContext;
 
+    /* constructor:
+     * Takes activity as Context and FragmentManager
+     * then initialize them
+     */
     public disasterFragmentPagerAdapater(Context context, FragmentManager fm){
         super(fm);
         mContext = context;
     }
 
-    /**
-     * Returns new fragments to create depending on position of the tab layout
+    /** public Fragment getItem() method
+     * Returns fragments for specific position
      */
     @Override
     public Fragment getItem(int position) {
@@ -37,16 +47,16 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
         }
     }
 
-    /**
-     *  returns how many fragment to create
+    /** getCount() method
+     *  returns how many fragment to create for this viewPager
      */
     @Override
     public int getCount() {
         return 4;
     }
 
-    /**
-     * returns page tittle for each tab
+    /** getPageTitle() method
+     *  returns page tittle for each tab and fragment
      */
     @Override
     public CharSequence getPageTitle(int position) {

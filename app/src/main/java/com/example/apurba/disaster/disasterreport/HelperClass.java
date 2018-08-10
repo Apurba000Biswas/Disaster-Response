@@ -1,7 +1,11 @@
 package com.example.apurba.disaster.disasterreport;
 
-/*
+/* HelperClass class
+
  * Created by Apurba on 4/26/2018.
+ * Its created for code optimization purpose
+ * This class offers support for retreving appropriate color for magnitude and severity
+ * It also provides method to check internet connection and format magnitude
  */
 
 import android.app.Activity;
@@ -13,18 +17,18 @@ import android.support.v4.content.ContextCompat;
 import java.text.DecimalFormat;
 
 public class HelperClass {
+
     private Activity mContext;
 
-
+    // constructor - takes an Activity
     public HelperClass(Activity context){
         mContext = context;
     }
 
-    /**
-     * Returns the approriate color for Magnitude text field
+    /** public final int getMagnitudeColor() method
+     *  Returns the appropriate color for given Magnitude
      */
     public final int getMagnitudeColor(double magnitude){
-
         int magnitudeColorResourceId;
         int magnitudeFloor = (int) Math.floor(magnitude);
         switch (magnitudeFloor){
@@ -63,8 +67,8 @@ public class HelperClass {
         return ContextCompat.getColor(mContext, magnitudeColorResourceId);
     }
 
-    /**
-     * Returns the approriate color for Severity text field
+    /** public int getSeverityCircleColor() method
+     *  Returns the appropriate color for given Severity
      */
     public int getSeverityCircleColor(int magnitude){
         int colorResourceId;
@@ -89,9 +93,9 @@ public class HelperClass {
         return ContextCompat.getColor(mContext, colorResourceId);
     }
 
-
-    /**
-     * Check for internet connection
+    /** public boolean isConnectedToInternet() method
+     *  Check for internet connection
+     *  @return - if connected returns true and vice versa
      */
     public boolean isConnectedToInternet(){
         ConnectivityManager cm =
@@ -102,7 +106,7 @@ public class HelperClass {
         return isConnected;
     }
 
-    /**
+    /** public String formatedMagnitude() method
      * Return the formatted magnitude string showing 1 decimal place (i.e. "3.2")
      * from a decimal magnitude value.
      */
