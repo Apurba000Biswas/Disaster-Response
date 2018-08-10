@@ -1,8 +1,6 @@
 
 package com.example.apurba.disaster.disasterreport;
-
-/**
- * DISASTER REPORT APP
+/** -------------DISASTER REPORT APP---------------------
  *
  * Group :
  *      Apurba Biswas
@@ -17,7 +15,9 @@ package com.example.apurba.disaster.disasterreport;
  * This app represents the most recent Earthquake and flood data
  * And it also offers to see other disasters on the website.
  *
- * References:
+ * This project is partially copied from Udacity-course project "Quake-report"
+ *
+ * References: -------------------------------------------
  * Udacity: https://www.udacity.com/
  * Google: https://www.google.com/
  * Android developer: https://developer.android.com/
@@ -25,7 +25,8 @@ package com.example.apurba.disaster.disasterreport;
  * Java: https://www.oracle.com/index.html
  * StackOverflow: https://stackoverflow.com/
  * Facebook: https://www.facebook.com/
- *
+ * Book: The Art and Science of Java
+ * Book: Java Programming
  */
 
 import android.content.Intent;
@@ -39,6 +40,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 /** MainActivity class:
+ * created by Apurba Biswas
  *
  * A simple {@link AppCompatActivity} subclass.
  * App starts here. It triggers the UI animation with its Tab and
