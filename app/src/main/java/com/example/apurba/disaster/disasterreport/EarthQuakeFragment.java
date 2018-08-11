@@ -11,6 +11,7 @@ package com.example.apurba.disaster.disasterreport;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,13 +30,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthQuakeFragment extends Fragment implements
-        LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> {
+public class EarthQuakeFragment extends Fragment {
+
 
 
     public static final String EXTRA_MESSAGE_1 = "location";
     public static final String EXTRA_MESSAGE_2 = "magnitude";
     public static final String EXTRA_MESSAGE_3 = "url";
+    private static final int EARTHQUAKE_DATA_LOADER_ID = 0;
+    private static final int CURSOR_DATA_LOADER_ID = 1;
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
@@ -84,7 +87,12 @@ public class EarthQuakeFragment extends Fragment implements
         if(mHelper.isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager(); // getLoaderManager() - returns a LoaderManager for this fragment
             // initLoader() - creates a new loader with the given id or initialize the previously created loader
-            loaderManager.initLoader(0, null, EarthQuakeFragment.this).forceLoad();
+            loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID, null, earthquakeDataLoaderListener).forceLoad();
+            try{
+                loaderManager.initLoader(CURSOR_DATA_LOADER_ID, null, cursorLoaderListener).forceLoad();
+            }catch (Exception e){
+                Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -131,77 +139,99 @@ public class EarthQuakeFragment extends Fragment implements
     }
 
 
-    /** public Loader<List<EarthQuakeItem>> onCreateLoader() method
-     *  This method called from the main thread
-     *  first get settings from shared preference then creates a new EarthquakeLoader
-     *  with those settings ( used to build url ) then returns the Loader
-     * @param i - refers to the id ( which loader to create)
-     * @param bundle - any arguments supplied by caller, This case its "null"
-     * @return - returns the loader
-     */
-    @Override
-    public Loader<List<EarthQuakeItem>> onCreateLoader(int i, Bundle bundle) {
+    private LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> earthquakeDataLoaderListener =
+            new LoaderManager.LoaderCallbacks<List<EarthQuakeItem>>() {
 
-        //get settings from shared preferences
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String minMagnitude = sharedPrefs.getString(
-                getString(R.string.settings_min_magnitude_key),
-                getString(R.string.settings_min_magnitude_default));
-        String orderBy = sharedPrefs.getString(
-                getString(R.string.settings_order_by_key),
-                getString(R.string.settings_order_by_default)
-        );
-        String maxResult = sharedPrefs.getString(
-                getString(R.string.settings_max_result_key),
-                getString(R.string.settings_max_result_default));
+        /** public Loader<List<EarthQuakeItem>> onCreateLoader() method
+         *  This method called from the main thread
+         *  first get settings from shared preference then creates a new EarthquakeLoader
+         *  with those settings ( used to build url ) then returns the Loader
+         *  parameter i - refers to the id ( which loader to create)
+         *  parameter bundle - any arguments supplied by caller, This case its "null"
+         *  - returns the loader
+         */
+        @Override
+        public Loader<List<EarthQuakeItem>> onCreateLoader(int id, Bundle args) {
 
-        // set up the url with appropriate settings
-        Uri baseUri = Uri.parse(getString(R.string.usgs_request_url));
-        Uri.Builder uriBuilder = baseUri.buildUpon();
-        uriBuilder.appendQueryParameter("format", "geojson");
-        uriBuilder.appendQueryParameter("limit", maxResult);
-        uriBuilder.appendQueryParameter("minmag", minMagnitude);
-        uriBuilder.appendQueryParameter("orderby", orderBy);
+            //get settings from shared preferences
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String minMagnitude = sharedPrefs.getString(
+                    getString(R.string.settings_min_magnitude_key),
+                    getString(R.string.settings_min_magnitude_default));
+            String orderBy = sharedPrefs.getString(
+                    getString(R.string.settings_order_by_key),
+                    getString(R.string.settings_order_by_default)
+            );
+            String maxResult = sharedPrefs.getString(
+                    getString(R.string.settings_max_result_key),
+                    getString(R.string.settings_max_result_default));
 
-        return new EarthquakeLoader(getActivity(), uriBuilder.toString());
-    }
+            // set up the url with appropriate settings
+            Uri baseUri = Uri.parse(getString(R.string.usgs_request_url));
+            Uri.Builder uriBuilder = baseUri.buildUpon();
+            uriBuilder.appendQueryParameter("format", "geojson");
+            uriBuilder.appendQueryParameter("limit", maxResult);
+            uriBuilder.appendQueryParameter("minmag", minMagnitude);
+            uriBuilder.appendQueryParameter("orderby", orderBy);
 
-
-    /** public void onLoadFinished() method
-     *  This method gets called from main thread after loading data in the background thread using loader
-     *  first it set loading indicator to be gone and if adapter has any previous data, it clear those data
-     *  if List is empty then it clears the recyclerView from UI and then set Empty state view
-     *  if List is not empty then add the recyclerView with the list on the UI
-     * @param loader
-     * @param earthquakes
-     */
-    @Override
-    public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
-        loading_indicator.setVisibility(View.GONE);
-
-        mAdapter.clearData();
-
-        if (earthquakes != null){
-            if (earthquakes.isEmpty()) {
-                recyclerView.setVisibility(View.GONE);
-                mEmptyStateTextView.setVisibility(View.VISIBLE);
-            } else {
-                mAdapter.addAllData(earthquakes);
-                recyclerView.setAdapter(mAdapter);
-                recyclerView.setVisibility(View.VISIBLE);
-                mEmptyStateTextView.setVisibility(View.GONE);
-            }
+            return new EarthquakeLoader(getActivity(), uriBuilder.toString());
         }
-        mEmptyStateTextView.setText(R.string.no_earthquakes);
-    }
 
 
-    /** public void onLoaderReset() method
-     *  Called when a previously created loader is being reset, and thus making its data unavailable
-     *  when loader reset it clears the adapter data that was being showed earlier
-     */
-    @Override
-    public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
-        mAdapter.clearData();
-    }
+        /** public void onLoadFinished() method
+         *  This method gets called from main thread after loading data in the background thread using loader
+         *  first it set loading indicator to be gone and if adapter has any previous data, it clear those data
+         *  if List is empty then it clears the recyclerView from UI and then set Empty state view
+         *  if List is not empty then add the recyclerView with the list on the UI
+         * @param loader -
+         * @param earthquakes -
+         */
+        @Override
+        public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
+            loading_indicator.setVisibility(View.GONE);
+
+            mAdapter.clearData();
+
+            if (earthquakes != null){
+                if (earthquakes.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                    mEmptyStateTextView.setVisibility(View.VISIBLE);
+                } else {
+                    mAdapter.addAllData(earthquakes);
+                    recyclerView.setAdapter(mAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyStateTextView.setVisibility(View.GONE);
+                }
+            }
+            mEmptyStateTextView.setText(R.string.no_earthquakes);
+        }
+
+
+        /** public void onLoaderReset() method
+         *  Called when a previously created loader is being reset, and thus making its data unavailable
+         *  when loader reset it clears the adapter data that was being showed earlier
+         */
+        @Override
+        public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
+            mAdapter.clearData();
+        }
+    };
+
+
+    private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            return null;
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {
+
+        }
+    };
 }
