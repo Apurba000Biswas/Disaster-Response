@@ -1,10 +1,10 @@
 package com.example.apurba.disaster.disasterreport;
 
-/*
- * Created by Apurba on 3/13/2018.
+/** public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> class
  *
- * EarthquakeLoader:
- * loads the earthquake items in background thread
+ * Created by Apurba on 3/13/2018.
+ * A subclass of {@link android.support.v4.content.AsyncTaskLoader}
+ * This class loads EarthquakeItem data in the background thread
  */
 
 import android.content.Context;
@@ -21,7 +21,8 @@ import java.util.List;
 
 public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
 
-    String url;
+    private static final String LOG_TAG = EarthquakeLoader.class.getSimpleName();
+    private String url;
 
     // suitable constructor
     public EarthquakeLoader(Context context, String url) {
@@ -29,22 +30,35 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
         this.url = url;
     }
 
+    /** protected void onStartLoading() method
+     *  called from main thread
+     */
     @Override
     protected void onStartLoading() {
-        forceLoad();
+        forceLoad(); //Force an asynchronous load - called from main thread
     }
 
+    /** public List<EarthQuakeItem> loadInBackground() method
+     *  called from background thread
+     *  This method actually dose the loading earthquake data operation from the server
+     *
+     * @return
+     */
     @Override
     public List<EarthQuakeItem> loadInBackground() {
+        // check for valid url length
         if (url.length() < 1) {
             return null;
         }
+
         // get jasonResponse
         String jasonResponse = QueryUtils.requestToApi(url);
+
         // make a list from jason data and return it
         return extractFeatureFromJson(jasonResponse);
     }
-    /**
+
+    /** private static List<EarthQuakeItem> extractFeatureFromJson() method
      * Return a list of {@link EarthQuakeItem} objects that has been built up from
      * parsing a JSON response.
      */
@@ -53,7 +67,8 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
             // if response is empty then return null
             return null;
         }
-        List<EarthQuakeItem> earthquakes = new ArrayList<>();
+
+        List<EarthQuakeItem> earthquakes = new ArrayList<EarthQuakeItem>();
         try {
             // build up a list of Earthquake objects with the corresponding data.
             JSONObject jsonObj = new JSONObject(earthquakeJSON);
@@ -69,9 +84,8 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
                 earthquakes.add(new EarthQuakeItem(magnitude, place, time, url));
             }
         } catch (JSONException e) {
-            Log.e("EarthqakeLoader", "Problem parsing the earthquake JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
         }
         return earthquakes;
     }
-
 }

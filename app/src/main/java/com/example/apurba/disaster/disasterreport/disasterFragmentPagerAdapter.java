@@ -1,6 +1,6 @@
 package com.example.apurba.disaster.disasterreport;
 
-/** disasterFragmentPagerAdapater class
+/** disasterFragmentPagerAdapter class
  *
  * A simple {@link android.support.v4.app.FragmentPagerAdapter} subclass.
  * Created by Apurba on 3/12/2018.
@@ -17,7 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
+public class disasterFragmentPagerAdapter extends FragmentPagerAdapter {
 
     // requested activity
     private Context mContext;
@@ -26,7 +26,7 @@ public class disasterFragmentPagerAdapater extends FragmentPagerAdapter {
      * Takes activity as Context and FragmentManager
      * then initialize them
      */
-    public disasterFragmentPagerAdapater(Context context, FragmentManager fm){
+    public disasterFragmentPagerAdapter(Context context, FragmentManager fm){
         super(fm);
         mContext = context;
     }

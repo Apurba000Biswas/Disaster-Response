@@ -48,8 +48,6 @@ import android.view.MenuItem;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TITTLE_NAME = "Disaster";
-
     /** onCreate() method
      * After starting app, this method gets called to create the views
      * This method creates views by attaching the "activity_main.xml" file
@@ -59,23 +57,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setAppBar();
+
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        disasterFragmentPagerAdapter adapter = new disasterFragmentPagerAdapter(MainActivity.this, getSupportFragmentManager());
+        viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+
+    /** private void setAppBar() method
+     *  set up the custom app bar
+     */
+    private void setAppBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // disable the up arrow of the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
-        collapsingToolbar.setTitle(TITTLE_NAME);
-
-        ViewPager viewPager = findViewById(R.id.viewpager);
-        // Attach this viewPager with fragment pager adapter
-        disasterFragmentPagerAdapater adapter = new disasterFragmentPagerAdapater(MainActivity.this, getSupportFragmentManager());
-        viewPager.setAdapter(adapter);
-
-        // Attach the tablayout with with this viewPager
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        collapsingToolbar.setTitle(getString(R.string.app_tittle));
     }
+
 
     /** public boolean onCreateOptionsMenu() method
      * creates sittings option on the top right corner
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
 
     /** public boolean onOptionsItemSelected() method
      * When sittings menue is clicked this method gets called and it takes a MenueItem

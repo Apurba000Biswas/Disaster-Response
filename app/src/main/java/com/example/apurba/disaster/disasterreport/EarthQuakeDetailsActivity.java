@@ -1,10 +1,10 @@
 package com.example.apurba.disaster.disasterreport;
 
-/*
- * Created by Apurba on 3/13/2018.
+/** public class EarthQuakeDetailsActivity class:
  *
- * EarthQuakeDetailsActivity:
- * creates selected items details activity
+ *  Created by Apurba on 3/13/2018.
+ *  A simple {@link android.support.v7.app.AppCompatActivity} subclass
+ *  creates selected items details activity
  */
 
 import android.content.ActivityNotFoundException;
@@ -43,27 +43,9 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.earth_quake_details);
 
-        // set custom tittle
-        SpannableString s = new SpannableString(TITTLE);
-        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, TITTLE.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        getSupportActionBar().setTitle(s);
+        setCustomTittle();
 
-        // set custom up arrow
-        final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
-        upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
-
-
-        /**
-        getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-         */
-
-
+        setCustomUpArraow();
 
         // receive the intent
         Intent intent = getIntent();
@@ -71,6 +53,14 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         final double magnitude = intent.getDoubleExtra(EarthQuakeFragment.EXTRA_MESSAGE_2, 0.0);
         final String url = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
 
+        setAllViews(location, magnitude, url);
+
+        setFacebookShareButton(url);
+
+        setMoreButton(url, magnitude, location);
+    }
+
+    private void setAllViews( final String location, final double magnitude, final String url){
         // set loaction tittle
         TextView locationTextView = findViewById(R.id.title);
         locationTextView.setText(location);
@@ -80,27 +70,34 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         HelperClass mHelper = new HelperClass(this);
         magnitudeView.setText(mHelper.formatedMagnitude(magnitude));
 
-        // set backgground color of the magnitude text
+        // set background color of the magnitude text
         GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
         int magnitudeColor = mHelper.getMagnitudeColor(magnitude);
         magnitudeCircle.setColor(magnitudeColor);
+    }
 
-        // create facebook share link conetnt and set it to the button
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(url))
-                .build();
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-        shareButton.setShareContent(content);
+    private void setCustomUpArraow(){
+        final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
+        upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+    }
 
-        // more button response
+    private void setCustomTittle(){
+        SpannableString s = new SpannableString(TITTLE);
+        s.setSpan(new ForegroundColorSpan(Color.WHITE),
+                0,
+                TITTLE.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(s);
+    }
+
+    private void setMoreButton(final String url, final double magnitude, final String location){
         Button moreButton = findViewById(R.id.more_button);
         moreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
                     Intent intent = new Intent(EarthQuakeDetailsActivity.this, WebsiteViewActivity.class);
-                    // url
                     intent.putExtra(EXTRA_MESSAGE, url);
-                    // tittle
                     intent.putExtra(EXTRA_MESSAGE2, "" + magnitude + " " + location);
                     startActivity(intent);
                 }catch (ActivityNotFoundException e){
@@ -108,6 +105,14 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void setFacebookShareButton(String url){
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
+                .build();
+        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
+        shareButton.setShareContent(content);
     }
 
     @Override

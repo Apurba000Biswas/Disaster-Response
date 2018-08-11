@@ -29,7 +29,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarthQuakeFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> {
+public class EarthQuakeFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> {
+
 
     public static final String EXTRA_MESSAGE_1 = "location";
     public static final String EXTRA_MESSAGE_2 = "magnitude";
@@ -46,48 +48,54 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
     }
 
     /** public View onCreateView() method
-     *  This method gets called user enter into Earthquake tab in the viewPager
+     *  This method gets called when user enter into Earthquake tab in the viewPager
      *  @param inflater - used to inflate views from xml file
      *  @param container - it serve as parent of view group
      *  @param savedInstanceState - used to reconstruct the fragment from its previous state
-     *  Its set up the UI for earthquak fragment, checks for internet connection and
+     *  Its set up the UI for earthquake fragment, checks for internet connection and
      *  returns the view
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.earthquake_fragment, container, false);
 
-        // set recycler view
         final List<EarthQuakeItem> earthquakes =  new ArrayList<EarthQuakeItem>();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         setRecyclerViewWithAdapter(recyclerView, earthquakes);
 
-        // get empty view
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
 
-        // Setup FAB to open Website View Activity
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         setFloatingActionButton(fab);
 
-        // get the loading spinner
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-        // trigger the loader
+        initializeLoader();
+
+        return rootView;
+    }
+
+
+    /** private void initializeLoader() method
+     *  check for internet connection and initialize a loader
+     */
+    private void initializeLoader(){
         HelperClass mHelper = new HelperClass(getActivity());
         if(mHelper.isConnectedToInternet()){
-            LoaderManager loaderManager = getLoaderManager();
+            LoaderManager loaderManager = getLoaderManager(); // getLoaderManager() - returns a LoaderManager for this fragment
+            // initLoader() - creates a new loader with the given id or initialize the previously created loader
             loaderManager.initLoader(0, null, EarthQuakeFragment.this).forceLoad();
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
-        return rootView;
     }
+
 
     /** private void setFloatingActionButton
      *  This method set up the floating point button to trigger the website view activity when
      *  click happened
-     * @param fab - This button get set up here
+     *  @param fab - This button get set up here
      *  If any exception occurs to opening the activity it also pop up a toast message
      */
     private void setFloatingActionButton(FloatingActionButton fab){
@@ -106,24 +114,34 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         });
     }
 
+
     /** private void setRecyclerViewWithAdapter() method
      * @param recyclerView - this view get set up here
      * @param earthquakes - the recycler view takes a list of EarthquakeItem
      * This method setup the recyclerView with appropriate settings
-     * This method also initialize the adapater with the list
+     * This method also initialize the adapter with the list
      */
     private void setRecyclerViewWithAdapter(RecyclerView recyclerView, List<EarthQuakeItem> earthquakes){
-        // This sittings to improve performance
-        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setHasFixedSize(true); // This sittings to improve performance
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new EarthQuakeItemAdapterRecycler(getActivity(), earthquakes);
     }
 
-    // Creates a loader to load from url in background thread
+
+    /** public Loader<List<EarthQuakeItem>> onCreateLoader() method
+     *  This method called from the main thread
+     *  first get settings from shared preference then creates a new EarthquakeLoader
+     *  with those settings ( used to build url ) then returns the Loader
+     * @param i - refers to the id ( which loader to create)
+     * @param bundle - any arguments supplied by caller, This case its "null"
+     * @return - returns the loader
+     */
     @Override
     public Loader<List<EarthQuakeItem>> onCreateLoader(int i, Bundle bundle) {
+
         //get settings from shared preferences
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String minMagnitude = sharedPrefs.getString(
@@ -133,7 +151,6 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
                 getString(R.string.settings_order_by_key),
                 getString(R.string.settings_order_by_default)
         );
-
         String maxResult = sharedPrefs.getString(
                 getString(R.string.settings_max_result_key),
                 getString(R.string.settings_max_result_default));
@@ -141,7 +158,6 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         // set up the url with appropriate settings
         Uri baseUri = Uri.parse(getString(R.string.usgs_request_url));
         Uri.Builder uriBuilder = baseUri.buildUpon();
-
         uriBuilder.appendQueryParameter("format", "geojson");
         uriBuilder.appendQueryParameter("limit", maxResult);
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
@@ -150,8 +166,14 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
         return new EarthquakeLoader(getActivity(), uriBuilder.toString());
     }
 
-    /**
-     * After load finish sets the adapter with loaded arrayList
+
+    /** public void onLoadFinished() method
+     *  This method gets called from main thread after loading data in the background thread using loader
+     *  first it set loading indicator to be gone and if adapter has any previous data, it clear those data
+     *  if List is empty then it clears the recyclerView from UI and then set Empty state view
+     *  if List is not empty then add the recyclerView with the list on the UI
+     * @param loader
+     * @param earthquakes
      */
     @Override
     public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
@@ -163,20 +185,20 @@ public class EarthQuakeFragment extends Fragment implements LoaderManager.Loader
             if (earthquakes.isEmpty()) {
                 recyclerView.setVisibility(View.GONE);
                 mEmptyStateTextView.setVisibility(View.VISIBLE);
-            }
-            else {
+            } else {
                 mAdapter.addAllData(earthquakes);
                 recyclerView.setAdapter(mAdapter);
                 recyclerView.setVisibility(View.VISIBLE);
                 mEmptyStateTextView.setVisibility(View.GONE);
             }
         }
-
         mEmptyStateTextView.setText(R.string.no_earthquakes);
     }
 
-    /**
-     * when loader reset to load it clear the adapter data
+
+    /** public void onLoaderReset() method
+     *  Called when a previously created loader is being reset, and thus making its data unavailable
+     *  when loader reset it clears the adapter data that was being showed earlier
      */
     @Override
     public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {

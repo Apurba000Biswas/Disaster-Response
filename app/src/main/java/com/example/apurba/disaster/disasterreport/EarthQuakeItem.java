@@ -1,9 +1,10 @@
 package com.example.apurba.disaster.disasterreport;
 
-/*
- * Created by Apurba on 3/13/2018.
- * EarthQuakeItem:
- * represents each earthquake item
+/** public class EarthQuakeItem class:
+ *
+ *  Created by Apurba on 3/13/2018.
+ *  This class represents a standard earth quake event and all
+ *  of its behaviour
  */
 
 public class EarthQuakeItem {
@@ -49,8 +50,10 @@ public class EarthQuakeItem {
     public String getLocation(){
         return mLocation;
     }
-    /**
-     * Split the location String into two string
+
+    /** public void splitLocation() method
+     *  Split the location String into two strings
+     *  and save them as locationOffset & primaryLocation
      */
     public void splitLocation(){
         if(mLocation.contains(LOCATION_SEPARATOR)) {
