@@ -60,6 +60,10 @@
                 android:value=".MainActivity" />
         </activity>
 
+        <provider
+            android:name=".database.DisasterProvider"
+            android:authorities="com.example.apurba.disaster.disasterreport"
+            android:exported="false" />
     </application>
 
 </manifest>
