@@ -11,14 +11,12 @@ package com.example.apurba.disaster.disasterreport;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,9 +26,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
+import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EarthQuakeFragment extends Fragment {
@@ -39,12 +38,12 @@ public class EarthQuakeFragment extends Fragment {
     public static final String EXTRA_MESSAGE_2 = "magnitude";
     public static final String EXTRA_MESSAGE_3 = "url";
     private static final int EARTHQUAKE_DATA_LOADER_ID = 0;
-    private static final int CURSOR_DATA_LOADER_ID = 1;
 
     private TextView mEmptyStateTextView;
     private View loading_indicator;
     private RecyclerView recyclerView;
     private EarthQuakeItemAdapterRecycler mAdapter;
+    private List<EarthQuakeItem> earthquakesList;
 
     // Empty body constructor
     public EarthQuakeFragment() {
@@ -65,9 +64,9 @@ public class EarthQuakeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.earthquake_fragment, container, false);
 
-        final List<EarthQuakeItem> earthquakes =  new ArrayList<EarthQuakeItem>();
+        earthquakesList =  new ArrayList<EarthQuakeItem>();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
-        setRecyclerViewWithAdapter(recyclerView, earthquakes);
+        setRecyclerViewWithAdapter(recyclerView, earthquakesList);
 
         mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
 
@@ -94,9 +93,10 @@ public class EarthQuakeFragment extends Fragment {
             loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
                     null,
                     earthquakeDataLoaderListener).forceLoad();
-            loaderManager.initLoader(CURSOR_DATA_LOADER_ID,
-                    null,
-                    cursorLoaderListener).forceLoad();
+
+            DisasterDatabaseLoader datbaseLoader =
+                    new DisasterDatabaseLoader(getContext(), loaderManager);
+            datbaseLoader.LoadDisasterDatabase();
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -147,6 +147,7 @@ public class EarthQuakeFragment extends Fragment {
 
     private LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> earthquakeDataLoaderListener =
             new LoaderManager.LoaderCallbacks<List<EarthQuakeItem>>() {
+
 
         /** public Loader<List<EarthQuakeItem>> onCreateLoader() method
          *  This method called from the main thread
@@ -209,6 +210,7 @@ public class EarthQuakeFragment extends Fragment {
                     recyclerView.setAdapter(mAdapter);
                     recyclerView.setVisibility(View.VISIBLE);
                     mEmptyStateTextView.setVisibility(View.GONE);
+                    earthquakesList = earthquakes;
                 }
             }
             mEmptyStateTextView.setText(R.string.no_earthquakes);
@@ -222,34 +224,7 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
             mAdapter.clearData();
-        }
-    };
-
-
-    private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderListener =
-            new LoaderManager.LoaderCallbacks<Cursor>() {
-        @Override
-        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
-            String[] projection = {EarthQuakeEntry._ID,
-                    EarthQuakeEntry.COLUMN_E_ID,
-                    EarthQuakeEntry.COLUMN_LOCATION};
-            return new CursorLoader(getContext(),
-                    EarthQuakeEntry.CONTENT_URI,
-                    projection,
-                    null,
-                    null,
-                    null);
-        }
-
-        @Override
-        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
-        }
-
-        @Override
-        public void onLoaderReset(Loader<Cursor> loader) {
-
+            earthquakesList.clear();
         }
     };
 }

@@ -49,7 +49,7 @@
         app:borderWidth="0dp"
         app:elevation="6dp"
         android:clickable="true"
-        android:src="@mipmap/web_luncher"
+        android:src="@mipmap/check"
         app:fabSize="normal" />
 
 </RelativeLayout>
