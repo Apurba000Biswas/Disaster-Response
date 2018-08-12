@@ -38,7 +38,8 @@ public class DisasterReportDbHelper extends SQLiteOpenHelper{
         try{
             sqLiteDatabase.execSQL(SQL_CREATE_EARTHQUAKE_TABLE);
         }catch (Exception e){
-            Toast.makeText(context, "Error - SQL-Create-Table-Query: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error - SQL-Create-Table-Query: " +
+                    e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
     }

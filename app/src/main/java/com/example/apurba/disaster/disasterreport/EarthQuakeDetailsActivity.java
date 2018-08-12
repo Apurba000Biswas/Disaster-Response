@@ -49,18 +49,21 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
 
         // receive the intent
         Intent intent = getIntent();
-        final String location = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_1);
-        final double magnitude = intent.getDoubleExtra(EarthQuakeFragment.EXTRA_MESSAGE_2, 0.0);
-        final String url = intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
+        final String location =
+                intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_1);
+        final double magnitude =
+                intent.getDoubleExtra(EarthQuakeFragment.EXTRA_MESSAGE_2, 0.0);
+        final String url =
+                intent.getStringExtra(EarthQuakeFragment.EXTRA_MESSAGE_3);
 
-        setAllViews(location, magnitude, url);
+        setAllViews(location, magnitude);
 
         setFacebookShareButton(url);
 
         setMoreButton(url, magnitude, location);
     }
 
-    private void setAllViews( final String location, final double magnitude, final String url){
+    private void setAllViews( final String location, final double magnitude){
         // set loaction tittle
         TextView locationTextView = findViewById(R.id.title);
         locationTextView.setText(location);
@@ -71,14 +74,17 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         magnitudeView.setText(mHelper.formatedMagnitude(magnitude));
 
         // set background color of the magnitude text
-        GradientDrawable magnitudeCircle = (GradientDrawable) magnitudeView.getBackground();
+        GradientDrawable magnitudeCircle =
+                (GradientDrawable) magnitudeView.getBackground();
         int magnitudeColor = mHelper.getMagnitudeColor(magnitude);
         magnitudeCircle.setColor(magnitudeColor);
     }
 
     private void setCustomUpArraow(){
+
         final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
-        upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.main_background),
+                PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 
@@ -91,17 +97,21 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(s);
     }
 
-    private void setMoreButton(final String url, final double magnitude, final String location){
+    private void setMoreButton(final String url,
+                               final double magnitude,
+                               final String location){
         Button moreButton = findViewById(R.id.more_button);
         moreButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(EarthQuakeDetailsActivity.this, WebsiteViewActivity.class);
+                    Intent intent = new Intent(EarthQuakeDetailsActivity.this,
+                            WebsiteViewActivity.class);
                     intent.putExtra(EXTRA_MESSAGE, url);
                     intent.putExtra(EXTRA_MESSAGE2, "" + magnitude + " " + location);
                     startActivity(intent);
                 }catch (ActivityNotFoundException e){
-                    Toast.makeText(EarthQuakeDetailsActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EarthQuakeDetailsActivity.this, "Error: " +
+                            e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

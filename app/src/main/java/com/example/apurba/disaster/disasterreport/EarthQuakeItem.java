@@ -19,7 +19,10 @@ public class EarthQuakeItem {
     private long mTimeInMilliseconds;
 
     // suitable constructor
-    public EarthQuakeItem(double magnitude, String location, long timeInMillisecond, String url){
+    public EarthQuakeItem(double magnitude,
+                          String location,
+                          long timeInMillisecond,
+                          String url){
         this.mMagnitude = magnitude;
         this.mTimeInMilliseconds = timeInMillisecond;
         this.mLocation = location;

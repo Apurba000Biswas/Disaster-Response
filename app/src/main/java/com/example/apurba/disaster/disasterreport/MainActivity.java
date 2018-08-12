@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
         setAppBar();
 
         ViewPager viewPager = findViewById(R.id.viewpager);
-        disasterFragmentPagerAdapter adapter = new disasterFragmentPagerAdapter(MainActivity.this, getSupportFragmentManager());
+        disasterFragmentPagerAdapter adapter =
+                new disasterFragmentPagerAdapter(MainActivity.this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -77,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
         // disable the up arrow of the toolbar
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
         collapsingToolbar.setTitle(getString(R.string.app_tittle));
     }
 

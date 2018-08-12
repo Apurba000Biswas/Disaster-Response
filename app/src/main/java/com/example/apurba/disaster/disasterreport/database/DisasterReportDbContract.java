@@ -30,9 +30,13 @@ public class DisasterReportDbContract {
         public static final String COLUMN_TIME = "time";
 
         public static final String CONTENT_LIST_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EARTHQUAKE;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" +
+                        CONTENT_AUTHORITY + "/" +
+                        PATH_EARTHQUAKE;
 
         public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.ANY_CURSOR_ITEM_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_EARTHQUAKE;
+                ContentResolver.ANY_CURSOR_ITEM_TYPE + "/" +
+                        CONTENT_AUTHORITY + "/" +
+                        PATH_EARTHQUAKE;
     }
 }

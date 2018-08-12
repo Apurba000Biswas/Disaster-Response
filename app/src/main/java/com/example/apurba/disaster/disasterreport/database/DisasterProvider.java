@@ -26,8 +26,11 @@ public class DisasterProvider extends ContentProvider{
 
     private static final UriMatcher sUrimatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
-        sUrimatcher.addURI(DisasterReportDbContract.CONTENT_AUTHORITY, DisasterReportDbContract.PATH_EARTHQUAKE, EARTHQUAKE);
-        sUrimatcher.addURI(DisasterReportDbContract.CONTENT_AUTHORITY, DisasterReportDbContract.PATH_EARTHQUAKE + "/#", EARTHQUAKE_ID);
+        sUrimatcher.addURI(DisasterReportDbContract.CONTENT_AUTHORITY,
+                DisasterReportDbContract.PATH_EARTHQUAKE, EARTHQUAKE);
+        sUrimatcher.addURI(DisasterReportDbContract.CONTENT_AUTHORITY,
+                DisasterReportDbContract.PATH_EARTHQUAKE + "/#",
+                EARTHQUAKE_ID);
     }
 
     private DisasterReportDbHelper mDbHelper;
@@ -40,7 +43,11 @@ public class DisasterProvider extends ContentProvider{
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    public Cursor query(@NonNull Uri uri,
+                        String[] projection,
+                        String selection,
+                        String[] selectionArgs,
+                        String sortOrder) {
 
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor cursor = null;
@@ -48,12 +55,24 @@ public class DisasterProvider extends ContentProvider{
 
         switch (match){
             case EARTHQUAKE:
-                cursor = db.query(EarthQuakeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = db.query(EarthQuakeEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
                 break;
             case EARTHQUAKE_ID:
                 selection = EarthQuakeEntry._ID + "=?";
                 selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
-                cursor = db.query(EarthQuakeEntry.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
+                cursor = db.query(EarthQuakeEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
                 break;
         }
 
@@ -139,12 +158,16 @@ public class DisasterProvider extends ContentProvider{
         int rowsDeleted;
         switch (match){
             case EARTHQUAKE:
-                rowsDeleted = db.delete(EarthQuakeEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = db.delete(EarthQuakeEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
                 break;
             case EARTHQUAKE_ID:
                 selection = EarthQuakeEntry._ID + "=?";
                 selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
-                rowsDeleted = db.delete(EarthQuakeEntry.TABLE_NAME, selection, selectionArgs);
+                rowsDeleted = db.delete(EarthQuakeEntry.TABLE_NAME,
+                        selection,
+                        selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
@@ -164,11 +187,17 @@ public class DisasterProvider extends ContentProvider{
         final int match = sUrimatcher.match(uri);
         switch (match){
             case EARTHQUAKE:
-                return updateEarthquake(uri, contentValues, selection, selectionArgs);
+                return updateEarthquake(uri,
+                        contentValues,
+                        selection,
+                        selectionArgs);
             case EARTHQUAKE_ID:
                 selection = EarthQuakeEntry._ID + "=?";
                 selectionArgs = new String[] {String.valueOf(ContentUris.parseId(uri))};
-                return updateEarthquake(uri, contentValues, selection, selectionArgs);
+                return updateEarthquake(uri,
+                        contentValues,
+                        selection,
+                        selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
@@ -182,7 +211,10 @@ public class DisasterProvider extends ContentProvider{
         checkForValidData(values);
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        int rowsUpdated = db.update(EarthQuakeEntry.TABLE_NAME, values, selection, selectionArgs);
+        int rowsUpdated = db.update(EarthQuakeEntry.TABLE_NAME,
+                values,
+                selection,
+                selectionArgs);
         if (rowsUpdated != 0){
             getContext().getContentResolver().notifyChange(uri,null);
         }

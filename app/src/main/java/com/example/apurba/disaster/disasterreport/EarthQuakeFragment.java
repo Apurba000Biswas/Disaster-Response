@@ -59,7 +59,9 @@ public class EarthQuakeFragment extends Fragment {
      *  returns the view
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.earthquake_fragment, container, false);
 
         final List<EarthQuakeItem> earthquakes =  new ArrayList<EarthQuakeItem>();
@@ -83,15 +85,21 @@ public class EarthQuakeFragment extends Fragment {
      *  check for internet connection and initialize a loader
      */
     private void initializeLoader(){
+
         HelperClass mHelper = new HelperClass(getActivity());
         if(mHelper.isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager(); // getLoaderManager() - returns a LoaderManager for this fragment
             // initLoader() - creates a new loader with the given id or initialize the previously created loader
-            loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID, null, earthquakeDataLoaderListener).forceLoad();
+            loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
+                    null,
+                    earthquakeDataLoaderListener).forceLoad();
             try{
-                loaderManager.initLoader(CURSOR_DATA_LOADER_ID, null, cursorLoaderListener).forceLoad();
+                loaderManager.initLoader(CURSOR_DATA_LOADER_ID,
+                        null,
+                        cursorLoaderListener).forceLoad();
             }catch (Exception e){
-                Toast.makeText(getActivity(), "Error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Error: " +
+                        e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }else {
             loading_indicator.setVisibility(View.GONE);
@@ -116,7 +124,8 @@ public class EarthQuakeFragment extends Fragment {
                     startActivity(intent);
 
                 }catch (ActivityNotFoundException e){
-                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error: " +
+                            e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -129,7 +138,8 @@ public class EarthQuakeFragment extends Fragment {
      * This method setup the recyclerView with appropriate settings
      * This method also initialize the adapter with the list
      */
-    private void setRecyclerViewWithAdapter(RecyclerView recyclerView, List<EarthQuakeItem> earthquakes){
+    private void setRecyclerViewWithAdapter(RecyclerView recyclerView,
+                                            List<EarthQuakeItem> earthquakes){
 
         recyclerView.setHasFixedSize(true); // This sittings to improve performance
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -187,7 +197,8 @@ public class EarthQuakeFragment extends Fragment {
          * @param earthquakes -
          */
         @Override
-        public void onLoadFinished(Loader<List<EarthQuakeItem>> loader, List<EarthQuakeItem> earthquakes) {
+        public void onLoadFinished(Loader<List<EarthQuakeItem>> loader,
+                                   List<EarthQuakeItem> earthquakes) {
             loading_indicator.setVisibility(View.GONE);
 
             mAdapter.clearData();
