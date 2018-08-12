@@ -18,6 +18,7 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,12 +28,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EarthQuakeFragment extends Fragment {
-
-
 
     public static final String EXTRA_MESSAGE_1 = "location";
     public static final String EXTRA_MESSAGE_2 = "magnitude";
@@ -93,14 +94,9 @@ public class EarthQuakeFragment extends Fragment {
             loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
                     null,
                     earthquakeDataLoaderListener).forceLoad();
-            try{
-                loaderManager.initLoader(CURSOR_DATA_LOADER_ID,
-                        null,
-                        cursorLoaderListener).forceLoad();
-            }catch (Exception e){
-                Toast.makeText(getActivity(), "Error: " +
-                        e.getMessage(), Toast.LENGTH_LONG).show();
-            }
+            loaderManager.initLoader(CURSOR_DATA_LOADER_ID,
+                    null,
+                    cursorLoaderListener).forceLoad();
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -164,7 +160,8 @@ public class EarthQuakeFragment extends Fragment {
         public Loader<List<EarthQuakeItem>> onCreateLoader(int id, Bundle args) {
 
             //get settings from shared preferences
-            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            SharedPreferences sharedPrefs =
+                    PreferenceManager.getDefaultSharedPreferences(getActivity());
             String minMagnitude = sharedPrefs.getString(
                     getString(R.string.settings_min_magnitude_key),
                     getString(R.string.settings_min_magnitude_default));
@@ -229,10 +226,20 @@ public class EarthQuakeFragment extends Fragment {
     };
 
 
-    private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderListener = new LoaderManager.LoaderCallbacks<Cursor>() {
+    private LoaderManager.LoaderCallbacks<Cursor> cursorLoaderListener =
+            new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            return null;
+
+            String[] projection = {EarthQuakeEntry._ID,
+                    EarthQuakeEntry.COLUMN_E_ID,
+                    EarthQuakeEntry.COLUMN_LOCATION};
+            return new CursorLoader(getContext(),
+                    EarthQuakeEntry.CONTENT_URI,
+                    projection,
+                    null,
+                    null,
+                    null);
         }
 
         @Override
