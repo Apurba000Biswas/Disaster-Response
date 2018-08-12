@@ -16,18 +16,21 @@ public class EarthQuakeItem {
     private String locationOffset;
     private String primaryLocation;
     private String mUrl;
+    private String e_id;
     private long mTimeInMilliseconds;
 
-    // suitable constructor
-    public EarthQuakeItem(double magnitude,
+    public EarthQuakeItem(String id,
+                          double magnitude,
                           String location,
                           long timeInMillisecond,
                           String url){
+        this.e_id = id;
         this.mMagnitude = magnitude;
         this.mTimeInMilliseconds = timeInMillisecond;
         this.mLocation = location;
         this.mUrl = url;
     }
+
 
     // returns current items magnitude
     public double getMagnitude(){
@@ -52,6 +55,10 @@ public class EarthQuakeItem {
     // returns current items location
     public String getLocation(){
         return mLocation;
+    }
+
+    public String getE_id(){
+        return e_id;
     }
 
     /** public void splitLocation() method

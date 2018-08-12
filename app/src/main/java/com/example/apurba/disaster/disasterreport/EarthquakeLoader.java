@@ -11,6 +11,7 @@ import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +42,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
     /** public List<EarthQuakeItem> loadInBackground() method
      *  called from background thread
      *  This method actually dose the loading earthquake data operation from the server
-     *
-     * @return
+     * @return -
      */
     @Override
     public List<EarthQuakeItem> loadInBackground() {
@@ -81,7 +81,8 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
                 String place = properties.getString("place");
                 long time = properties.getLong("time");
                 String url = properties.getString("url");
-                earthquakes.add(new EarthQuakeItem(magnitude, place, time, url));
+                String id = earthquake.getString("id");
+                earthquakes.add(new EarthQuakeItem(id,magnitude, place, time, url));
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);

@@ -25,13 +25,15 @@ import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTR
 import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_2;
 import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_3;
 
-public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQuakeItemAdapterRecycler.ViewHolder>{
+public class EarthQuakeItemAdapterRecycler extends
+        RecyclerView.Adapter<EarthQuakeItemAdapterRecycler.ViewHolder>{
 
     private List<EarthQuakeItem> mDataset;
     private Activity mContext;
 
     // suitable constructor - initialize the instance variables
-    public EarthQuakeItemAdapterRecycler(Activity context, List<EarthQuakeItem> Dataset) {
+    public EarthQuakeItemAdapterRecycler(Activity context,
+                                         List<EarthQuakeItem> Dataset) {
         mDataset = Dataset;
         mContext = context;
     }
@@ -55,9 +57,12 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
      * @return - EarthQuakeItemAdapterRecycler.ViewHolder object
      */
     @Override
-    public EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
-        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.earth_quake_item_list, parent, false);
+    public EarthQuakeItemAdapterRecycler.ViewHolder
+    onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.earth_quake_item_list,
+                parent,
+                false);
         return  new ViewHolder(view, mDataset);
     }
 
@@ -104,7 +109,8 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
      * Return the formatted date string (i.e. "Mar 3, 1984") from a Date object.
      */
     private String formatDate(Date dateObject) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd, yyyy");
+        SimpleDateFormat dateFormat =
+                new SimpleDateFormat("LLL dd, yyyy");
         return dateFormat.format(dateObject);
     }
 
@@ -112,7 +118,8 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
      * Return the formatted date string (i.e. "4:30 PM") from a Date object.
      */
     private String formatTime(Date dateObject) {
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
+        SimpleDateFormat timeFormat =
+                new SimpleDateFormat("h:mm a");
         return timeFormat.format(dateObject);
     }
 
@@ -121,7 +128,8 @@ public class EarthQuakeItemAdapterRecycler extends RecyclerView.Adapter<EarthQua
      * This class also implements {@link View.OnClickListener} interface
      * This instance get bounded on the recyclerView
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends
+            RecyclerView.ViewHolder implements View.OnClickListener {
 
         public View mView;
         private List<EarthQuakeItem> mDataset;
