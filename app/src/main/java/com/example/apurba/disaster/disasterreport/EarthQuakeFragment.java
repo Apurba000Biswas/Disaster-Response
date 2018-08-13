@@ -8,8 +8,6 @@ package com.example.apurba.disaster.disasterreport;
  * implements {@link android.support.v4.app.LoaderManager.LoaderCallbacks} interface.
  */
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,8 +27,8 @@ import android.widget.Toast;
 import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoader;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EarthQuakeFragment extends Fragment {
 
@@ -43,7 +41,6 @@ public class EarthQuakeFragment extends Fragment {
     private View loading_indicator;
     private RecyclerView recyclerView;
     private EarthQuakeItemAdapterRecycler mAdapter;
-    private List<EarthQuakeItem> earthquakesList;
 
     // Empty body constructor
     public EarthQuakeFragment() {
@@ -62,20 +59,27 @@ public class EarthQuakeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.earthquake_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.earthquake_fragment,
+                container,
+                false);
 
-        earthquakesList =  new ArrayList<EarthQuakeItem>();
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        List<EarthQuakeItem> earthquakesList =  new ArrayList<>();
+        recyclerView =  rootView.findViewById(R.id.recyclerView);
         setRecyclerViewWithAdapter(recyclerView, earthquakesList);
 
-        mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
+
+        // getLoaderManager() - returns a LoaderManager for this fragment
+        LoaderManager loaderManager = getLoaderManager();
+        DisasterDatabaseLoader databaseLoader =
+                new DisasterDatabaseLoader(getContext(), loaderManager);
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        setFloatingActionButton(fab);
+        setFloatingActionButton(fab, databaseLoader);
 
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-        initializeLoader();
+        initializeLoader(databaseLoader, loaderManager);
 
         return rootView;
     }
@@ -84,19 +88,15 @@ public class EarthQuakeFragment extends Fragment {
     /** private void initializeLoader() method
      *  check for internet connection and initialize a loader
      */
-    private void initializeLoader(){
+    private void initializeLoader(DisasterDatabaseLoader databaseLoader,
+                                  LoaderManager loaderManager){
 
         HelperClass mHelper = new HelperClass(getActivity());
         if(mHelper.isConnectedToInternet()){
-            LoaderManager loaderManager = getLoaderManager(); // getLoaderManager() - returns a LoaderManager for this fragment
-            // initLoader() - creates a new loader with the given id or initialize the previously created loader
             loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
                     null,
                     earthquakeDataLoaderListener).forceLoad();
-
-            DisasterDatabaseLoader datbaseLoader =
-                    new DisasterDatabaseLoader(getContext(), loaderManager);
-            datbaseLoader.LoadDisasterDatabase();
+            databaseLoader.LoadDisasterDatabase();
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -105,23 +105,38 @@ public class EarthQuakeFragment extends Fragment {
 
 
     /** private void setFloatingActionButton
-     *  This method set up the floating point button to trigger the website view activity when
+     *  This method set up the floating point button to
+     *  trigger the website view activity when
      *  click happened
      *  @param fab - This button get set up here
-     *  If any exception occurs to opening the activity it also pop up a toast message
      */
-    private void setFloatingActionButton(FloatingActionButton fab){
+    private void setFloatingActionButton(FloatingActionButton fab,
+                                         final DisasterDatabaseLoader dbLoader){
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    Intent intent = new Intent(getActivity(), WebsiteViewActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE_3, getString(R.string.usgs_url));
-                    startActivity(intent);
 
-                }catch (ActivityNotFoundException e){
-                    Toast.makeText(getContext(), "Error: " +
-                            e.getMessage(), Toast.LENGTH_SHORT).show();
+                List<EarthQuakeItem> earthquakesList = mAdapter.getDataset();
+                if(earthquakesList.size() != 0){
+                    Map<String, String> earthquakeMap = dbLoader.getDataMap();
+                    EarthQuakeItem currentEarthQuake;
+                    String id;
+                    for(int i=0; i<earthquakesList.size(); i++){
+                        currentEarthQuake = earthquakesList.get(i);
+                        id = currentEarthQuake.getE_id();
+                        if( id != null && !earthquakeMap.containsKey(id)){
+                            earthquakeMap.put(id,
+                                    currentEarthQuake.getPrimaryLocation());
+                            dbLoader.insertDataIntoDatabase(currentEarthQuake);
+                        }
+                    }
+                    Toast.makeText(getContext(),
+                            "All are saved, You can see recent statistics now",
+                            Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),
+                            "List is empty, Make sure you are connected to the Internet",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -210,7 +225,6 @@ public class EarthQuakeFragment extends Fragment {
                     recyclerView.setAdapter(mAdapter);
                     recyclerView.setVisibility(View.VISIBLE);
                     mEmptyStateTextView.setVisibility(View.GONE);
-                    earthquakesList = earthquakes;
                 }
             }
             mEmptyStateTextView.setText(R.string.no_earthquakes);
@@ -224,7 +238,6 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
             mAdapter.clearData();
-            earthquakesList.clear();
         }
     };
 }

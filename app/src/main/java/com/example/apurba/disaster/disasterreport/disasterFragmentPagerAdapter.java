@@ -39,9 +39,9 @@ public class disasterFragmentPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return new EarthQuakeFragment();
         }else if (position == 1){
-            return new FloodFragment();
+            return new StatisticsFragment();
         }else if (position == 2){
-            return new HurricanFragment();
+            return new FloodFragment();
         }else {
             return new OtherFragment();
         }
@@ -63,9 +63,9 @@ public class disasterFragmentPagerAdapter extends FragmentPagerAdapter {
         if (position == 0){
             return mContext.getString(R.string.category_earthquake);
         }else if (position == 1){
-            return mContext.getString(R.string.category_floods);
+            return mContext.getString(R.string.category_statistics);
         }else if(position == 2){
-            return mContext.getString(R.string.category_hurricanes);
+            return mContext.getString(R.string.category_floods);
         }else {
             return mContext.getString(R.string.category_others);
         }

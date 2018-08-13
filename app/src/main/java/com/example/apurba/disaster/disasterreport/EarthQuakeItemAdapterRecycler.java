@@ -47,6 +47,10 @@ public class EarthQuakeItemAdapterRecycler extends
         mDataset = dataset;
     }
 
+    public List<EarthQuakeItem> getDataset(){
+        return mDataset;
+    }
+
     /** public EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder() method
      * The LayoutManager calls this method.
      * This method first inflate view from "earth_quake_item_list.xml" xml file
