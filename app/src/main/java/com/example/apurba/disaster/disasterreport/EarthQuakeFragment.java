@@ -73,7 +73,7 @@ public class EarthQuakeFragment extends Fragment {
         // getLoaderManager() - returns a LoaderManager for this fragment
         LoaderManager loaderManager = getLoaderManager();
         DisasterDatabaseLoader databaseLoader =
-                new DisasterDatabaseLoader(getContext(), loaderManager);
+                DisasterDatabaseLoader.getObject(getContext(), loaderManager);
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         setFloatingActionButton(fab, databaseLoader);
 
@@ -135,7 +135,7 @@ public class EarthQuakeFragment extends Fragment {
                             Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getContext(),
-                            "List is empty, Make sure you are connected to the Internet",
+                            "Make sure you are connected to the Internet",
                             Toast.LENGTH_SHORT).show();
                 }
             }

@@ -16,23 +16,28 @@ import android.support.v4.content.Loader;
 import com.example.apurba.disaster.disasterreport.EarthQuakeItem;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class DisasterDatabaseLoader implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
-    private static final String LOCATION_SEPARATOR = ",";
+    private static final String LOCATION_SEPARATOR = ", ";
 
     private Context mContext;
-    LoaderManager loaderManager;
+    private LoaderManager loaderManager;
     private  Map<String,String> earthquakeMap;
+    private static  DisasterDatabaseLoader currentObject;
 
-    public DisasterDatabaseLoader(Context context,
+
+    private DisasterDatabaseLoader(Context context,
                                   LoaderManager loaderManager){
         this.mContext = context;
         this.loaderManager = loaderManager;
+        // this constructor used in This class
     }
+
 
     public void LoadDisasterDatabase(){
         int CURSOR_DATA_LOADER_ID = 1;
@@ -40,6 +45,16 @@ public class DisasterDatabaseLoader implements
         loaderManager.initLoader(CURSOR_DATA_LOADER_ID,
                 null,
                 this).forceLoad();
+    }
+
+    public static DisasterDatabaseLoader getLoadedObject(){
+        return currentObject;
+    }
+
+    public static DisasterDatabaseLoader getObject(Context context,
+                                                   LoaderManager loaderManager){
+        currentObject = new DisasterDatabaseLoader(context, loaderManager);
+        return currentObject;
     }
 
     public Map<String, String> getDataMap(){
@@ -51,6 +66,24 @@ public class DisasterDatabaseLoader implements
         ContentValues values = getContentValues(data);
         Uri responseUri = mContext.getContentResolver().insert(EarthQuakeEntry.CONTENT_URI, values);
         return responseUri != null;
+    }
+
+    public Map<String, Integer> getEarthquakeLocationMap(){
+        Map<String, Integer> locationMap = new HashMap<String, Integer>();
+        if(!earthquakeMap.isEmpty()){
+            for(String eid: earthquakeMap.keySet()){
+                String location = earthquakeMap.get(eid);
+                if(locationMap.containsKey(location)){
+                    int count = locationMap.get(location);
+                    locationMap.remove(location);
+                    count++;
+                    locationMap.put(location, count);
+                }else{
+                    locationMap.put(location, 1);
+                }
+            }
+        }
+        return locationMap;
     }
 
 
@@ -79,7 +112,7 @@ public class DisasterDatabaseLoader implements
         }else{
             exactLocation = pLocation;
         }
-        return exactLocation.trim();
+        return exactLocation;
     }
 
     @Override
@@ -119,3 +152,4 @@ public class DisasterDatabaseLoader implements
         earthquakeMap.clear();
     }
 }
+
