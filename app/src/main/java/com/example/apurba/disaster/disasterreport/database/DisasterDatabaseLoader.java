@@ -7,17 +7,18 @@ package com.example.apurba.disaster.disasterreport.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.widget.Toast;
 
 import com.example.apurba.disaster.disasterreport.EarthQuakeItem;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
 
 
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +26,10 @@ import java.util.Map;
 public class DisasterDatabaseLoader implements
         LoaderManager.LoaderCallbacks<Cursor>{
 
-    private static final String LOCATION_SEPARATOR = ", ";
 
     private Context mContext;
     private LoaderManager loaderManager;
-    private  Map<String,String> earthquakeMap;
+    private Map<String,String> earthquakeMap;
     private static  DisasterDatabaseLoader currentObject;
 
 
@@ -59,62 +59,38 @@ public class DisasterDatabaseLoader implements
         return currentObject;
     }
 
-    public Map<String, String> getDataMap(){
-        return earthquakeMap;
+    void setMap( Map<String, String> newMap){
+        earthquakeMap = newMap;
     }
 
-    public boolean insertDataIntoDatabase(EarthQuakeItem data){
-        earthquakeMap.put(data.getE_id(), data.getPrimaryLocation());
-        ContentValues values = getContentValues(data);
-        Uri responseUri = mContext.getContentResolver().insert(EarthQuakeEntry.CONTENT_URI, values);
-        return responseUri != null;
+    public void insertListIntoDatabase(List<EarthQuakeItem> earthquakesList){
+        listInsertionTask task = new listInsertionTask(mContext, earthquakeMap, currentObject);
+        task.execute(earthquakesList);
     }
 
     public Map<String, Integer> getEarthquakeLocationMap(){
         Map<String, Integer> locationMap = new HashMap<String, Integer>();
-        if(!earthquakeMap.isEmpty()){
-            for(String eid: earthquakeMap.keySet()){
-                String location = earthquakeMap.get(eid);
-                if(locationMap.containsKey(location)){
-                    int count = locationMap.get(location);
-                    locationMap.remove(location);
-                    count++;
-                    locationMap.put(location, count);
-                }else{
-                    locationMap.put(location, 1);
+        try {
+            if(!earthquakeMap.isEmpty()){
+                for(String eid: earthquakeMap.keySet()){
+                    String location = earthquakeMap.get(eid);
+                    if(locationMap.containsKey(location)){
+                        int count = locationMap.get(location);
+                        locationMap.remove(location);
+                        count++;
+                        locationMap.put(location, count);
+                    }else{
+                        locationMap.put(location, 1);
+                    }
                 }
             }
+        }catch (ConcurrentModificationException e){
+            Toast.makeText(mContext, "Please Wait Loading... ", Toast.LENGTH_SHORT).show();
+        }catch (NullPointerException e){
+            // No Internet Connection state
         }
+
         return locationMap;
-    }
-
-
-    private ContentValues getContentValues(EarthQuakeItem earthQuakeItem){
-        earthQuakeItem.splitLocation();
-
-        ContentValues values = new ContentValues();
-        values.put(EarthQuakeEntry.COLUMN_E_ID,
-                earthQuakeItem.getE_id());
-        values.put(EarthQuakeEntry.COLUMN_LOCATION,
-                getExactLocation(earthQuakeItem.getPrimaryLocation()));
-        values.put(EarthQuakeEntry.COLUMN_GEO_LOCATION,
-                earthQuakeItem.getLocation());
-        values.put(EarthQuakeEntry.COLUMN_MAGNITUDE,
-                String.valueOf(earthQuakeItem.getMagnitude()));
-        values.put(EarthQuakeEntry.COLUMN_TIME ,
-                String.valueOf(earthQuakeItem.getTimeInMilliseconds()));
-        return values;
-    }
-
-    private String getExactLocation(String pLocation){
-        String exactLocation;
-        if(pLocation.contains(LOCATION_SEPARATOR)){
-            String[] locationParts = pLocation.split(LOCATION_SEPARATOR);
-            exactLocation = locationParts[1];
-        }else{
-            exactLocation = pLocation;
-        }
-        return exactLocation;
     }
 
     @Override
@@ -155,18 +131,93 @@ public class DisasterDatabaseLoader implements
     }
 }
 
-/**
+
+
+
+
+
+
 class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
-
     private Map<String,String> mMap;
+    private Context mContext;
+    DisasterDatabaseLoader mLoader;
 
-    public listInsertionTask(Map<String,String> earthquakeMap){
-        mMap = earthquakeMap;
+    public listInsertionTask(Context context,
+                             Map<String,String> earthquakeMap,
+                             DisasterDatabaseLoader loader){
+        this.mMap = earthquakeMap;
+        this.mContext = context;
+        this.mLoader = loader;
     }
 
     @Override
     protected Void doInBackground(List<EarthQuakeItem>[] lists) {
+        List<EarthQuakeItem> list = lists[0];
+        try{
+            checkList(list);
+            EarthQuakeItem currentEarthQuake;
+            String id;
+            for(int i=0; i<list.size(); i++){
+                currentEarthQuake = list.get(i);
+                id = currentEarthQuake.getE_id();
+                if(id != null && !mMap.containsKey(id)){
+                    currentEarthQuake.splitLocation();
+                    mMap.put(id, currentEarthQuake.getExactLocation());
+                    ContentValues values = getContentValues(currentEarthQuake);
+                    mContext.getContentResolver().insert(EarthQuakeEntry.CONTENT_URI, values);
+                }
+            }
+        }catch (emptyListException e){
+            Toast.makeText(mContext,
+                    "Make sure You are connected With Internet!",
+                    Toast.LENGTH_SHORT).show();
+        }
         return null;
     }
-}*/
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        mLoader.setMap(mMap);
+        Toast.makeText(mContext,
+                "All are saved",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private ContentValues getContentValues(EarthQuakeItem earthQuakeItem){
+        earthQuakeItem.splitLocation();
+
+        ContentValues values = new ContentValues();
+        values.put(EarthQuakeEntry.COLUMN_E_ID,
+                earthQuakeItem.getE_id());
+        values.put(EarthQuakeEntry.COLUMN_LOCATION,
+                earthQuakeItem.getExactLocation());
+        values.put(EarthQuakeEntry.COLUMN_GEO_LOCATION,
+                earthQuakeItem.getLocation());
+        values.put(EarthQuakeEntry.COLUMN_MAGNITUDE,
+                String.valueOf(earthQuakeItem.getMagnitude()));
+        values.put(EarthQuakeEntry.COLUMN_TIME ,
+                String.valueOf(earthQuakeItem.getTimeInMilliseconds()));
+        return values;
+    }
+
+
+
+
+    private void checkList(List<EarthQuakeItem> list) throws emptyListException {
+        if(list.isEmpty()){
+            throw new emptyListException("List is empty");
+        }
+    }
+}
+
+
+class emptyListException extends Exception{
+    private String message;
+    public emptyListException(String message){
+        this.message = message;
+    }
+    public String getMessage(){
+        return message;
+    }
+}
 

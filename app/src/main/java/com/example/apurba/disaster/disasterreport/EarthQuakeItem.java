@@ -10,6 +10,7 @@ package com.example.apurba.disaster.disasterreport;
 public class EarthQuakeItem {
 
     private static final String LOCATION_SEPARATOR = " of ";
+    private static final String EAXCT_LOCATION_SEPARATOR = ", ";
 
     private double mMagnitude;
     private String mLocation;
@@ -59,6 +60,16 @@ public class EarthQuakeItem {
 
     public String getE_id(){
         return e_id;
+    }
+    public String getExactLocation(){
+        String exactLocation;
+        if(primaryLocation.contains(EAXCT_LOCATION_SEPARATOR)){
+            String[] locationParts = primaryLocation.split(EAXCT_LOCATION_SEPARATOR);
+            exactLocation = locationParts[1];
+        }else{
+            exactLocation = primaryLocation;
+        }
+        return exactLocation;
     }
 
     /** public void splitLocation() method

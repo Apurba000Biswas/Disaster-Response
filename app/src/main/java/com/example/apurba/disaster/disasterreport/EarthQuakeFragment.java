@@ -118,23 +118,8 @@ public class EarthQuakeFragment extends Fragment {
 
                 List<EarthQuakeItem> earthquakesList = mAdapter.getDataset();
                 if(earthquakesList.size() != 0){
-                    Map<String, String> earthquakeMap = dbLoader.getDataMap();
-                    EarthQuakeItem currentEarthQuake;
-                    String id;
-                    System.out.println("Before For loop");
-                    for(int i=0; i<earthquakesList.size(); i++){
-                        System.out.println("Processing " + i);
-                        currentEarthQuake = earthquakesList.get(i);
-                        id = currentEarthQuake.getE_id();
-                        if( id != null && !earthquakeMap.containsKey(id)){
-                            earthquakeMap.put(id,
-                                    currentEarthQuake.getPrimaryLocation());
-                            dbLoader.insertDataIntoDatabase(currentEarthQuake);
-                            System.out.println("Putting data into database " + i);
-                        }
-                    }
-                    Toast.makeText(getContext(),
-                            "All are saved, You can see recent statistics now",
+                    dbLoader.insertListIntoDatabase(earthquakesList);
+                    Toast.makeText(getContext(), "Saving Data ...",
                             Toast.LENGTH_SHORT).show();
                 }else{
                     Toast.makeText(getContext(),

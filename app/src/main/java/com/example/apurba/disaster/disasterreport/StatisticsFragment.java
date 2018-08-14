@@ -45,6 +45,7 @@ public class StatisticsFragment extends Fragment{
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setAdapter(mAdapter);
 
         if(mDataset != null){
             mAdapter = new StatisticsLocationAdapater(getActivity(), mDataset);
@@ -63,9 +64,9 @@ public class StatisticsFragment extends Fragment{
                 if(mDataset == null){
                     Toast.makeText(getContext(), "Make sure you saved all data", Toast.LENGTH_SHORT).show();
                 }else{
+                    recyclerView.setAdapter(mAdapter);
                     Toast.makeText(getContext(), "Refreshed", Toast.LENGTH_SHORT).show();
                 }
-                recyclerView.setAdapter(mAdapter);
             }
         });
         return rootView;
@@ -79,7 +80,8 @@ public class StatisticsFragment extends Fragment{
             if(locations != null){
                 if(!locations.isEmpty()){
                     for(String currentLocation : locations.keySet()){
-                        dataset.add(makeStatisticsObject(currentLocation, locations.get(currentLocation)));
+                        dataset.add(makeStatisticsObject(currentLocation,
+                                locations.get(currentLocation)));
                     }
                 }
             }else {

@@ -37,7 +37,6 @@ public class DisasterReportDbHelper extends SQLiteOpenHelper{
                 EarthQuakeEntry.COLUMN_MAGNITUDE + " TEXT NOT NULL, " +
                 EarthQuakeEntry.COLUMN_TIME + " TEXT NOT NULL); " ;
         Log.v(LOG_TAG,SQL_CREATE_EARTHQUAKE_TABLE);
-        //String SQL_DROP_TABLE = "DROP TABLE " + EarthQuakeEntry.TABLE_NAME + ";";
         db.execSQL(SQL_CREATE_EARTHQUAKE_TABLE);
     }
 
