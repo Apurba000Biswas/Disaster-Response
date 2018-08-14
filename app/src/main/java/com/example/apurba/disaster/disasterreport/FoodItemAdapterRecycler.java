@@ -28,7 +28,8 @@ import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MES
 import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE7;
 import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE8;
 
-public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapterRecycler.ViewHolder>{
+public class FoodItemAdapterRecycler extends
+        RecyclerView.Adapter<FoodItemAdapterRecycler.ViewHolder>{
 
     private List<FloodItem> mDataset;
     private Activity mContext;
@@ -47,8 +48,11 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
     }
 
     @Override
-    public FoodItemAdapterRecycler.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.flood_item_list, parent, false);
+    public FoodItemAdapterRecycler.ViewHolder
+    onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view =  LayoutInflater.from(parent.getContext()).inflate(R.layout.flood_item_list,
+                parent,
+                false);
         return  new ViewHolder(view, mDataset);
     }
 
@@ -71,7 +75,9 @@ public class FoodItemAdapterRecycler extends RecyclerView.Adapter<FoodItemAdapte
 
 
     // creates a viw holder that holds each single item in the recycler view
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends
+            RecyclerView.ViewHolder implements
+            View.OnClickListener {
 
         public View mView;
         private List<FloodItem> mDataset;

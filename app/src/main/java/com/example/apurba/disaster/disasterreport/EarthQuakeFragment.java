@@ -121,13 +121,16 @@ public class EarthQuakeFragment extends Fragment {
                     Map<String, String> earthquakeMap = dbLoader.getDataMap();
                     EarthQuakeItem currentEarthQuake;
                     String id;
+                    System.out.println("Before For loop");
                     for(int i=0; i<earthquakesList.size(); i++){
+                        System.out.println("Processing " + i);
                         currentEarthQuake = earthquakesList.get(i);
                         id = currentEarthQuake.getE_id();
                         if( id != null && !earthquakeMap.containsKey(id)){
                             earthquakeMap.put(id,
                                     currentEarthQuake.getPrimaryLocation());
                             dbLoader.insertDataIntoDatabase(currentEarthQuake);
+                            System.out.println("Putting data into database " + i);
                         }
                     }
                     Toast.makeText(getContext(),

@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -18,6 +19,7 @@ import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContr
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DisasterDatabaseLoader implements
@@ -152,4 +154,19 @@ public class DisasterDatabaseLoader implements
         earthquakeMap.clear();
     }
 }
+
+/**
+class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
+
+    private Map<String,String> mMap;
+
+    public listInsertionTask(Map<String,String> earthquakeMap){
+        mMap = earthquakeMap;
+    }
+
+    @Override
+    protected Void doInBackground(List<EarthQuakeItem>[] lists) {
+        return null;
+    }
+}*/
 

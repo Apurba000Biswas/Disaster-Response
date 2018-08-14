@@ -4,23 +4,6 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        android:columnWidth="120dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="15dp"
-        android:horizontalSpacing="15dp"
-        android:stretchMode="columnWidth"
-        android:drawSelectorOnTop="true"
-        android:gravity="center" />
-
-    -->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
