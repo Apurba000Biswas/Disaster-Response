@@ -38,8 +38,9 @@
                     android:layout_marginTop="16dp"
                     android:text="Severity"
                     android:gravity="center"
-                    android:textColor="@color/flood_details"
+                    android:textColor="@color/appLevel"
                     android:textSize="20sp"
+                    android:fontFamily="sans-serif-condensed"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 card_view:cardCornerRadius="4dp"
                 android:layout_margin="10dp"
-                card_view:cardBackgroundColor="@color/colorPrimary"
+                card_view:cardBackgroundColor="@color/appLevel"
                 card_view:cardElevation="6dp">
 
                 <LinearLayout
@@ -67,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:orientation="vertical"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/appLevel"
                     android:padding="16dp">
 
                     <TextView
@@ -77,6 +78,7 @@
                         android:text="Info"
                         android:textColor="@color/flood_details"
                         android:textSize="20sp"
+                        android:fontFamily="sans-serif-condensed"
                         android:textStyle="bold" />
 
                     <!-- ea_areaname_text -->
@@ -194,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                card_view:cardBackgroundColor="@color/colorPrimary"
+                card_view:cardBackgroundColor="@color/appLevel"
                 card_view:cardCornerRadius="4dp"
                 card_view:cardElevation="6dp">
 
@@ -211,6 +213,7 @@
                         android:text="Message"
                         android:textColor="@color/flood_details"
                         android:textSize="20sp"
+                        android:fontFamily="sans-serif-condensed"
                         android:textStyle="bold" />
 
                     <TextView
@@ -236,6 +239,6 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             android:elevation="10dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/appLevel" />
     </LinearLayout>
 </ScrollView>

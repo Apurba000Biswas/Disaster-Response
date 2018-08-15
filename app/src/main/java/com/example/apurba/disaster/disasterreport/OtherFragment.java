@@ -36,22 +36,22 @@ public class OtherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.others_fragment, container, false);
 
-        CardView tsunamiCardView = rootView.findViewById(R.id.tsunami_card);
-        CardView avalanchesCardView = rootView.findViewById(R.id.avalanches_card);
-        CardView wildFireCardView = rootView.findViewById(R.id.wildfire_card);
-        CardView droughtCardView = rootView.findViewById(R.id.drought_card);
-        CardView tornadoCardView = rootView.findViewById(R.id.tornado_card);
+        View tsunamiView = rootView.findViewById(R.id.tsunami_holder);
+        View avalanchesView = rootView.findViewById(R.id.avalanche_holder);
+        View wildFireView = rootView.findViewById(R.id.wildfire_holder);
+        View droughtView = rootView.findViewById(R.id.drought_holder);
+        View tornadoView = rootView.findViewById(R.id.tornado_holder);
 
-        setOnclickWebViewActivity(tsunamiCardView, 1);
-        setOnclickWebViewActivity(avalanchesCardView, 2);
-        setOnclickWebViewActivity(wildFireCardView,3);
-        setOnclickWebViewActivity(droughtCardView,4);
-        setOnclickWebViewActivity(tornadoCardView,5);
+        setOnclickWebViewActivity(tsunamiView, 1);
+        setOnclickWebViewActivity(avalanchesView, 2);
+        setOnclickWebViewActivity(wildFireView,3);
+        setOnclickWebViewActivity(droughtView,4);
+        setOnclickWebViewActivity(tornadoView,5);
 
         return rootView;
     }
     // start web view activity when clicked on a card view
-    private void setOnclickWebViewActivity(final CardView cardView , int key){
+    private void setOnclickWebViewActivity(final View cardView , int key){
         final int mKey = key;
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override

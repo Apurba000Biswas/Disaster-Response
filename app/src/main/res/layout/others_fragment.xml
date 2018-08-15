@@ -2,162 +2,73 @@
 
 
 <android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nested_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true"
     android:layout_marginBottom="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/tsunami_card"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_margin="10dp"
-                android:layout_marginTop="24dp"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="6dp">
-
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/tsunami_holder"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_margin="30dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/tsunami"/>
-
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/tsunami" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="Tsunami"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/appLevel"/>
 
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
 
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/avalanches_card"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/tsunami_card"
-                android:layout_margin="10dp"
-                android:layout_marginTop="24dp"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="6dp">
-
+            <LinearLayout
+                android:id="@+id/avalanche_holder"
+                android:layout_width="match_parent"
+                android:layout_margin="30dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/avalanche"/>
-
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/avalanches" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Avalanches"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:text="Avalance"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="@color/appLevel"/>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/wildfire_card"
-
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/avalanches_card"
-                android:layout_margin="10dp"
-                android:layout_marginTop="24dp"
-                card_view:cardBackgroundColor="@color/colorPrimary"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="6dp">
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/wildfire"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Wild Fire"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/drought_card"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/wildfire_card"
-                android:layout_margin="10dp"
-                android:layout_marginTop="24dp"
-                card_view:cardBackgroundColor="@color/colorPrimary"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="6dp">
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/drought"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Drought"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/tornado_card"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_below="@id/drought_card"
-                android:layout_margin="10dp"
-                android:layout_marginTop="24dp"
-                card_view:cardBackgroundColor="@color/colorPrimary"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="6dp">
-
-                <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/tornado"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Tornado"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -165,6 +76,95 @@
 
 
 
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/wildfire_holder"
+                android:layout_width="wrap_content"
+                android:layout_margin="30dp"
+                android:layout_weight="1"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/wildfire" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Wild fire"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/appLevel"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/drought_holder"
+                android:layout_width="match_parent"
+                android:layout_margin="30dp"
+                android:layout_weight="1"
+                android:layout_height="200dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/drought" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-condensed"
+                    android:text="Drought"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/appLevel"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/tornado_holder"
+            android:layout_width="match_parent"
+            android:layout_margin="30dp"
+            android:layout_height="200dp"
+            android:orientation="vertical">
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@drawable/tornado" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:text="Tornado"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/appLevel"/>
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
 
 </android.support.v4.widget.NestedScrollView>
