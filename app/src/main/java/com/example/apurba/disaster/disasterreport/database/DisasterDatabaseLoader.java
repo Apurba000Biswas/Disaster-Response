@@ -251,7 +251,6 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Map<String
             String id;
 
             for(int i=0; i<list.size(); i++){
-                //System.out.println("Processing  : " + i );
                 currentEarthQuake = list.get(i);
                 id = currentEarthQuake.getE_id();
                 if(id != null && !mMap.containsKey(id)){

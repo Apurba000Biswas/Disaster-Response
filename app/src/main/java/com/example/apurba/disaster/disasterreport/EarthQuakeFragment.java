@@ -28,7 +28,6 @@ import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoade
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class EarthQuakeFragment extends Fragment {
 
@@ -69,8 +68,6 @@ public class EarthQuakeFragment extends Fragment {
 
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
 
-
-        // getLoaderManager() - returns a LoaderManager for this fragment
         LoaderManager loaderManager = getLoaderManager();
         DisasterDatabaseLoader databaseLoader =
                 DisasterDatabaseLoader.getObject(getContext(), loaderManager);
@@ -162,9 +159,6 @@ public class EarthQuakeFragment extends Fragment {
          */
         @Override
         public Loader<List<EarthQuakeItem>> onCreateLoader(int id, Bundle args) {
-
-            System.out.println("EarthquakeFragment - onCreateLoader called");
-            //get settings from shared preferences
             SharedPreferences sharedPrefs =
                     PreferenceManager.getDefaultSharedPreferences(getActivity());
             String minMagnitude = sharedPrefs.getString(
@@ -201,8 +195,6 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public void onLoadFinished(Loader<List<EarthQuakeItem>> loader,
                                    List<EarthQuakeItem> earthquakes) {
-
-            System.out.println("EarthquakeFragment - onFinished called");
             loading_indicator.setVisibility(View.GONE);
 
             mAdapter.clearData();
@@ -228,7 +220,6 @@ public class EarthQuakeFragment extends Fragment {
          */
         @Override
         public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
-            System.out.println("EarthquakeFragment - onLoaderReset called");
             mAdapter.clearData();
         }
     };

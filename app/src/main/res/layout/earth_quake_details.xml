@@ -35,6 +35,7 @@
             android:gravity="center_horizontal"
             android:paddingBottom="16dp"
             android:paddingTop="16dp"
+            android:fontFamily="sans-serif-condensed"
             android:textColor="#000000"
             android:text="@string/perceived_strength"
             android:textAllCaps="true"
@@ -74,13 +75,13 @@
             android:layout_width="83dp"
             android:layout_height="35dp"
             android:layout_marginRight="16dp"
-            android:background="@color/colorPrimary" />
+            android:background="@color/appLevel" />
 
         <Button
             android:id="@+id/more_button"
             android:layout_width="83dp"
             android:layout_height="35dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/appLevel"
             android:text="More"
             android:textColor="#FFFFFF" />
     </LinearLayout>

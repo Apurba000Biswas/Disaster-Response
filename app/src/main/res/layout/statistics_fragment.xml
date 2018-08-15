@@ -16,7 +16,7 @@
         android:id="@+id/refresh_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/appLevel"
         android:text="Refresh"
         android:layout_centerInParent="true"/>
     <Button
@@ -25,7 +25,7 @@
         android:layout_centerInParent="true"
         android:layout_below="@id/refresh_button"
         android:text="Delete All"
-        android:background="@color/colorPrimary"
+        android:background="@color/appLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

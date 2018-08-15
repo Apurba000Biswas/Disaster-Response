@@ -30,6 +30,8 @@ package com.example.apurba.disaster.disasterreport;
  */
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapse_toolbar);
         collapsingToolbar.setTitle(getString(R.string.app_tittle));
+        collapsingToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.appLevel));
     }
 
 

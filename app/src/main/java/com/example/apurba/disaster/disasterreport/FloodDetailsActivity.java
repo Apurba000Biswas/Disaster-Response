@@ -31,13 +31,14 @@ public class FloodDetailsActivity extends AppCompatActivity {
 
         // set custom tittle
         SpannableString s = new SpannableString(TITLE);
-        s.setSpan(new ForegroundColorSpan(Color.WHITE), 0, TITLE.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.appLevel)),
+                0, TITLE.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
         getSupportActionBar().setElevation(0);
 
         // set custom up arrow
         final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
-        upArrow.setColorFilter(getResources().getColor(R.color.main_background), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.appLevel), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
         // receive intent and all its extar messages

@@ -83,18 +83,19 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
     private void setCustomUpArraow(){
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
-        upArrow.setColorFilter(getResources().getColor(R.color.main_background),
+        upArrow.setColorFilter(getResources().getColor(R.color.appLevel),
                 PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 
     private void setCustomTittle(){
         SpannableString s = new SpannableString(TITTLE);
-        s.setSpan(new ForegroundColorSpan(Color.WHITE),
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.appLevel)),
                 0,
                 TITTLE.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         getSupportActionBar().setTitle(s);
+        getSupportActionBar().setElevation(0);
     }
 
     private void setMoreButton(final String url,
