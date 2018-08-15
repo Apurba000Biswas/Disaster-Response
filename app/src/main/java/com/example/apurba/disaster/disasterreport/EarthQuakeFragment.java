@@ -163,6 +163,7 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public Loader<List<EarthQuakeItem>> onCreateLoader(int id, Bundle args) {
 
+            System.out.println("EarthquakeFragment - onCreateLoader called");
             //get settings from shared preferences
             SharedPreferences sharedPrefs =
                     PreferenceManager.getDefaultSharedPreferences(getActivity());
@@ -200,6 +201,8 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public void onLoadFinished(Loader<List<EarthQuakeItem>> loader,
                                    List<EarthQuakeItem> earthquakes) {
+
+            System.out.println("EarthquakeFragment - onFinished called");
             loading_indicator.setVisibility(View.GONE);
 
             mAdapter.clearData();
@@ -225,6 +228,7 @@ public class EarthQuakeFragment extends Fragment {
          */
         @Override
         public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
+            System.out.println("EarthquakeFragment - onLoaderReset called");
             mAdapter.clearData();
         }
     };

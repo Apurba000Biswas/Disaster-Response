@@ -38,38 +38,69 @@ public class StatisticsFragment extends Fragment{
                 container,
                 false);
 
-        final DisasterDatabaseLoader mDatabaseLoader = DisasterDatabaseLoader.getLoadedObject();
+        DisasterDatabaseLoader mDatabaseLoader = DisasterDatabaseLoader.getObject(getContext(), getLoaderManager());
+        mDatabaseLoader.LoadDisasterDatabase();
 
         mDataset = getDataSet(mDatabaseLoader);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setAdapter(mAdapter);
 
         if(mDataset != null){
             mAdapter = new StatisticsLocationAdapater(getActivity(), mDataset);
             mAdapter.adAllData(mDataset);
             recyclerView.setAdapter(mAdapter);
-        }else{
-            Toast.makeText(getContext(), "make sure you saved all earthquake data", Toast.LENGTH_SHORT).show();
         }
-        Button clickMeButton = rootView.findViewById(R.id.clicke_me);
+        Button refreshButton = rootView.findViewById(R.id.refresh_button);
+        setRefreshButton(refreshButton, mDatabaseLoader);
+        Button deleteAllButton = rootView.findViewById(R.id.delete_button);
+        setDeleteButton(deleteAllButton, mDatabaseLoader);
 
-        clickMeButton.setOnClickListener(new View.OnClickListener() {
+        return rootView;
+    }
+
+    private void setDeleteButton(Button deleteButton, final  DisasterDatabaseLoader mDatabaseLoader){
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDataset = getDataSet(mDatabaseLoader);
-                mAdapter.adAllData(mDataset);
-                if(mDataset == null){
-                    Toast.makeText(getContext(), "Make sure you saved all data", Toast.LENGTH_SHORT).show();
-                }else{
-                    recyclerView.setAdapter(mAdapter);
-                    Toast.makeText(getContext(), "Refreshed", Toast.LENGTH_SHORT).show();
+                if(mDatabaseLoader != null){
+                    int rowsDeleted = mDatabaseLoader.deleteAllData();
+                    if(rowsDeleted != 0){
+                        mDataset.clear();
+                        mAdapter.clearData();
+                        recyclerView.setAdapter(mAdapter);
+                        Toast.makeText(getContext(), "All Data Deleted", Toast.LENGTH_SHORT).show();
+                    }else{
+                        mDataset.clear();
+                        mAdapter.clearData();
+                        Toast.makeText(getContext(), "Nothing to delete", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
-        return rootView;
+    }
+
+
+
+
+    private void setRefreshButton(Button refreshButton , final DisasterDatabaseLoader mDatabaseLoader){
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDatabaseLoader.reloadData();
+                mDataset = getDataSet(mDatabaseLoader);
+                mAdapter.adAllData(mDataset);
+                if(mDataset != null){
+                    if(mDataset.isEmpty()){
+                        Toast.makeText(getContext(), "Make sure you saved all data", Toast.LENGTH_SHORT).show();
+                    }else{
+                        recyclerView.setAdapter(mAdapter);
+                        Toast.makeText(getContext(), "Refreshed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 
     private ArrayList<StatisticsLocation> getDataSet(DisasterDatabaseLoader mDatabaseLoader){
@@ -84,8 +115,6 @@ public class StatisticsFragment extends Fragment{
                                 locations.get(currentLocation)));
                     }
                 }
-            }else {
-                Toast.makeText(getContext(), "Database is empty", Toast.LENGTH_SHORT).show();
             }
         }
         return dataset;

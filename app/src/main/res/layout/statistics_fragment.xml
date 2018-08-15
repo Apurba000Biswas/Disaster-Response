@@ -13,11 +13,20 @@
         android:scrollbars="vertical"/>
 
     <Button
-        android:id="@+id/clicke_me"
+        android:id="@+id/refresh_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="Click Me"
+        android:text="Refresh"
         android:layout_centerInParent="true"/>
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_margin="10dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@id/refresh_button"
+        android:text="Delete All"
+        android:background="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
