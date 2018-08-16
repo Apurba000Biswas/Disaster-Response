@@ -5,11 +5,13 @@ package com.example.apurba.disaster.disasterreport;
  */
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,11 +37,12 @@ public class StatisticsLocationAdapater extends
 
 
     @Override
-    public StatisticsLocationAdapater.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public StatisticsLocationAdapater.ViewHolder
+    onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.statistics_item,
                 parent, false);
 
-        return new StatisticsLocationAdapater.ViewHolder(view, mDataset);
+        return new ViewHolder(view, mDataset);
     }
 
     @Override
@@ -66,6 +69,7 @@ public class StatisticsLocationAdapater extends
         public ViewHolder(View itemView, List<StatisticsLocation> dataset) {
             super(itemView);
             view = itemView;
+            itemView.setOnClickListener(this);
             mDataset = dataset;
             initAllViews();
         }
@@ -77,7 +81,14 @@ public class StatisticsLocationAdapater extends
 
         @Override
         public void onClick(View view) {
-            System.out.println("Ok clicked");
+
+
+            System.out.println("Statistics Location onclick method gets called");
+            Context context = view.getContext();
+
+            StatisticsLocation clickedLocation = mDataset.get(getAdapterPosition());
+
+            Toast.makeText(context, "Ok clicked on " + clickedLocation.getLocation(), Toast.LENGTH_SHORT).show();
         }
     }
 }

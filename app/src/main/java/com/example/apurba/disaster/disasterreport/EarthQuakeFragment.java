@@ -28,6 +28,7 @@ import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoade
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class EarthQuakeFragment extends Fragment {
 
@@ -70,13 +71,13 @@ public class EarthQuakeFragment extends Fragment {
 
         LoaderManager loaderManager = getLoaderManager();
         DisasterDatabaseLoader databaseLoader =
-                DisasterDatabaseLoader.getObject(getContext(), loaderManager);
+                DisasterDatabaseLoader.getObject(getContext());
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         setFloatingActionButton(fab, databaseLoader);
 
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
-        initializeLoader(databaseLoader, loaderManager);
+        initializeLoader(loaderManager);
 
         return rootView;
     }
@@ -85,15 +86,14 @@ public class EarthQuakeFragment extends Fragment {
     /** private void initializeLoader() method
      *  check for internet connection and initialize a loader
      */
-    private void initializeLoader(DisasterDatabaseLoader databaseLoader,
-                                  LoaderManager loaderManager){
+    private void initializeLoader(LoaderManager loaderManager){
 
         HelperClass mHelper = new HelperClass(getActivity());
         if(mHelper.isConnectedToInternet()){
             loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
                     null,
                     earthquakeDataLoaderListener).forceLoad();
-            databaseLoader.LoadDisasterDatabase();
+            //databaseLoader.LoadDisasterDatabase();
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -115,9 +115,12 @@ public class EarthQuakeFragment extends Fragment {
 
                 List<EarthQuakeItem> earthquakesList = mAdapter.getDataset();
                 if(earthquakesList.size() != 0){
+
+
                     dbLoader.insertListIntoDatabase(earthquakesList);
                     Toast.makeText(getContext(), "Saving Data ...",
                             Toast.LENGTH_SHORT).show();
+
                 }else{
                     Toast.makeText(getContext(),
                             "Make sure you are connected to the Internet",
@@ -145,9 +148,9 @@ public class EarthQuakeFragment extends Fragment {
     }
 
 
+
     private LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> earthquakeDataLoaderListener =
             new LoaderManager.LoaderCallbacks<List<EarthQuakeItem>>() {
-
 
         /** public Loader<List<EarthQuakeItem>> onCreateLoader() method
          *  This method called from the main thread
