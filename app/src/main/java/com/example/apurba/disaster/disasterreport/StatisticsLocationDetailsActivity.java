@@ -93,7 +93,6 @@ public class StatisticsLocationDetailsActivity extends AppCompatActivity
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
                 if (dialog != null) {
                     dialog.dismiss();
                 }

@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract;
@@ -38,7 +39,8 @@ public class StatisticsFragment extends Fragment implements
     private static final int CURSOR_DATA_LOADER_ID = 1;
     private RecyclerView recyclerView;
     private List<StatisticsLocation> mDataset;
-    StatisticsLocationAdapater mAdapter;
+    private StatisticsLocationAdapater mAdapter;
+    private TextView mEmptyTextView;
 
     @Nullable
     @Override
@@ -56,8 +58,9 @@ public class StatisticsFragment extends Fragment implements
         RecyclerView.LayoutManager mLayoutManager =
                 new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
-
         recyclerView.setAdapter(mAdapter);
+
+        mEmptyTextView = rootView.findViewById(R.id.empty_Text_view);
 
         FloatingActionButton refreshButton = rootView.findViewById(R.id.refresh_button);
         setRefreshButton(refreshButton, this);
@@ -86,6 +89,7 @@ public class StatisticsFragment extends Fragment implements
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 deleteAllEarthquakes();
+                mEmptyTextView.setText(R.string.database_empty_state);
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -134,12 +138,15 @@ public class StatisticsFragment extends Fragment implements
             public void onClick(View view) {
                 getLoaderManager().restartLoader(CURSOR_DATA_LOADER_ID, null, callbacks);
                 if(mDataset.isEmpty()){
+                    mEmptyTextView.setVisibility(View.VISIBLE);
                     Toast.makeText(getContext(),
                             "Make sure you saved all data",
                             Toast.LENGTH_SHORT).show();
                 }else{
+                    mEmptyTextView.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Refreshd ", Toast.LENGTH_SHORT).show();
                 }
+                mEmptyTextView.setText(R.string.database_empty_state);
             }
         });
     }
@@ -162,13 +169,16 @@ public class StatisticsFragment extends Fragment implements
             Map<String, Integer> locationMap = makeHashMap(data);
             makeDataSet(locationMap);
             if(!mDataset.isEmpty()){
+                mEmptyTextView.setVisibility(View.GONE);
                 mAdapter.adAllData(mDataset);
                 recyclerView.setAdapter(mAdapter);
                 recyclerView.setVisibility(View.VISIBLE);
             }
         }else{
+            mEmptyTextView.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
+        mEmptyTextView.setText(R.string.database_empty_state);
     }
 
     private void makeDataSet(Map<String, Integer> locationMap){
