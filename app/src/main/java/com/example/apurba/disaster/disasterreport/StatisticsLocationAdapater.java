@@ -6,6 +6,7 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_1;
 
 public class StatisticsLocationAdapater extends
         RecyclerView.Adapter<StatisticsLocationAdapater.ViewHolder> {
@@ -48,7 +51,7 @@ public class StatisticsLocationAdapater extends
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         StatisticsLocation currentLocation = mDataset.get(position);
-        holder.locatinTextView.setText(currentLocation.getLocation());
+        holder.locationTextView.setText(currentLocation.getLocation());
         holder.countTextView.setText(String.valueOf(currentLocation.getOccurance()));
 
     }
@@ -63,7 +66,7 @@ public class StatisticsLocationAdapater extends
 
         public View view;
         private List<StatisticsLocation> mDataset;
-        private TextView locatinTextView;
+        private TextView locationTextView;
         private TextView countTextView;
 
         public ViewHolder(View itemView, List<StatisticsLocation> dataset) {
@@ -75,20 +78,18 @@ public class StatisticsLocationAdapater extends
         }
 
         private void initAllViews(){
-            locatinTextView = view.findViewById(R.id.location_text);
+            locationTextView = view.findViewById(R.id.location_text);
             countTextView = view.findViewById(R.id.count_text);
         }
 
         @Override
         public void onClick(View view) {
-
-
-            System.out.println("Statistics Location onclick method gets called");
             Context context = view.getContext();
 
             StatisticsLocation clickedLocation = mDataset.get(getAdapterPosition());
-
-            Toast.makeText(context, "Ok clicked on " + clickedLocation.getLocation(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, StatisticsLocationDetailsActivity.class);
+            intent.putExtra(EXTRA_MESSAGE_1, clickedLocation.getLocation());
+            context.startActivity(intent);
         }
     }
 }

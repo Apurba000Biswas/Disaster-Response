@@ -92,7 +92,7 @@ public class StatisticsFragment extends Fragment implements
      *  deletes all data from database
      * @return - how many rows were deleted
      */
-    public int deleteAllData(){
+    private int deleteAllData(){
         int rowsDeleted = 0;
         rowsDeleted = getContext().getContentResolver().delete(
                 DisasterReportDbContract.EarthQuakeEntry.CONTENT_URI,
@@ -142,7 +142,6 @@ public class StatisticsFragment extends Fragment implements
             }
         }else{
             recyclerView.setVisibility(View.GONE);
-
         }
     }
 

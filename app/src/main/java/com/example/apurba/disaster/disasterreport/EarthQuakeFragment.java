@@ -93,7 +93,6 @@ public class EarthQuakeFragment extends Fragment {
             loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
                     null,
                     earthquakeDataLoaderListener).forceLoad();
-            //databaseLoader.LoadDisasterDatabase();
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -115,12 +114,9 @@ public class EarthQuakeFragment extends Fragment {
 
                 List<EarthQuakeItem> earthquakesList = mAdapter.getDataset();
                 if(earthquakesList.size() != 0){
-
-
                     dbLoader.insertListIntoDatabase(earthquakesList);
                     Toast.makeText(getContext(), "Saving Data ...",
                             Toast.LENGTH_SHORT).show();
-
                 }else{
                     Toast.makeText(getContext(),
                             "Make sure you are connected to the Internet",
@@ -146,7 +142,6 @@ public class EarthQuakeFragment extends Fragment {
 
         mAdapter = new EarthQuakeItemAdapterRecycler(getActivity(), earthquakes);
     }
-
 
 
     private LoaderManager.LoaderCallbacks<List<EarthQuakeItem>> earthquakeDataLoaderListener =
