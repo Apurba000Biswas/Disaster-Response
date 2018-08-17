@@ -89,4 +89,17 @@
     <string name="usgs_url">https://earthquake.usgs.gov/earthquakes/map/"</string>
 
 
+
+
+
+
+    <string name="delete_all_earthquake_dialog_message">Delete all Earthquakes ?</string>
+    <string name="delete_this_Location_dialog_msg">Delete this Location ?</string>
+
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+
 </resources>

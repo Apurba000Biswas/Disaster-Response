@@ -4,6 +4,7 @@ package com.example.apurba.disaster.disasterreport;
  * Created by Apurba on 8/13/2018.
  */
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -72,26 +74,49 @@ public class StatisticsFragment extends Fragment implements
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int rowsDeleted = deleteAllData();
-                if(rowsDeleted != 0){
-                    Toast.makeText(getContext(),
-                            "All Data Deleted",
-                            Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(),
-                            "Nothing to delete", Toast.LENGTH_SHORT).show();
-                }
-                mDataset.clear();
-                mAdapter.clearData();
-                recyclerView.setAdapter(mAdapter);
+                showDeleteConfirmationDialog();
             }
         });
     }
 
-    /** public int deleteAllData()
-     *  deletes all data from database
-     * @return - how many rows were deleted
-     */
+    private void showDeleteConfirmationDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(R.string.delete_all_earthquake_dialog_message);
+
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteAllEarthquakes();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
+    }
+    
+
+    private void deleteAllEarthquakes(){
+        int rowsDeleted = deleteAllData();
+        if(rowsDeleted != 0){
+            Toast.makeText(getContext(),
+                    "All Data Deleted",
+                    Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getContext(),
+                    "Nothing to delete", Toast.LENGTH_SHORT).show();
+        }
+        mDataset.clear();
+        mAdapter.clearData();
+        recyclerView.setAdapter(mAdapter);
+    }
     private int deleteAllData(){
         int rowsDeleted = 0;
         rowsDeleted = getContext().getContentResolver().delete(

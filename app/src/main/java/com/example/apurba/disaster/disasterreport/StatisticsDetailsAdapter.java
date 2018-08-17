@@ -5,6 +5,8 @@ package com.example.apurba.disaster.disasterreport;
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,9 @@ import java.util.List;
 
 public class StatisticsDetailsAdapter extends RecyclerView.Adapter<StatisticsDetailsAdapter.ViewHolder> {
 
+    public static final String EXTRA_MESSAGE_1 = "location";
+    public static final String EXTRA_MESSAGE_2 = "magnitude";
+    public static final String EXTRA_MESSAGE_3 = "url";
     private Activity mContext;
     private List<EarthQuakeItem> mDataset;
 
@@ -78,7 +83,7 @@ public class StatisticsDetailsAdapter extends RecyclerView.Adapter<StatisticsDet
 
 
     public class ViewHolder extends
-            RecyclerView.ViewHolder implements View.OnClickListener{
+            RecyclerView.ViewHolder implements View.OnClickListener {
 
 
         public View view;
@@ -97,7 +102,7 @@ public class StatisticsDetailsAdapter extends RecyclerView.Adapter<StatisticsDet
             initAllViews();
         }
 
-        private void initAllViews(){
+        private void initAllViews() {
             magnitudeTextView = view.findViewById(R.id.magnitude_text_field);
             offsetTextView = view.findViewById(R.id.offset_text_field);
             primaryLocationTextView = view.findViewById(R.id.primary_location_text_field);
@@ -108,7 +113,17 @@ public class StatisticsDetailsAdapter extends RecyclerView.Adapter<StatisticsDet
 
         @Override
         public void onClick(View view) {
+            Context context = view.getContext();
+            EarthQuakeItem clickedEarthquake = mDataset.get(getAdapterPosition());
+            Intent intent = new Intent(context, EarthQuakeDetailsActivity.class);
+            String url = clickedEarthquake.getUrl();
+            String geoLocation = clickedEarthquake.getLocation();
+            double magnitude = clickedEarthquake.getMagnitude();
 
+            intent.putExtra(EXTRA_MESSAGE_1, geoLocation);
+            intent.putExtra(EXTRA_MESSAGE_2, magnitude);
+            intent.putExtra(EXTRA_MESSAGE_3, url);
+            context.startActivity(intent);
         }
     }
 }
