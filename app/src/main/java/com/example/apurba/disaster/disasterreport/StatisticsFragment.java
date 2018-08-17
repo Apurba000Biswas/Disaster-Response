@@ -112,6 +112,8 @@ public class StatisticsFragment extends Fragment implements
                     Toast.makeText(getContext(),
                             "Make sure you saved all data",
                             Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(), "Refreshd ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -119,8 +121,7 @@ public class StatisticsFragment extends Fragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String[] projection = {EarthQuakeEntry._ID,
-                EarthQuakeEntry.COLUMN_LOCATION};
+        String[] projection = {EarthQuakeEntry.COLUMN_LOCATION};
         return new CursorLoader(getContext(),
                 EarthQuakeEntry.CONTENT_URI,
                 projection,
@@ -171,7 +172,7 @@ public class StatisticsFragment extends Fragment implements
                 location = data.getString(locationColumnIndex);
                 if(locationMap.containsKey(location)){
                     int count = locationMap.get(location);
-                    locationMap.remove(location);
+                    //locationMap.remove(location);
                     count++;
                     locationMap.put(location, count);
                 }else{
