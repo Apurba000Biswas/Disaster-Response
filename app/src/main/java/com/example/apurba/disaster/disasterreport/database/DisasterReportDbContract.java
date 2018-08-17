@@ -28,6 +28,7 @@ public class DisasterReportDbContract {
         public static final String COLUMN_GEO_LOCATION = "geo_location";
         public static final String COLUMN_MAGNITUDE = "magnitude";
         public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_URL = "url";
 
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" +
