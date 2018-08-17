@@ -16,15 +16,21 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StatisticsLocationDetailsActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int CURSOR_DATA_LOADER_ID = 1;
 
+    private List<EarthQuakeItem> mDataset;
+    private StatisticsDetailsAdapter mAdapter;
     private RecyclerView recyclerView;
     private TextView totalTextView;
     private String displayLocation;
@@ -41,10 +47,13 @@ public class StatisticsLocationDetailsActivity extends AppCompatActivity
         setAppBar(displayLocation);
         setCustomUpArraow();
 
+        mDataset = new ArrayList<>();
+        mAdapter = new StatisticsDetailsAdapter(this, mDataset);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mAdapter);
 
         totalTextView = findViewById(R.id.total_text_view);
         GradientDrawable magnitudeCircle = (GradientDrawable) totalTextView.getBackground();
@@ -56,9 +65,7 @@ public class StatisticsLocationDetailsActivity extends AppCompatActivity
                 this);
     }
 
-    /** private void setAppBar() method
-     *  set up the custom app bar
-     */
+
     private void setAppBar(String location){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -121,16 +128,29 @@ public class StatisticsLocationDetailsActivity extends AppCompatActivity
                     geoLocation = data.getString(geoLocationColumnIndex);
                     time = data.getString(timeColumnIndex);
                     url = data.getString(urlColumnIndex);
-                    System.out.println("Data- " + magnitude + " " + geoLocation + " " + time + " " + url);
+                    EarthQuakeItem item = new EarthQuakeItem(
+                            Double.parseDouble(magnitude),
+                            geoLocation,
+                            Long.parseLong(time),
+                            url);
+                    //System.out.println("Data- " + magnitude + " " + geoLocation + " " + time + " " + url);
+                    mDataset.add(item);
                     count ++ ;
                 }
             }while (data.moveToNext());
+
+            totalTextView.setText(String.valueOf(count));
+            mAdapter.adAllData(mDataset);
+            recyclerView.setAdapter(mAdapter);
+            recyclerView.setVisibility(View.VISIBLE);
+        } else{
+            recyclerView.setVisibility(View.GONE);
         }
-        totalTextView.setText(String.valueOf(count));
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        mAdapter.clearData();
+        mDataset.clear();
     }
 }

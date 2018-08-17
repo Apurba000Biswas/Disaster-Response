@@ -4,7 +4,7 @@ package com.example.apurba.disaster.disasterreport;
  *
  * Created by Apurba on 3/13/2018.
  * A subclass of {@link android.support.v4.content.AsyncTaskLoader}
- * This class loads EarthquakeItem data in the background thread
+ * This class loads StatisticsLocation data in the background thread
  */
 
 import android.content.Context;

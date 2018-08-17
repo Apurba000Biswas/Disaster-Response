@@ -129,7 +129,7 @@ public class EarthQuakeFragment extends Fragment {
 
     /** private void setRecyclerViewWithAdapter() method
      * @param recyclerView - this view get set up here
-     * @param earthquakes - the recycler view takes a list of EarthquakeItem
+     * @param earthquakes - the recycler view takes a list of StatisticsLocation
      * This method setup the recyclerView with appropriate settings
      * This method also initialize the adapter with the list
      */

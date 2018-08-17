@@ -32,6 +32,16 @@ public class EarthQuakeItem {
         this.mUrl = url;
     }
 
+    public EarthQuakeItem(double magnitude,
+                          String geoLocation,
+                          long time,
+                          String url){
+        this.mMagnitude = magnitude;
+        this.mLocation = geoLocation;
+        this.mTimeInMilliseconds = time;
+        this.mUrl = url;
+    }
+
 
     // returns current items magnitude
     public double getMagnitude(){
