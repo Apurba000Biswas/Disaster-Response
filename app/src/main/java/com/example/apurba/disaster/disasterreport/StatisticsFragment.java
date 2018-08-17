@@ -101,7 +101,7 @@ public class StatisticsFragment extends Fragment implements
         alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
     }
-    
+
 
     private void deleteAllEarthquakes(){
         int rowsDeleted = deleteAllData();

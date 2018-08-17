@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class EarthQuakeFragment extends Fragment {
     private static final int EARTHQUAKE_DATA_LOADER_ID = 0;
 
     private TextView mEmptyStateTextView;
+    private ImageView mEmptyStateImageView;
     private View loading_indicator;
     private RecyclerView recyclerView;
     private EarthQuakeItemAdapterRecycler mAdapter;
@@ -67,7 +69,9 @@ public class EarthQuakeFragment extends Fragment {
         recyclerView =  rootView.findViewById(R.id.recyclerView);
         setRecyclerViewWithAdapter(recyclerView, earthquakesList);
 
-        mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
+        mEmptyStateTextView = rootView.findViewById(R.id.empty_Text_view);
+        mEmptyStateImageView = rootView.findViewById(R.id.empty_image_view);
+        mEmptyStateImageView.setVisibility(View.GONE);
 
         LoaderManager loaderManager = getLoaderManager();
         DisasterDatabaseLoader databaseLoader =
@@ -96,6 +100,7 @@ public class EarthQuakeFragment extends Fragment {
         }else {
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
+            mEmptyStateImageView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -208,6 +213,7 @@ public class EarthQuakeFragment extends Fragment {
                     mEmptyStateTextView.setVisibility(View.GONE);
                 }
             }
+            mEmptyStateImageView.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_earthquakes);
         }
 

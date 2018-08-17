@@ -18,7 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:textColor="#EF6C00"
+            android:textColor="@color/appLevel"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:textAppearance="?android:textAppearanceMedium"/>
 
         <ProgressBar

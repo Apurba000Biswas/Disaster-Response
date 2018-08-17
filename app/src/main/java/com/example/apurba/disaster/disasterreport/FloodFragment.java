@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +67,8 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         recyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new FoodItemAdapterRecycler(getActivity(), mDataset);
-        mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_view);
+        mEmptyStateTextView = (TextView)rootView.findViewById(R.id.empty_Text_view);
+
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
         // Setup FAB to open Website View Activity
@@ -144,7 +146,6 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                 mEmptyStateTextView.setVisibility(View.GONE);
             }
         }
-
 
         mEmptyStateTextView.setText(R.string.no_floods);
     }
