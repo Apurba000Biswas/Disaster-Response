@@ -121,6 +121,7 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
                 String.valueOf(earthQuakeItem.getMagnitude()));
         values.put(EarthQuakeEntry.COLUMN_TIME ,
                 String.valueOf(earthQuakeItem.getTimeInMilliseconds()));
+        values.put(EarthQuakeEntry.COLUMN_URL, earthQuakeItem.getUrl());
         return values;
     }
 
