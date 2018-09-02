@@ -144,7 +144,7 @@ public class StatisticsFragment extends Fragment implements
                             Toast.LENGTH_SHORT).show();
                 }else{
                     mEmptyTextView.setVisibility(View.GONE);
-                    Toast.makeText(getContext(), "Refreshd ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Refreshed ", Toast.LENGTH_SHORT).show();
                 }
                 mEmptyTextView.setText(R.string.database_empty_state);
             }

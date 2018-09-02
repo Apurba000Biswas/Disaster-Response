@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Avalance"
+                    android:text="Avalanche"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:fontFamily="sans-serif-condensed"

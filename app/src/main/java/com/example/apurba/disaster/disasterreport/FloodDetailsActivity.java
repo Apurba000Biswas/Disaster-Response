@@ -1,11 +1,9 @@
 package com.example.apurba.disaster.disasterreport;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -41,7 +39,7 @@ public class FloodDetailsActivity extends AppCompatActivity {
         upArrow.setColorFilter(getResources().getColor(R.color.appLevel), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
 
-        // receive intent and all its extar messages
+        // receive intent and all its extra messages
         Intent intent = getIntent();
         String eaAreaName = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE1);
         String county = intent.getStringExtra(FloodFragment.EXTRA_MESSAGE2);
