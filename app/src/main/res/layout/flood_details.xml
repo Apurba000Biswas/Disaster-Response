@@ -229,16 +229,14 @@
         </LinearLayout>
 
 
-        <com.facebook.share.widget.ShareButton
-            android:id="@+id/fb_share_button"
-            android:layout_width="83dp"
-            android:drawSelectorOnTop="true"
-            android:layout_height="35dp"
-            android:textColor="@color/flood_details"
+        <Button
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:elevation="10dp"
-            android:background="@color/appLevel" />
+            android:layout_marginRight="16dp"
+            android:background="@color/appLevel"
+            android:text="Share"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/share_button"/>
     </LinearLayout>
 </ScrollView>

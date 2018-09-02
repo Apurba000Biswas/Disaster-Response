@@ -26,8 +26,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareButton;
 
 
 public class EarthQuakeDetailsActivity extends AppCompatActivity {
@@ -118,12 +116,18 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void setFacebookShareButton(String url){
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(url))
-                .build();
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-        shareButton.setShareContent(content);
+    private void setFacebookShareButton(final String url){
+        Button shareButton = findViewById(R.id.share_button);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, url);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, url);
+                startActivity(Intent.createChooser(shareIntent, "Share using"));
+            }
+        });
     }
 
     @Override

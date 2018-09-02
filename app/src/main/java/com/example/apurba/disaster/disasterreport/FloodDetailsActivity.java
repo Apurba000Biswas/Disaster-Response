@@ -11,10 +11,10 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareButton;
 
 /**
  * creates a details activity for selected flood item
@@ -63,12 +63,17 @@ public class FloodDetailsActivity extends AppCompatActivity {
                 severityLevelInt);
 
         // set facebook share button
-        ShareLinkContent content = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(SHARE_URL))
-                .setQuote("Flood Severity Level = " + severityLevel + "\nGeographical Area: " + county)
-                .build();
-        ShareButton shareButton = (ShareButton)findViewById(R.id.fb_share_button);
-        shareButton.setShareContent(content);
+        Button shareButton = findViewById(R.id.share_button);
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, SHARE_URL);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, SHARE_URL);
+                startActivity(Intent.createChooser(shareIntent, "Share using"));
+            }
+        });
     }
 
     /**
