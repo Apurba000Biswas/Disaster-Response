@@ -101,5 +101,5 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <string name="database_empty_state">Data storage is empty</string>
+    <string name="database_empty_state">Data storage is empty.Did you save all earthquakes?</string>
 </resources>

@@ -9,18 +9,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
-import android.support.v4.content.Loader;
-import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.apurba.disaster.disasterreport.EarthQuakeItem;
-import com.example.apurba.disaster.disasterreport.StatisticsLocationAdapater;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
 
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +22,9 @@ public class DisasterDatabaseLoader {
 
     private Context mContext;
 
-
     private DisasterDatabaseLoader(Context context){
         this.mContext = context;
     }
-
 
     /** public static DisasterDatabaseLoader getObject() method
      *  Its a factory method which serve as object
@@ -44,7 +35,6 @@ public class DisasterDatabaseLoader {
     public static DisasterDatabaseLoader getObject(Context context){
         return new DisasterDatabaseLoader(context);
     }
-
 
     /** public void insertListIntoDatabase() method
      *  Creates a new background task which used to insert a list

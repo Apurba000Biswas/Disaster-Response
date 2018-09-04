@@ -39,7 +39,7 @@ public class StatisticsFragment extends Fragment implements
     private static final int CURSOR_DATA_LOADER_ID = 1;
     private RecyclerView recyclerView;
     private List<StatisticsLocation> mDataset;
-    private StatisticsLocationAdapater mAdapter;
+    private StatisticsLocationAdapter mAdapter;
     private TextView mEmptyTextView;
 
     @Nullable
@@ -51,7 +51,7 @@ public class StatisticsFragment extends Fragment implements
                 container,
                 false);
         mDataset = new ArrayList<StatisticsLocation>();
-        mAdapter = new StatisticsLocationAdapater(getActivity(), mDataset);
+        mAdapter = new StatisticsLocationAdapter(getActivity(), mDataset);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -165,6 +165,7 @@ public class StatisticsFragment extends Fragment implements
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.clearData();
+        recyclerView.setAdapter(mAdapter);
         if (data.getCount() != 0){
             Map<String, Integer> locationMap = makeHashMap(data);
             makeDataSet(locationMap);
@@ -176,7 +177,7 @@ public class StatisticsFragment extends Fragment implements
             }
         }else{
             mEmptyTextView.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            //recyclerView.setVisibility(View.GONE);
         }
         mEmptyTextView.setText(R.string.database_empty_state);
     }

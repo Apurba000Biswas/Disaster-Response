@@ -98,6 +98,8 @@ public class EarthQuakeFragment extends Fragment {
                     null,
                     earthquakeDataLoaderListener).forceLoad();
         }else {
+            mAdapter.clearData();
+            recyclerView.setAdapter(mAdapter);
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
             mEmptyStateImageView.setVisibility(View.VISIBLE);
@@ -201,20 +203,26 @@ public class EarthQuakeFragment extends Fragment {
             loading_indicator.setVisibility(View.GONE);
 
             mAdapter.clearData();
+            recyclerView.setAdapter(mAdapter);
 
-            if (earthquakes != null){
-                if (earthquakes.isEmpty()) {
-                    recyclerView.setVisibility(View.GONE);
-                    mEmptyStateTextView.setVisibility(View.VISIBLE);
-                } else {
-                    mAdapter.addAllData(earthquakes);
-                    recyclerView.setAdapter(mAdapter);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    mEmptyStateTextView.setVisibility(View.GONE);
+            HelperClass mHelper = new HelperClass(getActivity());
+            if(mHelper.isConnectedToInternet()){
+                if (earthquakes != null){
+                    if (earthquakes.isEmpty()) {
+                        mEmptyStateTextView.setVisibility(View.VISIBLE);
+                    } else {
+                        mAdapter.addAllData(earthquakes);
+                        recyclerView.setAdapter(mAdapter);
+                        recyclerView.setVisibility(View.VISIBLE);
+                        mEmptyStateTextView.setVisibility(View.GONE);
+                    }
                 }
+                mEmptyStateImageView.setVisibility(View.GONE);
+                mEmptyStateTextView.setText(R.string.no_earthquakes);
+            }else {
+                mEmptyStateTextView.setText(R.string.no_internet_connection);
+                mEmptyStateImageView.setVisibility(View.VISIBLE);
             }
-            mEmptyStateImageView.setVisibility(View.GONE);
-            mEmptyStateTextView.setText(R.string.no_earthquakes);
         }
 
 

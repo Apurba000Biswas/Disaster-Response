@@ -17,14 +17,14 @@ import java.util.List;
 
 import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_1;
 
-public class StatisticsLocationAdapater extends
-        RecyclerView.Adapter<StatisticsLocationAdapater.ViewHolder> {
+public class StatisticsLocationAdapter extends
+        RecyclerView.Adapter<StatisticsLocationAdapter.ViewHolder> {
 
     private List<StatisticsLocation> mDataset;
     private Activity mContext;
 
-    public StatisticsLocationAdapater(Activity context,
-                                      List<StatisticsLocation> dataset){
+    public StatisticsLocationAdapter(Activity context,
+                                     List<StatisticsLocation> dataset){
         this.mContext = context;
         this.mDataset = dataset;
     }
@@ -39,7 +39,7 @@ public class StatisticsLocationAdapater extends
 
 
     @Override
-    public StatisticsLocationAdapater.ViewHolder
+    public StatisticsLocationAdapter.ViewHolder
     onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.statistics_item,
                 parent, false);

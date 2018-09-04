@@ -93,6 +93,8 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
             LoaderManager loaderManager = getLoaderManager();
             loaderManager.initLoader(0, null, FloodFragment.this).forceLoad();
         }else{
+            mAdapter.clearData();
+            recyclerView.setAdapter(mAdapter);
             loading_indicator.setVisibility(View.GONE);
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
@@ -133,21 +135,26 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         loading_indicator.setVisibility(View.GONE);
 
         mAdapter.clearData();
+        recyclerView.setAdapter(mAdapter);
 
-        if(flood != null){
-            if (flood.isEmpty()) {
-                recyclerView.setVisibility(View.GONE);
-                mEmptyStateTextView.setVisibility(View.VISIBLE);
+        HelperClass mHelper = new HelperClass(getActivity());
+        if(mHelper.isConnectedToInternet()){
+            if(flood != null){
+                if (flood.isEmpty()) {
+                   // recyclerView.setVisibility(View.GONE);
+                    mEmptyStateTextView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    mAdapter.addAllData(flood);
+                    recyclerView.setAdapter(mAdapter);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    mEmptyStateTextView.setVisibility(View.GONE);
+                }
             }
-            else {
-                mAdapter.addAllData(flood);
-                recyclerView.setAdapter(mAdapter);
-                recyclerView.setVisibility(View.VISIBLE);
-                mEmptyStateTextView.setVisibility(View.GONE);
-            }
+            mEmptyStateTextView.setText(R.string.no_floods);
+        }else{
+            mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
-
-        mEmptyStateTextView.setText(R.string.no_floods);
     }
 
     /**
