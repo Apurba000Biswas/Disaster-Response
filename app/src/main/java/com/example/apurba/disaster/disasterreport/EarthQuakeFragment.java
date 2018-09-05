@@ -29,7 +29,9 @@ import android.widget.Toast;
 import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EarthQuakeFragment extends Fragment {
 
@@ -43,6 +45,7 @@ public class EarthQuakeFragment extends Fragment {
     private View loading_indicator;
     private RecyclerView recyclerView;
     private EarthQuakeItemAdapterRecycler mAdapter;
+    private Map<String, List<EarthQuakeItem>> earthquakeMap;
 
     // Empty body constructor
     public EarthQuakeFragment() {
@@ -66,6 +69,7 @@ public class EarthQuakeFragment extends Fragment {
                 false);
 
         List<EarthQuakeItem> earthquakesList =  new ArrayList<>();
+        earthquakeMap = new HashMap<>();
         recyclerView =  rootView.findViewById(R.id.recyclerView);
         setRecyclerViewWithAdapter(recyclerView, earthquakesList);
 
@@ -79,22 +83,23 @@ public class EarthQuakeFragment extends Fragment {
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
         setSaveButton(fab, databaseLoader);
 
+        loading_indicator = rootView.findViewById(R.id.loading_spinner);
+
         FloatingActionButton search = rootView.findViewById(R.id.search_button);
         FloatingActionButton close = rootView.findViewById(R.id.close_button);
         EditText searchTextView = rootView.findViewById(R.id.search_text);
-        setSearhButton(search, close, searchTextView);
+        setSearchButton(search, close, searchTextView);
         setCloseButton(close, searchTextView);
-
-        loading_indicator = rootView.findViewById(R.id.loading_spinner);
+        loading_indicator.setVisibility(View.VISIBLE);
 
         initializeLoader(loaderManager);
 
         return rootView;
     }
 
-    private void setSearhButton(FloatingActionButton searhButton,
-                                final FloatingActionButton closeButton,
-                                final EditText searchTextView){
+    private void setSearchButton(FloatingActionButton searhButton,
+                                 final FloatingActionButton closeButton,
+                                 final EditText searchTextView){
         searhButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +107,28 @@ public class EarthQuakeFragment extends Fragment {
                     searchTextView.setVisibility(View.VISIBLE);
                     closeButton.setVisibility(View.VISIBLE);
                 }else{
-                    //Toast.makeText(getContext(), "Already visible", Toast.LENGTH_SHORT).show();
+                    HelperClass mHelper = new HelperClass(getActivity());
+                    if (mHelper.isConnectedToInternet()){
+                        if (!earthquakeMap.isEmpty()){
+                            String location = searchTextView.getText().toString().trim().toUpperCase();
+                            if (earthquakeMap.containsKey(location)){
+                                List<EarthQuakeItem> list = earthquakeMap.get(location);
+                                mAdapter.addAllData(list);
+                                recyclerView.setAdapter(mAdapter);
+                                mEmptyStateTextView.setVisibility(View.GONE);
+                            }else{
+                                mAdapter.clearData();
+                                recyclerView.setAdapter(mAdapter);
+                                mEmptyStateTextView.setText(R.string.no_earthquakes);
+                                mEmptyStateTextView.setVisibility(View.VISIBLE);
+                            }
+                        }else{
+                            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        mEmptyStateTextView.setText(R.string.no_internet_connection);
+                    }
+
                 }
             }
         });
@@ -115,6 +141,19 @@ public class EarthQuakeFragment extends Fragment {
             public void onClick(View view) {
                 searchText.setVisibility(View.GONE);
                 closeButton.setVisibility(View.GONE);
+                HelperClass mHelper = new HelperClass(getActivity());
+                if (mHelper.isConnectedToInternet()){
+                    getLoaderManager().getLoader(EARTHQUAKE_DATA_LOADER_ID).forceLoad();
+                    loading_indicator.setVisibility(View.VISIBLE);
+                    mAdapter.clearData();
+                    recyclerView.setAdapter(mAdapter);
+                    mEmptyStateTextView.setVisibility(View.GONE);
+                    mEmptyStateImageView.setVisibility(View.GONE);
+                }else{
+                    mEmptyStateTextView.setText(R.string.no_internet_connection);
+                    mEmptyStateImageView.setVisibility(View.VISIBLE);
+                    loading_indicator.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -196,6 +235,7 @@ public class EarthQuakeFragment extends Fragment {
          */
         @Override
         public Loader<List<EarthQuakeItem>> onCreateLoader(int id, Bundle args) {
+            loading_indicator.setVisibility(View.VISIBLE);
             SharedPreferences sharedPrefs =
                     PreferenceManager.getDefaultSharedPreferences(getActivity());
             String minMagnitude = sharedPrefs.getString(
@@ -242,15 +282,19 @@ public class EarthQuakeFragment extends Fragment {
                 if (earthquakes != null){
                     if (earthquakes.isEmpty()) {
                         mEmptyStateTextView.setVisibility(View.VISIBLE);
+                        mEmptyStateTextView.setText(R.string.no_earthquakes);
                     } else {
                         mAdapter.addAllData(earthquakes);
                         recyclerView.setAdapter(mAdapter);
                         recyclerView.setVisibility(View.VISIBLE);
                         mEmptyStateTextView.setVisibility(View.GONE);
+
+                        EarthquakeLoader earthquakeLoader = (EarthquakeLoader)loader;
+                        earthquakeMap = earthquakeLoader.getEarthquakeMap();
                     }
                 }
                 mEmptyStateImageView.setVisibility(View.GONE);
-                mEmptyStateTextView.setText(R.string.no_earthquakes);
+
             }else {
                 mEmptyStateTextView.setText(R.string.no_internet_connection);
                 mEmptyStateImageView.setVisibility(View.VISIBLE);
@@ -265,6 +309,7 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
             mAdapter.clearData();
+            earthquakeMap.clear();
         }
     };
 }
