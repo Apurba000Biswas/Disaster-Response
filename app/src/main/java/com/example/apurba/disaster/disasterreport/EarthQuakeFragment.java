@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -88,13 +89,51 @@ public class EarthQuakeFragment extends Fragment {
         FloatingActionButton search = rootView.findViewById(R.id.search_button);
         FloatingActionButton close = rootView.findViewById(R.id.close_button);
         EditText searchTextView = rootView.findViewById(R.id.search_text);
+        Button searchIndicator = rootView.findViewById(R.id.search_indicator);
+
         setSearchButton(search, close, searchTextView);
         setCloseButton(close, searchTextView);
+        setSearchIndicator(searchIndicator, searchTextView);
         loading_indicator.setVisibility(View.VISIBLE);
 
         initializeLoader(loaderManager);
 
         return rootView;
+    }
+
+    private void setSearchIndicator(Button searchIndicator, final EditText searchTextView){
+
+        searchIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                HelperClass mHelper = new HelperClass(getActivity());
+                if (mHelper.isConnectedToInternet()){
+                    if (!earthquakeMap.isEmpty()){
+                        String location = searchTextView.getText().toString().trim().toUpperCase();
+                        if (earthquakeMap.containsKey(location)){
+                            List<EarthQuakeItem> list = earthquakeMap.get(location);
+                            mAdapter.addAllData(list);
+                            recyclerView.setAdapter(mAdapter);
+                            mEmptyStateTextView.setVisibility(View.GONE);
+                        }else{
+                            mAdapter.clearData();
+                            recyclerView.setAdapter(mAdapter);
+                            mEmptyStateTextView.setText(R.string.no_earthquakes);
+                            mEmptyStateTextView.setVisibility(View.VISIBLE);
+                            mEmptyStateImageView.setVisibility(View.GONE);
+                        }
+                    }else{
+                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    mEmptyStateTextView.setText(R.string.no_internet_connection);
+                    mEmptyStateTextView.setVisibility(View.VISIBLE);
+                    mEmptyStateImageView.setVisibility(View.VISIBLE);
+                    mAdapter.clearData();
+                    recyclerView.setAdapter(mAdapter);
+                }
+            }
+        });
     }
 
     private void setSearchButton(FloatingActionButton searhButton,
@@ -106,29 +145,6 @@ public class EarthQuakeFragment extends Fragment {
                 if (searchTextView.getVisibility() == View.GONE){
                     searchTextView.setVisibility(View.VISIBLE);
                     closeButton.setVisibility(View.VISIBLE);
-                }else{
-                    HelperClass mHelper = new HelperClass(getActivity());
-                    if (mHelper.isConnectedToInternet()){
-                        if (!earthquakeMap.isEmpty()){
-                            String location = searchTextView.getText().toString().trim().toUpperCase();
-                            if (earthquakeMap.containsKey(location)){
-                                List<EarthQuakeItem> list = earthquakeMap.get(location);
-                                mAdapter.addAllData(list);
-                                recyclerView.setAdapter(mAdapter);
-                                mEmptyStateTextView.setVisibility(View.GONE);
-                            }else{
-                                mAdapter.clearData();
-                                recyclerView.setAdapter(mAdapter);
-                                mEmptyStateTextView.setText(R.string.no_earthquakes);
-                                mEmptyStateTextView.setVisibility(View.VISIBLE);
-                            }
-                        }else{
-                            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
-                        }
-                    }else{
-                        mEmptyStateTextView.setText(R.string.no_internet_connection);
-                    }
-
                 }
             }
         });
