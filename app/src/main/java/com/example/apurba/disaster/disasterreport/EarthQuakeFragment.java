@@ -4,7 +4,7 @@ package com.example.apurba.disaster.disasterreport;
  *
  * Created by Apurba on 3/13/2018.
  * A simple {@link android.support.v4.app.Fragment} subclass.
- * creates a fragment for earthquake and also
+ * creates a fragment for earthquake
  * implements {@link android.support.v4.app.LoaderManager.LoaderCallbacks} interface.
  */
 
@@ -113,7 +113,10 @@ public class EarthQuakeFragment extends Fragment {
                     Map<String, List<EarthQuakeItem>> earthquakeMap = earthquakeLoader.getEarthquakeMap();
                     if (!earthquakeMap.isEmpty()){
                         String location = searchTextView.getText().toString().trim().toUpperCase();
-                        System.out.println("Size of EarthquakeMap - " + earthquakeMap.size() + "/////////" + "Locations are");
+                        System.out.println("Size of EarthquakeMap - " +
+                                earthquakeMap.size() +
+                                "/////////" +
+                                "Locations are");
 
                         for (String loc : earthquakeMap.keySet()){
                             System.out.println(loc);
@@ -124,23 +127,8 @@ public class EarthQuakeFragment extends Fragment {
                                 System.out.println("List is not Empty ++++++++++++++");
                             }
                         }
+                        doSearch(location, earthquakeMap);
 
-                        if (earthquakeMap.containsKey(location)){
-                            List<EarthQuakeItem> list = earthquakeMap.get(location);
-                            mAdapter.addAllData(list);
-                            recyclerView.setAdapter(mAdapter);
-                            mEmptyStateTextView.setVisibility(View.GONE);
-                            System.out.println("Yes contain " + location + " ***************** ");
-
-                        }else{
-                            mAdapter.clearData();
-                            recyclerView.setAdapter(mAdapter);
-                            mEmptyStateTextView.setText(R.string.no_earthquakes);
-                            mEmptyStateTextView.setVisibility(View.VISIBLE);
-                            mEmptyStateImageView.setVisibility(View.GONE);
-                            System.out.println("No, dose not contain " + location + " -------------------- ");
-
-                        }
                     }else{
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
                     }
@@ -153,6 +141,30 @@ public class EarthQuakeFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void doSearch(String inputedLocation,
+                          Map<String, List<EarthQuakeItem>> earthquakeMap){
+        if (earthquakeMap.containsKey(inputedLocation)){
+            List<EarthQuakeItem> list = earthquakeMap.get(inputedLocation);
+            mAdapter.addAllData(list);
+            recyclerView.setAdapter(mAdapter);
+            mEmptyStateTextView.setVisibility(View.GONE);
+            System.out.println("Yes contain " +
+                    inputedLocation +
+                    " ***************** ");
+
+        }else{
+            mAdapter.clearData();
+            recyclerView.setAdapter(mAdapter);
+            mEmptyStateTextView.setText(R.string.no_earthquakes);
+            mEmptyStateTextView.setVisibility(View.VISIBLE);
+            mEmptyStateImageView.setVisibility(View.GONE);
+            System.out.println("No, dose not contain " +
+                    inputedLocation +
+                    " -------------------- ");
+
+        }
     }
 
     private void setSearchButton(FloatingActionButton searhButton,
