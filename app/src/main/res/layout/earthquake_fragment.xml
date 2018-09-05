@@ -27,14 +27,14 @@
     <EditText
         android:layout_marginRight="10dp"
         android:id="@+id/search_text"
-        android:background="#f47100"
+        android:background="#FFEBEE"
         android:visibility="gone"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/appLevel"
         android:gravity="center"
         android:fontFamily="sans-serif-condensed"
         android:layout_marginLeft="60dp"
         android:layout_toLeftOf="@id/search_button"
-        android:hint="Bangladesh"
+        android:hint="Enter location here"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
@@ -42,8 +42,9 @@
         android:id="@+id/search_indicator"
         android:layout_marginRight="70dp"
         android:layout_marginTop="5dp"
+        android:visibility="gone"
         android:layout_alignParentRight="true"
-        android:background="@drawable/ic_search_arrow"
+        android:background="@drawable/ic_search_colored"
         android:layout_width="30dp"
         android:layout_height="30dp" />
 

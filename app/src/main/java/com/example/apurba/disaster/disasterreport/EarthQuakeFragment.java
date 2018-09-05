@@ -46,7 +46,7 @@ public class EarthQuakeFragment extends Fragment {
     private View loading_indicator;
     private RecyclerView recyclerView;
     private EarthQuakeItemAdapterRecycler mAdapter;
-    private Map<String, List<EarthQuakeItem>> earthquakeMap;
+    private HelperClass mHelper;
 
     // Empty body constructor
     public EarthQuakeFragment() {
@@ -70,7 +70,7 @@ public class EarthQuakeFragment extends Fragment {
                 false);
 
         List<EarthQuakeItem> earthquakesList =  new ArrayList<>();
-        earthquakeMap = new HashMap<>();
+        mHelper = new HelperClass(getActivity());
         recyclerView =  rootView.findViewById(R.id.recyclerView);
         setRecyclerViewWithAdapter(recyclerView, earthquakesList);
 
@@ -91,36 +91,55 @@ public class EarthQuakeFragment extends Fragment {
         EditText searchTextView = rootView.findViewById(R.id.search_text);
         Button searchIndicator = rootView.findViewById(R.id.search_indicator);
 
-        setSearchButton(search, close, searchTextView);
-        setCloseButton(close, searchTextView);
-        setSearchIndicator(searchIndicator, searchTextView);
-        loading_indicator.setVisibility(View.VISIBLE);
-
         initializeLoader(loaderManager);
+        setSearchButton(search, close, searchTextView, searchIndicator);
+        setCloseButton(close, searchTextView, searchIndicator);
+        setSearchIndicator(searchIndicator, searchTextView,loaderManager);
+        loading_indicator.setVisibility(View.VISIBLE);
 
         return rootView;
     }
 
-    private void setSearchIndicator(Button searchIndicator, final EditText searchTextView){
+    private void setSearchIndicator(Button searchIndicator,
+                                    final EditText searchTextView,
+                                    final LoaderManager loaderManager){
 
         searchIndicator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HelperClass mHelper = new HelperClass(getActivity());
                 if (mHelper.isConnectedToInternet()){
+                    Loader loader = loaderManager.getLoader(EARTHQUAKE_DATA_LOADER_ID);
+                    EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
+                    Map<String, List<EarthQuakeItem>> earthquakeMap = earthquakeLoader.getEarthquakeMap();
                     if (!earthquakeMap.isEmpty()){
                         String location = searchTextView.getText().toString().trim().toUpperCase();
+                        System.out.println("Size of EarthquakeMap - " + earthquakeMap.size() + "/////////" + "Locations are");
+
+                        for (String loc : earthquakeMap.keySet()){
+                            System.out.println(loc);
+                            List<EarthQuakeItem> list = earthquakeMap.get(loc);
+                            if (list.isEmpty()){
+                                System.out.println("List is Empty --------------");
+                            }else{
+                                System.out.println("List is not Empty ++++++++++++++");
+                            }
+                        }
+
                         if (earthquakeMap.containsKey(location)){
                             List<EarthQuakeItem> list = earthquakeMap.get(location);
                             mAdapter.addAllData(list);
                             recyclerView.setAdapter(mAdapter);
                             mEmptyStateTextView.setVisibility(View.GONE);
+                            System.out.println("Yes contain " + location + " ***************** ");
+
                         }else{
                             mAdapter.clearData();
                             recyclerView.setAdapter(mAdapter);
                             mEmptyStateTextView.setText(R.string.no_earthquakes);
                             mEmptyStateTextView.setVisibility(View.VISIBLE);
                             mEmptyStateImageView.setVisibility(View.GONE);
+                            System.out.println("No, dose not contain " + location + " -------------------- ");
+
                         }
                     }else{
                         Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
@@ -138,25 +157,29 @@ public class EarthQuakeFragment extends Fragment {
 
     private void setSearchButton(FloatingActionButton searhButton,
                                  final FloatingActionButton closeButton,
-                                 final EditText searchTextView){
+                                 final EditText searchTextView,
+                                 final Button searchIndicator){
         searhButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (searchTextView.getVisibility() == View.GONE){
                     searchTextView.setVisibility(View.VISIBLE);
                     closeButton.setVisibility(View.VISIBLE);
+                    searchIndicator.setVisibility(View.VISIBLE);
                 }
             }
         });
     }
 
     private void setCloseButton(final FloatingActionButton closeButton,
-                                final EditText searchText){
+                                final EditText searchText,
+                                final Button searchIndicator){
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 searchText.setVisibility(View.GONE);
                 closeButton.setVisibility(View.GONE);
+                searchIndicator.setVisibility(View.GONE);
                 HelperClass mHelper = new HelperClass(getActivity());
                 if (mHelper.isConnectedToInternet()){
                     getLoaderManager().getLoader(EARTHQUAKE_DATA_LOADER_ID).forceLoad();
@@ -292,7 +315,6 @@ public class EarthQuakeFragment extends Fragment {
 
             mAdapter.clearData();
             recyclerView.setAdapter(mAdapter);
-
             HelperClass mHelper = new HelperClass(getActivity());
             if(mHelper.isConnectedToInternet()){
                 if (earthquakes != null){
@@ -305,8 +327,10 @@ public class EarthQuakeFragment extends Fragment {
                         recyclerView.setVisibility(View.VISIBLE);
                         mEmptyStateTextView.setVisibility(View.GONE);
 
+                        /*
                         EarthquakeLoader earthquakeLoader = (EarthquakeLoader)loader;
                         earthquakeMap = earthquakeLoader.getEarthquakeMap();
+                        */
                     }
                 }
                 mEmptyStateImageView.setVisibility(View.GONE);
@@ -318,6 +342,7 @@ public class EarthQuakeFragment extends Fragment {
         }
 
 
+
         /** public void onLoaderReset() method
          *  Called when a previously created loader is being reset, and thus making its data unavailable
          *  when loader reset it clears the adapter data that was being showed earlier
@@ -325,7 +350,6 @@ public class EarthQuakeFragment extends Fragment {
         @Override
         public void onLoaderReset(Loader<List<EarthQuakeItem>> loader) {
             mAdapter.clearData();
-            earthquakeMap.clear();
         }
     };
 }
