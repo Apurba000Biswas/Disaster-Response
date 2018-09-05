@@ -21,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,6 @@ import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoade
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class EarthQuakeFragment extends Fragment {
 
@@ -77,7 +77,13 @@ public class EarthQuakeFragment extends Fragment {
         DisasterDatabaseLoader databaseLoader =
                 DisasterDatabaseLoader.getObject(getContext());
         FloatingActionButton fab = rootView.findViewById(R.id.fab);
-        setFloatingActionButton(fab, databaseLoader);
+        setSaveButton(fab, databaseLoader);
+
+        FloatingActionButton search = rootView.findViewById(R.id.search_button);
+        FloatingActionButton close = rootView.findViewById(R.id.close_button);
+        EditText searchTextView = rootView.findViewById(R.id.search_text);
+        setSearhButton(search, close, searchTextView);
+        setCloseButton(close, searchTextView);
 
         loading_indicator = rootView.findViewById(R.id.loading_spinner);
 
@@ -86,6 +92,32 @@ public class EarthQuakeFragment extends Fragment {
         return rootView;
     }
 
+    private void setSearhButton(FloatingActionButton searhButton,
+                                final FloatingActionButton closeButton,
+                                final EditText searchTextView){
+        searhButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (searchTextView.getVisibility() == View.GONE){
+                    searchTextView.setVisibility(View.VISIBLE);
+                    closeButton.setVisibility(View.VISIBLE);
+                }else{
+                    //Toast.makeText(getContext(), "Already visible", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setCloseButton(final FloatingActionButton closeButton,
+                                final EditText searchText){
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchText.setVisibility(View.GONE);
+                closeButton.setVisibility(View.GONE);
+            }
+        });
+    }
 
     /** private void initializeLoader() method
      *  check for internet connection and initialize a loader
@@ -107,14 +139,14 @@ public class EarthQuakeFragment extends Fragment {
     }
 
 
-    /** private void setFloatingActionButton
+    /** private void setSaveButton
      *  This method set up the floating point button to
      *  trigger the website view activity when
      *  click happened
      *  @param fab - This button get set up here
      */
-    private void setFloatingActionButton(FloatingActionButton fab,
-                                         final DisasterDatabaseLoader dbLoader){
+    private void setSaveButton(FloatingActionButton fab,
+                               final DisasterDatabaseLoader dbLoader){
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
