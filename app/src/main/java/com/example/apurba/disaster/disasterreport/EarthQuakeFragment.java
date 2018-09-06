@@ -92,7 +92,7 @@ public class EarthQuakeFragment extends Fragment {
 
         initializeLoader(loaderManager);
         setSearchButton(search, close, searchTextView, searchIndicator);
-        setCloseButton(close, searchTextView, searchIndicator);
+        setCloseButton(close, searchTextView, searchIndicator, loaderManager);
         setSearchIndicator(searchIndicator, searchTextView,loaderManager);
 
         return rootView;
@@ -107,6 +107,8 @@ public class EarthQuakeFragment extends Fragment {
             public void onClick(View view) {
                 if (mHelper.isConnectedToInternet()){
                     Loader loader = loaderManager.getLoader(EARTHQUAKE_DATA_LOADER_ID);
+                    mEmptyStateImageView.setVisibility(View.GONE);
+                    mEmptyStateTextView.setVisibility(View.GONE);
                     EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
                     Map<String, List<EarthQuakeItem>> earthquakeMap = earthquakeLoader.getEarthquakeMap();
 
@@ -162,20 +164,29 @@ public class EarthQuakeFragment extends Fragment {
 
     private void setCloseButton(final FloatingActionButton closeButton,
                                 final EditText searchText,
-                                final Button searchIndicator){
+                                final Button searchIndicator,
+                                final LoaderManager loaderManager){
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 searchText.setVisibility(View.GONE);
                 closeButton.setVisibility(View.GONE);
                 searchIndicator.setVisibility(View.GONE);
-                if (mHelper.isConnectedToInternet()){
-                    getLoaderManager().getLoader(EARTHQUAKE_DATA_LOADER_ID).forceLoad();
-                    loading_indicator.setVisibility(View.VISIBLE);
-                    mAdapter.clearData();
-                    recyclerView.setAdapter(mAdapter);
-                    mEmptyStateTextView.setVisibility(View.GONE);
-                    mEmptyStateImageView.setVisibility(View.GONE);
+
+                Loader loader = loaderManager.getLoader(EARTHQUAKE_DATA_LOADER_ID);
+                EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
+                List<EarthQuakeItem> list = earthquakeLoader.getEarthQuakeList();
+                if (list != null){
+                    if ( !list.isEmpty() ){
+                        mAdapter.clearData();
+                        mAdapter.addAllData(list);
+                        recyclerView.setAdapter(mAdapter);
+                        mEmptyStateTextView.setVisibility(View.GONE);
+                        mEmptyStateImageView.setVisibility(View.GONE);
+                    }else{
+                        mEmptyStateTextView.setText(R.string.no_earthquakes);
+                        mEmptyStateImageView.setVisibility(View.VISIBLE);
+                    }
                 }else{
                     mEmptyStateTextView.setText(R.string.no_internet_connection);
                     mEmptyStateImageView.setVisibility(View.VISIBLE);

@@ -26,6 +26,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
     private static final String LOG_TAG = EarthquakeLoader.class.getSimpleName();
     private String url;
     private static Map<String, List<EarthQuakeItem>> earthquakeMap;
+    private static List<EarthQuakeItem> earthQuakeList;
 
     // suitable constructor
     public EarthquakeLoader(Context context, String url) {
@@ -38,6 +39,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
      */
     @Override
     protected void onStartLoading() {
+        earthQuakeList = new ArrayList<>();
         forceLoad(); //Force an asynchronous load - called from main thread
     }
 
@@ -88,6 +90,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
         }
+        earthQuakeList = earthquakes;
         return earthquakes;
     }
 
@@ -106,5 +109,9 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
 
     public Map<String, List<EarthQuakeItem>> getEarthquakeMap(){
         return earthquakeMap;
+    }
+
+    public List<EarthQuakeItem> getEarthQuakeList(){
+        return earthQuakeList;
     }
 }
