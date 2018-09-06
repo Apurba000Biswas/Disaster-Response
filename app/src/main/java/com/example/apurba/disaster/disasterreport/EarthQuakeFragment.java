@@ -111,13 +111,20 @@ public class EarthQuakeFragment extends Fragment {
                     mEmptyStateTextView.setVisibility(View.GONE);
                     EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
                     Map<String, List<EarthQuakeItem>> earthquakeMap = earthquakeLoader.getEarthquakeMap();
-
-                    if ( !earthquakeMap.isEmpty()){
-                        String location = searchTextView.getText().toString().trim().toUpperCase();
-                        doSearch(location, earthquakeMap);
+                    if (earthquakeMap != null){
+                        if ( !earthquakeMap.isEmpty()){
+                            String location = searchTextView.getText().toString().trim().toUpperCase();
+                            doSearch(location, earthquakeMap);
+                        }else{
+                            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        }
                     }else{
-                        Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                        mEmptyStateTextView.setText(R.string.no_earthquakes);
+                        mEmptyStateTextView.setVisibility(View.VISIBLE);
+                        mEmptyStateImageView.setVisibility(View.GONE);
+                        loading_indicator.setVisibility(View.GONE);
                     }
+
                 }else{
                     mEmptyStateTextView.setText(R.string.no_internet_connection);
                     mEmptyStateTextView.setVisibility(View.VISIBLE);
@@ -172,6 +179,7 @@ public class EarthQuakeFragment extends Fragment {
                 searchText.setVisibility(View.GONE);
                 closeButton.setVisibility(View.GONE);
                 searchIndicator.setVisibility(View.GONE);
+                mEmptyStateImageView.setVisibility(View.GONE);
 
                 Loader loader = loaderManager.getLoader(EARTHQUAKE_DATA_LOADER_ID);
                 EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
@@ -185,7 +193,8 @@ public class EarthQuakeFragment extends Fragment {
                         mEmptyStateImageView.setVisibility(View.GONE);
                     }else{
                         mEmptyStateTextView.setText(R.string.no_earthquakes);
-                        mEmptyStateImageView.setVisibility(View.VISIBLE);
+                        mEmptyStateImageView.setVisibility(View.GONE);
+                        loading_indicator.setVisibility(View.GONE);
                     }
                 }else{
                     mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -201,6 +210,7 @@ public class EarthQuakeFragment extends Fragment {
      */
     private void initializeLoader(LoaderManager loaderManager){
         if(mHelper.isConnectedToInternet()){
+            loading_indicator.setVisibility(View.VISIBLE);
             loaderManager.initLoader(EARTHQUAKE_DATA_LOADER_ID,
                     null,
                     earthquakeDataLoaderListener).forceLoad();
@@ -325,6 +335,8 @@ public class EarthQuakeFragment extends Fragment {
                     }
                 }
                 mEmptyStateImageView.setVisibility(View.GONE);
+                mEmptyStateTextView.setText(R.string.no_earthquakes);
+                mEmptyStateTextView.setVisibility(View.VISIBLE);
 
             }else {
                 mEmptyStateTextView.setText(R.string.no_internet_connection);
@@ -332,8 +344,6 @@ public class EarthQuakeFragment extends Fragment {
                 mEmptyStateImageView.setVisibility(View.VISIBLE);
             }
         }
-
-
 
         /** public void onLoaderReset() method
          *  Called when a previously created loader is being reset, and thus making its data unavailable

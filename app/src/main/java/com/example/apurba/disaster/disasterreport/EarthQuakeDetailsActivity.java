@@ -24,10 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 public class EarthQuakeDetailsActivity extends AppCompatActivity {
-
 
     public static final String EXTRA_MESSAGE = "url for selected earthquake";
     public static final String EXTRA_MESSAGE2 = "title";
@@ -41,7 +38,7 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
 
         setCustomTittle();
 
-        setCustomUpArraow();
+        setCustomUpArrow();
 
         // receive the intent
         Intent intent = getIntent();
@@ -76,7 +73,7 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         magnitudeCircle.setColor(magnitudeColor);
     }
 
-    private void setCustomUpArraow(){
+    private void setCustomUpArrow(){
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.back_arrow);
         upArrow.setColorFilter(getResources().getColor(R.color.appLevel),
