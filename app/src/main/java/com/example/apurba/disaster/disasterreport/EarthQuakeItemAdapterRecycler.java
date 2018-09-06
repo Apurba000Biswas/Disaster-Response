@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class EarthQuakeItemAdapterRecycler extends
 
     // clears all data those are now exists in the list
     public void clearData(){
-        mDataset.clear();
+        mDataset = new ArrayList<>();
     }
     // add all supplied data in the list
     public void addAllData(List<EarthQuakeItem> dataset){

@@ -50,10 +50,10 @@ public class StatisticsFragment extends Fragment implements
         View rootView = inflater.inflate(R.layout.statistics_fragment,
                 container,
                 false);
-        mDataset = new ArrayList<StatisticsLocation>();
+        mDataset = new ArrayList<>();
         mAdapter = new StatisticsLocationAdapter(getActivity(), mDataset);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
+        recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager =
                 new GridLayoutManager(getContext(), 2);

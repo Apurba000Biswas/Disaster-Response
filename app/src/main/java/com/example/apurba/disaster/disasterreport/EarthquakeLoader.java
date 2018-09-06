@@ -96,8 +96,7 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> {
         String exactLocation = item.getExactLocation();
         String exactLocationAllCaps = exactLocation.toUpperCase().trim();
         if (earthquakeMap.containsKey(exactLocationAllCaps)){
-            List<EarthQuakeItem> list = earthquakeMap.get(exactLocationAllCaps);
-            list.add(item);
+            earthquakeMap.get(exactLocationAllCaps).add(item);
         }else{
             List<EarthQuakeItem> list = new ArrayList<>();
             list.add(item);
