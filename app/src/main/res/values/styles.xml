@@ -6,16 +6,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-
     </style>
-
-
 
 
     <!-- App bar style -->
     <style name="DisasterReportBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid">
         <!-- Remove the shadow below the app bar -->
         <item name="elevation">0dp</item>
+        <item name="android:textColorSecondary">#FF8F00</item>
+    </style>
+    
+    <style name="myDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/appLevel</item>
     </style>
 
 

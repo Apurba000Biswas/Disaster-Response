@@ -333,11 +333,11 @@ public class EarthQuakeFragment extends Fragment {
                         recyclerView.setVisibility(View.VISIBLE);
                         mEmptyStateTextView.setVisibility(View.GONE);
                     }
+                }else{
+                    mEmptyStateTextView.setText(R.string.no_earthquakes);
+                    mEmptyStateTextView.setVisibility(View.VISIBLE);
                 }
                 mEmptyStateImageView.setVisibility(View.GONE);
-                mEmptyStateTextView.setText(R.string.no_earthquakes);
-                mEmptyStateTextView.setVisibility(View.VISIBLE);
-
             }else {
                 mEmptyStateTextView.setText(R.string.no_internet_connection);
                 mEmptyStateTextView.setVisibility(View.VISIBLE);

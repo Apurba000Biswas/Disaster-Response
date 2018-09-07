@@ -29,6 +29,8 @@ package com.example.apurba.disaster.disasterreport;
  * Book: Java Programming
  */
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -38,8 +40,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 /** MainActivity class:
  * created by Apurba Biswas
@@ -50,6 +55,8 @@ import android.view.MenuItem;
  */
 public class MainActivity extends AppCompatActivity {
 
+
+    private static final int DIALOG_ABOUT_US = 0;
     /** onCreate() method
      * After starting app, this method gets called to create the views
      * This method creates views by attaching the "activity_main.xml" file
@@ -105,11 +112,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            startActivity(settingsIntent);
-            return true;
+        switch (id){
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                return true;
+            case R.id.about_us:
+                showDialog(DIALOG_ABOUT_US);
+                return true;
         }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        LayoutInflater factory = LayoutInflater.from(this);
+
+        switch (id){
+            case DIALOG_ABOUT_US:
+                final View aboutView = factory.inflate(R.layout.about_us, null);
+                TextView header = aboutView.findViewById(R.id.header);
+                return new AlertDialog.Builder(this, R.style.myDialogTheme)
+                        .setIcon(R.mipmap.ic_launcher_round)
+                        .setTitle(R.string.app_name)
+                        .setView(aboutView)
+                        .setPositiveButton("OK", null)
+                        .create();
+        }
+
+        return null;
     }
 }

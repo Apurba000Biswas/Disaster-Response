@@ -8,8 +8,11 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:textColorSecondary">#FF8F00</item>
+
 
     </style>
+
 
     <style name="AppTheme.NoActionBar">
         <item name="android:windowTranslucentStatus">false</item>
