@@ -3,7 +3,7 @@
 
     <!-- Default text to show with the earthquake location ("Near the Pacific-Antarctic Ridge")
   if no specific kilometer distance from the primary location is given [CHAR LIMIT=30] -->
-    <string name="app_tittle">Disaster</string>
+    <string name="app_tittle">Disaster Information</string>
 
     <string name="near_the">Near the</string>
 
@@ -102,5 +102,28 @@
     <string name="no">No</string>
 
     <string name="database_empty_state">Data storage is empty.Did you save all earthquakes?</string>
-    <string name="about_us">About us</string>
+    <string name="about_us">About</string>
+    <string name="version">Version 1.0</string>
+    <string name="support">Support - Udacity (ud843-QuakeReport)\nhttps://github.com/udacity/ud843-QuakeReport</string>
+    <string name="uda_quake_report" translatable="false" >https://github.com/udacity/ud843-QuakeReport</string>
+    <string name="currentDeveloper">Current Developer</string>
+    <string name="currentDeveloperName">Apurba Biswas\napurba10024@gmail.com</string>
+    <string name="currentDeveloperEmail">apurba10024@gmail.com</string>
+    <string name="projectType">Project Type and info</string>
+    <string name="projectTypeDetails">B.s.c 4th year final project \n BUBT,Mirpur,Dhaka,Bangladesh</string>
+    <string name="bubtWebsiteHomePage">https://www.bubt.edu.bd/</string>
+    <string name="projectSuperVisor">Project Supervisor</string>
+    <string name="projectSuperName">Md. Mahbubur Rahman\nAssistant Professor, BUBT\nmahabub.cse.buet@gmail.com</string>
+    <string name="projectSuperEmail">mahabub.cse.buet@gmail.com</string>
+    <string name="developersDetailsLabel">Developers Details</string>
+    <string name="firstDeveloperDetails">Apurba Biswas\nIntake: 23,Dept of CSE,BUBT\napurba10024@gmail.com</string>
+    <string name="firstDeveloperEmail">apurba10024@gmail.com</string>
+    <string name="firstDeveloperFacebook">https://www.facebook.com/Apurba.000.Biswas</string>
+    <string name="secondDeveloperDetails">Faysal Ahmed\nIntake: 27,Dept of CSE,BUBT\nfaysal.jabir@outlook.com</string>
+    <string name="secondDeveloperEmail">faysal.jabir@outlook.com</string>
+    <string name="secondDeveloperFacebook">https://www.facebook.com/jabir.faysal</string>
+    <string name="messageForSourceCode">Its an open source project.If you want to contribute, tap on the
+        following button to see the source code </string>
+    <string name="sourceCodeLink">https://github.com/Apurba000Biswas/Disaster-Response</string>
+    <string name="sourceCodeLabel">source code</string>
 </resources>

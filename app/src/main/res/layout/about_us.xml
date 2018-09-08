@@ -9,13 +9,138 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/header"
-            android:gravity="center"
+            android:id="@+id/version"
+            style="@style/aboutTextStyle"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="sans-serif-condensed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is About Us"/>
+            android:text="@string/version"/>
+
+        <TextView
+            android:id="@+id/support"
+            style="@style/aboutTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/support" />
+       <!--
+        <TextView
+            android:layout_marginTop="16dp"
+            style="@style/aboutTextStyle"
+            android:text="@string/currentDeveloper"
+            android:layout_width="match_parent"
+            android:textStyle="bold"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/current_deveoper_name"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            style="@style/aboutTextStyle"
+            android:text="@string/currentDeveloperName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+            -->
+
+
+        <TextView
+            android:textStyle="bold"
+            android:text="@string/projectType"
+            android:layout_marginTop="16dp"
+            style="@style/aboutTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/project_info"
+            android:layout_marginTop="0dp"
+            style="@style/aboutTextStyle"
+            android:text="@string/projectTypeDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            style="@style/aboutTextStyle"
+            android:text="@string/projectSuperVisor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/supervisor_details"
+            android:layout_marginTop="0dp"
+            style="@style/aboutTextStyle"
+            android:text="@string/projectSuperName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/developersDetailsLabel"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            style="@style/aboutTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/first_developer"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            style="@style/aboutTextStyle"
+            android:text="@string/firstDeveloperDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/first_developer_facebook"
+            android:src="@drawable/facebook_logo"
+            android:layout_width="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="40dp" />
+
+        <TextView
+
+            android:id="@+id/second_developer"
+            android:layout_marginTop="10dp"
+            android:text="@string/secondDeveloperDetails"
+            style="@style/aboutTextStyle"
+            android:layout_marginBottom="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/second_developer_facbook"
+            android:src="@drawable/facebook_logo"
+            android:layout_width="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="40dp" />
+
+        <TextView
+            android:textStyle="italic"
+            android:layout_marginTop="16dp"
+            android:text="@string/messageForSourceCode"
+            style="@style/aboutTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:background="@color/sourceCodeLinkColor"
+            android:id="@+id/source_code"
+            style="@style/aboutTextStyle"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:text="@string/sourceCodeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
     </LinearLayout>
 </ScrollView>

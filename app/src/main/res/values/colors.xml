@@ -60,4 +60,6 @@
     <!-- Text color for the primary location of the earthquake in the list item -->
     <color name="textColorEarthquakeLocation">#1A237E</color>
 
+    <color name="sourceCodeLinkColor">#021b36</color>
+
 </resources>

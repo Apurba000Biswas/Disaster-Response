@@ -32,8 +32,7 @@ package com.example.apurba.disaster.disasterreport;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
+import android.net.Uri;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -44,7 +43,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /** MainActivity class:
  * created by Apurba Biswas
@@ -132,15 +133,72 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case DIALOG_ABOUT_US:
                 final View aboutView = factory.inflate(R.layout.about_us, null);
-                TextView header = aboutView.findViewById(R.id.header);
+                TextView support = aboutView.findViewById(R.id.support);
+                setWebsiteToView(support, getString(R.string.uda_quake_report));
+
+                /*
+                TextView currentDeveloperName =
+                        aboutView.findViewById(R.id.current_deveoper_name);
+                setEmailToSend(currentDeveloperName,
+                        getString(R.string.currentDeveloperEmail));
+                        */
+
+                TextView projectTypeInfo = aboutView.findViewById(R.id.project_info);
+                setWebsiteToView(projectTypeInfo, getString(R.string.bubtWebsiteHomePage));
+
+                TextView superVisorInfo = aboutView.findViewById(R.id.supervisor_details);
+                setEmailToSend(superVisorInfo, getString(R.string.projectSuperEmail));
+
+                TextView firstDevInfo = aboutView.findViewById(R.id.first_developer);
+                setEmailToSend(firstDevInfo, getString(R.string.firstDeveloperEmail));
+                ImageView firstDevFacebook = aboutView.findViewById(R.id.first_developer_facebook);
+                setWebsiteToView(firstDevFacebook, getString(R.string.firstDeveloperFacebook));
+
+                TextView secondDevInfo = aboutView.findViewById(R.id.second_developer);
+                setEmailToSend(secondDevInfo, getString(R.string.secondDeveloperEmail));
+                ImageView secondDevFacebook = aboutView.findViewById(R.id.second_developer_facbook);
+                setWebsiteToView(secondDevFacebook, getString(R.string.secondDeveloperFacebook));
+
+                TextView sourceCodeLink = aboutView.findViewById(R.id.source_code);
+                setWebsiteToView(sourceCodeLink, getString(R.string.sourceCodeLink));
+
                 return new AlertDialog.Builder(this, R.style.myDialogTheme)
                         .setIcon(R.mipmap.ic_launcher_round)
-                        .setTitle(R.string.app_name)
+                        .setTitle(R.string.app_tittle)
                         .setView(aboutView)
                         .setPositiveButton("OK", null)
                         .create();
         }
 
         return null;
+    }
+
+    private void setEmailToSend(TextView textView, final String emailAddress){
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("message/rfc822");
+                intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailAddress});
+                try {
+                    startActivity(Intent.createChooser(intent, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(getApplicationContext(),
+                            "There are no email clients installed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setWebsiteToView(View textView, final String url){
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 }

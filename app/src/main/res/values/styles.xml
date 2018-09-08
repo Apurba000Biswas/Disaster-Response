@@ -20,6 +20,15 @@
         <item name="android:background">@color/appLevel</item>
     </style>
 
+    <style name="aboutTextStyle">
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textColor">#c2c2c2</item>
+        <item name=" android:fontFamily">sans-serif-condensed"</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
 
     <!-- Style for a tab that displays a category name -->
     <style name="CategoryTab" parent="Widget.Design.TabLayout">
