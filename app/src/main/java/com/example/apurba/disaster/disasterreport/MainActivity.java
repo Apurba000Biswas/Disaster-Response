@@ -115,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.action_settings:
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                Intent settingsIntent = new Intent(this,
+                        SettingsActivity.class);
                 startActivity(settingsIntent);
                 return true;
             case R.id.about_us:
