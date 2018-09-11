@@ -15,7 +15,14 @@ package com.example.apurba.disaster.disasterreport;
  * This app represents the most recent Earthquake and flood data
  * And it also offers to see other disasters on the website.
  *
- * This project is partially copied from Udacity-course project "Quake-report"
+ * This project is Directly supported from Udacity-course project "Quake-report"
+ * Quake-report link: https://github.com/udacity/ud843-QuakeReport
+ *
+ * Its an open source project. If you want to contribute,
+ * please fork the repository from GitHub.
+ * Repository link: https://github.com/Apurba000Biswas/Disaster-Response
+ *
+ *
  *
  * References: -------------------------------------------
  * Udacity: https://www.udacity.com/
@@ -56,8 +63,8 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity {
 
-
     private static final int DIALOG_ABOUT_US = 0;
+
     /** onCreate() method
      * After starting app, this method gets called to create the views
      * This method creates views by attaching the "activity_main.xml" file
@@ -85,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
     private void setAppBar(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // disable the up arrow of the toolbar
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         CollapsingToolbarLayout collapsingToolbar =
@@ -107,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     /** public boolean onOptionsItemSelected() method
-     * When sittings menue is clicked this method gets called and it takes a MenueItem
-     * then it check for appropriate option and then triggers it, returns true if successfull
+     * When sittings menu is clicked this method gets called and it takes a MenuItem
+     * then it check for appropriate option and then triggers it, returns true if successful
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -134,8 +141,15 @@ public class MainActivity extends AppCompatActivity {
         switch (id){
             case DIALOG_ABOUT_US:
                 final View aboutView = factory.inflate(R.layout.about_us, null);
-                TextView support = aboutView.findViewById(R.id.support);
-                setWebsiteToView(support, getString(R.string.uda_quake_report));
+                return createInfoDialog(aboutView);
+        }
+
+        return null;
+    }
+
+    private Dialog createInfoDialog(View aboutView){
+        TextView support = aboutView.findViewById(R.id.support);
+        setWebsiteToView(support, getString(R.string.uda_quake_report));
 
                 /*
                 TextView currentDeveloperName =
@@ -144,34 +158,31 @@ public class MainActivity extends AppCompatActivity {
                         getString(R.string.currentDeveloperEmail));
                         */
 
-                TextView projectTypeInfo = aboutView.findViewById(R.id.project_info);
-                setWebsiteToView(projectTypeInfo, getString(R.string.bubtWebsiteHomePage));
+        TextView projectTypeInfo = aboutView.findViewById(R.id.project_info);
+        setWebsiteToView(projectTypeInfo, getString(R.string.bubtWebsiteHomePage));
 
-                TextView superVisorInfo = aboutView.findViewById(R.id.supervisor_details);
-                setEmailToSend(superVisorInfo, getString(R.string.projectSuperEmail));
+        TextView superVisorInfo = aboutView.findViewById(R.id.supervisor_details);
+        setEmailToSend(superVisorInfo, getString(R.string.projectSuperEmail));
 
-                TextView firstDevInfo = aboutView.findViewById(R.id.first_developer);
-                setEmailToSend(firstDevInfo, getString(R.string.firstDeveloperEmail));
-                ImageView firstDevFacebook = aboutView.findViewById(R.id.first_developer_facebook);
-                setWebsiteToView(firstDevFacebook, getString(R.string.firstDeveloperFacebook));
+        TextView firstDevInfo = aboutView.findViewById(R.id.first_developer);
+        setEmailToSend(firstDevInfo, getString(R.string.firstDeveloperEmail));
+        ImageView firstDevFacebook = aboutView.findViewById(R.id.first_developer_facebook);
+        setWebsiteToView(firstDevFacebook, getString(R.string.firstDeveloperFacebook));
 
-                TextView secondDevInfo = aboutView.findViewById(R.id.second_developer);
-                setEmailToSend(secondDevInfo, getString(R.string.secondDeveloperEmail));
-                ImageView secondDevFacebook = aboutView.findViewById(R.id.second_developer_facbook);
-                setWebsiteToView(secondDevFacebook, getString(R.string.secondDeveloperFacebook));
+        TextView secondDevInfo = aboutView.findViewById(R.id.second_developer);
+        setEmailToSend(secondDevInfo, getString(R.string.secondDeveloperEmail));
+        ImageView secondDevFacebook = aboutView.findViewById(R.id.second_developer_facbook);
+        setWebsiteToView(secondDevFacebook, getString(R.string.secondDeveloperFacebook));
 
-                TextView sourceCodeLink = aboutView.findViewById(R.id.source_code);
-                setWebsiteToView(sourceCodeLink, getString(R.string.sourceCodeLink));
+        TextView sourceCodeLink = aboutView.findViewById(R.id.source_code);
+        setWebsiteToView(sourceCodeLink, getString(R.string.sourceCodeLink));
 
-                return new AlertDialog.Builder(this, R.style.myDialogTheme)
-                        .setIcon(R.mipmap.ic_launcher_round)
-                        .setTitle(R.string.app_tittle)
-                        .setView(aboutView)
-                        .setPositiveButton("OK", null)
-                        .create();
-        }
-
-        return null;
+        return new AlertDialog.Builder(this, R.style.myDialogTheme)
+                .setIcon(R.mipmap.ic_launcher_round)
+                .setTitle(R.string.app_tittle)
+                .setView(aboutView)
+                .setPositiveButton("OK", null)
+                .create();
     }
 
     private void setEmailToSend(TextView textView, final String emailAddress){
@@ -180,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("message/rfc822");
-                intent.putExtra(Intent.EXTRA_EMAIL  , new String[]{emailAddress});
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{emailAddress});
                 try {
                     startActivity(Intent.createChooser(intent, "Send mail..."));
                 } catch (android.content.ActivityNotFoundException ex) {

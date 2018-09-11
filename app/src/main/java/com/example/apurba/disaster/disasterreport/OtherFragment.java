@@ -50,7 +50,7 @@ public class OtherFragment extends Fragment {
 
         return rootView;
     }
-    // start web view activity when clicked on a card view
+    // start web view activity when clicked on a view
     private void setOnclickWebViewActivity(final View cardView , int key){
         final int mKey = key;
         cardView.setOnClickListener(new View.OnClickListener() {

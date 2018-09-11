@@ -91,7 +91,10 @@ public class DisasterProvider extends ContentProvider{
             case EARTHQUAKE_ID:
                 return EarthQuakeEntry.CONTENT_ITEM_TYPE;
             default:
-                throw new IllegalArgumentException("Unknown uri " + uri + " with match " + match);
+                throw new IllegalArgumentException("Unknown uri " +
+                        uri +
+                        " with match " +
+                        match);
         }
     }
 

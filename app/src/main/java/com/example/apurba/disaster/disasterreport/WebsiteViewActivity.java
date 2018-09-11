@@ -50,7 +50,10 @@ public class WebsiteViewActivity extends AppCompatActivity {
         String urlForTornado = intent.getStringExtra(OtherFragment.EXTRA_MESSAGE5);
 
         // finds which activity sends the intent to open a website
-        final String mUrl = getValidUrl(urlForEarthquake, urlForFlood, urlForSelectedEarthQuake,
+        final String mUrl = getValidUrl(
+                urlForEarthquake,
+                urlForFlood,
+                urlForSelectedEarthQuake,
                 urlForTsunami,
                 urlForAvalanches,
                 urlForWildFire,
@@ -83,7 +86,9 @@ public class WebsiteViewActivity extends AppCompatActivity {
      * find out which activity sends the intent and return its corresponding
      * valid url. Also set up the bar tittle
      */
-    private String getValidUrl(String urlForEarthquake, String urlForFlood, String urlForSelectedEarthQuake,
+    private String getValidUrl(String urlForEarthquake,
+                               String urlForFlood,
+                               String urlForSelectedEarthQuake,
                                String urlForTsunami,
                                String urlForAvalanches,
                                String urlForWildFire,

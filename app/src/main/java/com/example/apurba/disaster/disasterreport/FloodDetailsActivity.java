@@ -19,7 +19,8 @@ import android.widget.TextView;
  */
 public class FloodDetailsActivity extends AppCompatActivity {
 
-    private static final String SHARE_URL = "https://www.gov.uk/government/organisations/environment-agency";
+    private static final String SHARE_URL =
+            "https://www.gov.uk/government/organisations/environment-agency";
     private static final String TITLE = "Flood Details";
 
     @Override

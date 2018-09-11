@@ -27,9 +27,12 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  * Creates a fragment for flood
  */
-public class FloodFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<FloodItem>> {
-    private static final String ENVIRONMENT_DATA_URL = "https://environment.data.gov.uk/flood-monitoring/id/floods?";
-    private static final String ENVIRONMENT_WEBSITE_URL = "https://flood-warning-information.service.gov.uk/warnings";
+public class FloodFragment extends Fragment implements
+        LoaderManager.LoaderCallbacks<List<FloodItem>> {
+    private static final String ENVIRONMENT_DATA_URL =
+            "https://environment.data.gov.uk/flood-monitoring/id/floods?";
+    private static final String ENVIRONMENT_WEBSITE_URL =
+            "https://flood-warning-information.service.gov.uk/warnings";
 
     public static final String EXTRA_MESSAGE1 = "eaAreaName";
     public static final String EXTRA_MESSAGE2 = "county";
@@ -48,22 +51,25 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
     private FoodItemAdapterRecycler mAdapter;
     private RecyclerView recyclerView;
 
-    // suitable constructor
     public FloodFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.flood_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.flood_fragment,
+                container,
+                false);
 
-        // initialize the dtatset
-        mDataset = new ArrayList<FloodItem>();
+        mDataset = new ArrayList<>();
 
         // set the recycler view with grid layout manager
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+        RecyclerView.LayoutManager mLayoutManager =
+                new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new FoodItemAdapterRecycler(getActivity(), mDataset);
@@ -81,7 +87,7 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
                     intent.putExtra(EXTRA_MESSAGE9, ENVIRONMENT_WEBSITE_URL);
                     startActivity(intent);
                 }catch (ActivityNotFoundException e){
-                    Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,7 +97,9 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
         // check for internet connection and load data form url in background thread
         if (mHelper.isConnectedToInternet()){
             LoaderManager loaderManager = getLoaderManager();
-            loaderManager.initLoader(0, null, FloodFragment.this).forceLoad();
+            loaderManager.initLoader(0,
+                    null,
+                    FloodFragment.this).forceLoad();
         }else{
             mAdapter.clearData();
             recyclerView.setAdapter(mAdapter);
@@ -107,8 +115,9 @@ public class FloodFragment extends Fragment implements LoaderManager.LoaderCallb
      */
     @Override
     public Loader<List<FloodItem>> onCreateLoader(int id, Bundle args) {
-        // get settings from shared preferencs
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        // get settings from shared preferences
+        SharedPreferences sharedPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getActivity());
         String minSeverityLevel = sharedPrefs.getString(
                 getString(R.string.settings_min_severity_level_key),
                 getString(R.string.settings_min_severity_level_default));

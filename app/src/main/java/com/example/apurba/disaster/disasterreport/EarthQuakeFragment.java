@@ -110,13 +110,20 @@ public class EarthQuakeFragment extends Fragment {
                     mEmptyStateImageView.setVisibility(View.GONE);
                     mEmptyStateTextView.setVisibility(View.GONE);
                     EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
-                    Map<String, List<EarthQuakeItem>> earthquakeMap = earthquakeLoader.getEarthquakeMap();
+                    Map<String, List<EarthQuakeItem>> earthquakeMap =
+                            earthquakeLoader.getEarthquakeMap();
                     if (earthquakeMap != null){
                         if ( !earthquakeMap.isEmpty()){
-                            String location = searchTextView.getText().toString().trim().toUpperCase();
+                            String location = searchTextView
+                                    .getText()
+                                    .toString()
+                                    .trim()
+                                    .toUpperCase();
                             doSearch(location, earthquakeMap);
                         }else{
-                            Toast.makeText(getContext(), "No Data Found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),
+                                    "No Data Found",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }else{
                         mEmptyStateTextView.setText(R.string.no_earthquakes);
@@ -225,9 +232,9 @@ public class EarthQuakeFragment extends Fragment {
 
 
     /** private void setSaveButton
-     *  This method set up the floating point button to
-     *  trigger the website view activity when
-     *  click happened
+     *  This method set up the floating point save button to
+     *  save all earthquake in the database. This Saving operation
+     *  happens in a background thread when click happened
      *  @param fab - This button get set up here
      */
     private void setSaveButton(FloatingActionButton fab,
@@ -255,7 +262,7 @@ public class EarthQuakeFragment extends Fragment {
      * @param recyclerView - this view get set up here
      * @param earthquakes - the recycler view takes a list of StatisticsLocation
      * This method setup the recyclerView with appropriate settings
-     * This method also initialize the adapter with the list
+     * Also initialize the adapter with the list
      */
     private void setRecyclerViewWithAdapter(RecyclerView recyclerView,
                                             List<EarthQuakeItem> earthquakes){

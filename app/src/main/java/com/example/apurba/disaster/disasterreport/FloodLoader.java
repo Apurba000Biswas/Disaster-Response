@@ -71,13 +71,19 @@ public class FloodLoader extends AsyncTaskLoader<List<FloodItem>>{
                     message = "No Message provided";
                 }
 
-                //String message = flood.getString("message");
                 String severity = flood.getString("severity");
                 int severityLevel = flood.getInt("severityLevel");
                 String timeMessageChanged = flood.getString("timeMessageChanged");
                 String timeRaised = flood.getString("timeRaised");
 
-                floods.add(new FloodItem(severityLevel, severity, eaAreaName, county, riverOrSea, message, timeMessageChanged, timeRaised));
+                floods.add(new FloodItem(severityLevel,
+                        severity,
+                        eaAreaName,
+                        county,
+                        riverOrSea,
+                        message,
+                        timeMessageChanged,
+                        timeRaised));
             }
         } catch (JSONException e) {
             Log.e(LOG_TAG, "Problem parsing the Flood JSON results", e);

@@ -52,7 +52,8 @@ public class EarthQuakeItemAdapterRecycler extends
         return mDataset;
     }
 
-    /** public EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder() method
+
+    /** EarthQuakeItemAdapterRecycler.ViewHolder onCreateViewHolder() method
      * The LayoutManager calls this method.
      * This method first inflate view from "earth_quake_item_list.xml" xml file
      * then pass this view as parameter to the ViewHolder constructor and get a viewHolder
@@ -169,7 +170,7 @@ public class EarthQuakeItemAdapterRecycler extends
         @Override
         public void onClick(View view) {
             Context context = view.getContext();
-            // get clcicked item
+            // get clicked item
             EarthQuakeItem clickedEarthQuake = mDataset.get(getAdapterPosition());
 
             // create intent to start its details activity

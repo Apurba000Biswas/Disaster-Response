@@ -51,7 +51,7 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
 
         setAllViews(location, magnitude);
 
-        setFacebookShareButton(url);
+        setShareButton(url);
 
         setMoreButton(url, magnitude, location);
     }
@@ -111,7 +111,7 @@ public class EarthQuakeDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void setFacebookShareButton(final String url){
+    private void setShareButton(final String url){
         Button shareButton = findViewById(R.id.share_button);
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override

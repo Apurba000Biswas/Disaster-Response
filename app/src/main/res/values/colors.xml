@@ -9,7 +9,7 @@
     <color name="appLevel">#002a54</color>
     <color name="upArrowColerd">#f47100</color>
 
-    <!-- Color for an earthquake with magnitude 0 and 2   #002a54  -->
+    <!-- Color for an earthquake with magnitude 0 and 2 -->
     <color name="magnitude1">#4A7BA7</color>
 
     <!-- Magnitude circle color for an earthquake with magnitude between 2 and 3 -->

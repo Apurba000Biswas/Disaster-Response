@@ -101,8 +101,10 @@ public class StatisticsLocationDetailsActivity extends AppCompatActivity
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(getResources().getColor(R.color.upArrowColerd));
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(getResources().getColor(R.color.upArrowColerd));
     }
 
     private void deleteThisLocation(){

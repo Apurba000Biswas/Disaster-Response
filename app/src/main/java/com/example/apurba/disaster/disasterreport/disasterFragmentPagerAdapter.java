@@ -4,12 +4,12 @@ package com.example.apurba.disaster.disasterreport;
  *
  * A simple {@link android.support.v4.app.FragmentPagerAdapter} subclass.
  * Created by Apurba on 3/12/2018.
- * creates four diiferent fragment :
+ * creates four different fragment :
  * 1. EarthQuakeFragment
- * 2. FloodFragment
- * 3. HurricanFragment
+ * 2. StatisticsFragment
+ * 3. FloodFragment
  * 4. OtherFragment
- * and attach them in four differnt positions with apropriate Tittle
+ * and attach them in four different positions with appropriate Tittle
  */
 
 import android.content.Context;

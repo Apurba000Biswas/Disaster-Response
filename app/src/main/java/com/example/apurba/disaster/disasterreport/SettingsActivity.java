@@ -24,7 +24,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings_activity);
     }
 
-    public static class EarthquakePreferenceFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener {
+    public static class EarthquakePreferenceFragment extends
+            PreferenceFragment implements Preference.OnPreferenceChangeListener {
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +47,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         private void bindPreferenceSummaryToValue(Preference preference) {
             preference.setOnPreferenceChangeListener(this);
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(preference.getContext());
+            SharedPreferences preferences = PreferenceManager
+                    .getDefaultSharedPreferences(preference.getContext());
             String preferenceString = preferences.getString(preference.getKey(), "");
             onPreferenceChange(preference, preferenceString);
         }

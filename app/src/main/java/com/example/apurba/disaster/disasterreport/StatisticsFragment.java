@@ -102,8 +102,10 @@ public class StatisticsFragment extends Fragment implements
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.upArrowColerd));
+        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(getResources().getColor(R.color.upArrowColerd));
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(getResources().getColor(R.color.upArrowColerd));
     }
 
 
@@ -208,7 +210,6 @@ public class StatisticsFragment extends Fragment implements
                 location = data.getString(locationColumnIndex);
                 if(locationMap.containsKey(location)){
                     int count = locationMap.get(location);
-                    //locationMap.remove(location);
                     count++;
                     locationMap.put(location, count);
                 }else{

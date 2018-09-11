@@ -4,7 +4,7 @@ package com.example.apurba.disaster.disasterreport;
 
  * Created by Apurba on 4/26/2018.
  * Its created for code optimization purpose
- * This class offers support for retreving appropriate color for magnitude and severity
+ * This class offers support for retrieving appropriate color for magnitude and severity
  * It also provides method to check internet connection and format magnitude
  */
 

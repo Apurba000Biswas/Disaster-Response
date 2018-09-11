@@ -33,11 +33,12 @@ public class FoodItemAdapterRecycler extends
 
     private List<FloodItem> mDataset;
     private Activity mContext;
-    // Provide a suitable constructor (depends on the kind of dataset)
+
     public FoodItemAdapterRecycler(Activity context, List<FloodItem> Dataset) {
         mDataset = Dataset;
         mContext = context;
     }
+
     // clears all data from the list
     public void clearData(){
         mDataset.clear();
@@ -61,7 +62,8 @@ public class FoodItemAdapterRecycler extends
     public void onBindViewHolder(ViewHolder holder, int position) {
         FloodItem currentFlood = mDataset.get(position);
         HelperClass mHelper = new HelperClass(mContext);
-        int severityLevelCircleColor = mHelper.getSeverityCircleColor(currentFlood.getSevertyLevelInt());
+        int severityLevelCircleColor =
+                mHelper.getSeverityCircleColor(currentFlood.getSevertyLevelInt());
         holder.severityLevelCircle.setColor(severityLevelCircleColor);
         holder.severityLevel.setText(currentFlood.getSeverityLevel());
         holder.severity.setText(currentFlood.getSeverity());
@@ -103,7 +105,8 @@ public class FoodItemAdapterRecycler extends
             severityLevelCircle = (GradientDrawable) severityLevel.getBackground();
         }
 
-        // when clciked happen in  a item , this method starts details activity with the clicked item
+        // when clciked happen in  a item ,
+        // this method starts details activity with the clicked item
         @Override
         public void onClick(View view) {
             Context context = view.getContext();

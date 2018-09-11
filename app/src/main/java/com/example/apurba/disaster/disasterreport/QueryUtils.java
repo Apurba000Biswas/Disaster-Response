@@ -91,7 +91,7 @@ public class QueryUtils {
             if (urlConnection.getResponseCode() == 200) { // Response code = 200 means "ok"
 
                 // get the input stream that the server just sent to read from it
-                inputStream = urlConnection.getInputStream();  //getInputStream() - Returns an input stream that reads from this open connection
+                inputStream = urlConnection.getInputStream();  //getInputStream() - // Returns an input stream that reads from this open connection
 
                 // now read from it
                 jsonResponse = readFromStream(inputStream);
@@ -116,7 +116,7 @@ public class QueryUtils {
      *  This method reads from input stream and build a output string
      * @param inputStream - used to read from it
      * @return - returns a large string
-     * @throws IOException - throws any {@link IOException} while reading file
+     * @throws IOException - throws any {@link IOException} while reading inputStream
      */
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();

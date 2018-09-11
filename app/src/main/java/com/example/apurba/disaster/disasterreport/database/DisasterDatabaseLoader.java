@@ -29,7 +29,7 @@ public class DisasterDatabaseLoader {
     /** public static DisasterDatabaseLoader getObject() method
      *  Its a factory method which serve as object
      *  creator for this class
-     * @param context - indicate the activity
+     * @param context - indicate the activity it called from
      * @return - a brand new {@link DisasterDatabaseLoader} object.
      */
     public static DisasterDatabaseLoader getObject(Context context){
@@ -57,6 +57,11 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
         mContext = context;
     }
 
+    /** doInBackground()
+     * Called from Background thread
+     * @param lists - put these list in the database
+     * @return - null
+     */
     @Override
     protected Void doInBackground(List<EarthQuakeItem>[] lists) {
         List<EarthQuakeItem> list = lists[0];
@@ -81,6 +86,12 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
         return null;
     }
 
+    /* insertList() method
+     * This method Checks every earthquake in the given list is
+     * already exits in the database. If exits it ignore that
+     * earthquake, if dose not exits it put that earthquake in
+     * the database
+     */
     private void insertList(List<EarthQuakeItem> list,
                             Map<String, String> earthquakeMap){
         EarthQuakeItem currentEarthQuake;
@@ -96,7 +107,12 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
         }
     }
 
-
+    /* getContentValues() method
+     * Make a content value to put in the earthquake table from
+     * earthquakeItem data model
+     * @param earthQuakeItem -
+     * @return - a new content value
+     */
     private ContentValues getContentValues(EarthQuakeItem earthQuakeItem){
         earthQuakeItem.splitLocation();
 
@@ -116,7 +132,11 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
     }
 
 
-
+    /** getEarthquakeMapFromCursor() method
+     *  Make an HasMap from cursor that represents the database content
+     * @param data - cursor data
+     * @return - a HasMap
+     */
     private Map<String, String> getEarthquakeMapFromCursor(Cursor data){
         HashMap<String, String> dataMap = new HashMap<>();
 
@@ -151,7 +171,10 @@ class listInsertionTask extends AsyncTask<List<EarthQuakeItem>, Void, Void>{
         }
     }
 
-
+    /** onPostExecute()
+     * Called from main thread after background task is done
+     * @param aVoid - void
+     */
     @Override
     protected void onPostExecute(Void aVoid) {
         Toast.makeText(mContext, "All are saved", Toast.LENGTH_SHORT).show();
