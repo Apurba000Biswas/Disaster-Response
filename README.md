@@ -18,5 +18,24 @@ Wild fires news are also from The Guardian - https://www.theguardian.com/world/w
 Draught news are from BBC NEWS - https://www.bbc.com/news/topics/c8z0lk3537et/drought
 Tornado news are form The Weather Channel - https://weather.com/storms/tornado
 
-App preview
-----------------------------
+Pre-requisites
+--------------
+
+- Android SDK v26
+- Android Build Tools v26.1.0
+- Android Support Repository v26.3.0
+
+Code style
+--------------
+
+Standard
+
+Screen shots
+--------------
+
+
+Contribute
+--------------
+
+This sample uses the Gradle build system. To build this project, use the
+"gradlew build" command or use "Import Project" in Android Studio.
