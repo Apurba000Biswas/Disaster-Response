@@ -30,6 +30,13 @@ Code style
 
 Standard
 
+App preview
+--------------
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=a9iwx5rW8G0"><img src="screen_shot/img9.png" alt="IMAGE ALT TEXT"></a>
+</div>
+
 Screen shots
 --------------
 <div align="center">
