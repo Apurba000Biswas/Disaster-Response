@@ -1,4 +1,7 @@
 DisasterResponse
 ====================================
 
-This is testing
+This is testing.
+
+App preview
+----------------------------
