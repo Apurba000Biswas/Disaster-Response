@@ -33,7 +33,7 @@ Standard
 Screen shots
 --------------
 <div align="center">
-  <img src ="screen_shot/im1.png" width ="200"> <img src ="screen_shot/im2.png" width ="200"> <img src ="screen_shot/im3.png" width ="200"> <img src ="screen_shot/im4.png" width ="200">
+  <img src ="screen_shot/img1.png" width ="200"> <img src ="screen_shot/img2.png" width ="200"> <img src ="screen_shot/img3.png" width ="200"> <img src ="screen_shot/img4.png" width ="200">
 </div>
 
 Contribute
