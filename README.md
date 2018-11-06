@@ -1,7 +1,7 @@
 DisasterResponse
 ====================================
 
-This is app displays list of recent earthqukes, flood, statistics of earthquakes, also offer to see the news of other five types of disasters, they are tsunami, avalanche, wild fire, drought, tornado in the world.
+This app displays list of recent earthqukes, flood, statistics of earthquakes, also offer to see the news of other five types of disasters, they are tsunami, avalanche, wild fire, drought, tornado in the world.
 
 This project is a 4th year final project of Bsc engineering in Bangladesh University of Business and Technology(BUBT), Intake-(23,27), Dhaka, Bangladesh.
 Althoug its directly supported from Udacity-course project "Quake-report"
