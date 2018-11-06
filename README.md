@@ -63,7 +63,7 @@ Screen shots
 Using
 --------------
 
-This app requires Android version 7.0 or higher.
+This app requires Android version 7.0 or higher. Download the [APK](https://github.com/Apurba000Biswas/Disaster-Response/tree/master/APK) and install it on your phone.
 
 Contribute
 --------------
