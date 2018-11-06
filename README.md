@@ -63,8 +63,35 @@ Screen shots
   <img src ="screen_shot/img21.png" width ="200"> <img src ="screen_shot/img22.png" width ="200">
 </div>
 
+Using
+--------------
+
+This app requires Android version 7.0 or higher.
+
 Contribute
 --------------
 
-This sample uses the Gradle build system. To build this project, use the
-"gradlew build" command or use "Import Project" in Android Studio.
+Step (1) - Install Android studio(newer version)
+
+Step (3) - Download necessary sdk components for the project 
+
+Step (3) - This sample uses the Gradle build system. To build this project, use the "gradlew build" command or use "Import Project" in Android Studio.
+
+Step (4) - Pull requests are always welcome . Before you send a pull request please formate your code and test it.
+
+
+Supports
+--------------
+
+Udacity : https://www.udacity.com/
+Quake-report : https://github.com/udacity/ud843-QuakeReport
+Stack Overflow : http://stackoverflow.com/questions/tagged/android
+Android developer: https://developer.android.com/
+Stanford(CS-106A) : http://web.stanford.edu/class/cs106a/
+Book : The Art and Science of Java
+Book : Java Programming
+
+Authors
+--------------
+
+[Apurba Biswas](https://github.com/Apurba000Biswas)
