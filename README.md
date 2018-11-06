@@ -84,11 +84,17 @@ Supports
 --------------
 
 Udacity : https://www.udacity.com/
+
 Quake-report : https://github.com/udacity/ud843-QuakeReport
+
 Stack Overflow : http://stackoverflow.com/questions/tagged/android
+
 Android developer: https://developer.android.com/
+
 Stanford(CS-106A) : http://web.stanford.edu/class/cs106a/
+
 Book : The Art and Science of Java
+
 Book : Java Programming
 
 Authors
