@@ -80,8 +80,8 @@ public class QueryUtils {
             urlConnection = (HttpURLConnection) url.openConnection();
 
             // prepare the request
-            urlConnection.setReadTimeout(10000 /* milliseconds */); // 10000 miliseconds = 10 seconds
-            urlConnection.setConnectTimeout(15000 /* milliseconds */); // 15000 miliseconds = 15 seconds
+            urlConnection.setReadTimeout(10000 /* milliseconds */); // 10000 milliseconds = 10 seconds
+            urlConnection.setConnectTimeout(15000 /* milliseconds */); // 15000 milliseconds = 15 seconds
             urlConnection.setRequestMethod("GET"); // for reading
 
             // now connect
