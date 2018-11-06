@@ -56,12 +56,9 @@ Screen shots
 </div>
 
 <div align="center">
-  <img src ="screen_shot/img17.png" width ="200"> <img src ="screen_shot/img18.png" width ="200"> <img src ="screen_shot/img19.png" width ="200"> <img src ="screen_shot/img20.png" width ="200">
+  <img src ="screen_shot/img17.png" width ="200"> <img src ="screen_shot/img18.png" width ="200">
 </div>
 
-<div align="center">
-  <img src ="screen_shot/img21.png" width ="200"> <img src ="screen_shot/img22.png" width ="200">
-</div>
 
 Using
 --------------
