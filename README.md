@@ -8,7 +8,7 @@ Althoug its directly supported from Udacity-course project "Quake-report"
 https://github.com/udacity/ud843-QuakeReport
 But added more functionality and more disaster types which gives its a uniqe identity.
 
-###### More info of the APIs:
+#### More info of the APIs:
 Earthquakes are from U.S. Geological Survey (USGS) organization.
 https://earthquake.usgs.gov/fdsnws/event/1/
 
