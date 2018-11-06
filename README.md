@@ -11,17 +11,11 @@ But added more functionality and more disaster types which gives its a uniqe ide
 #### More info of the APIs:
 Earthquakes are from U.S. Geological Survey (USGS) organization.
 https://earthquake.usgs.gov/fdsnws/event/1/
-
 Floods are from GOV.UK - https://www.gov.uk/
-
 Tsunami news from NOAA / National Weather Service U.S. Tsunami Warning System - https://www.tsunami.gov/
-
 Avalanches news form The Guardian - https://www.theguardian.com/world/avalanches
-
 Wild fires news are also from The Guardian - https://www.theguardian.com/world/wildfires
-
 Draught news are from BBC NEWS - https://www.bbc.com/news/topics/c8z0lk3537et/drought
-
 Tornado news are form The Weather Channel - https://weather.com/storms/tornado
 
 App preview
