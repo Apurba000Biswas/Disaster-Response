@@ -34,7 +34,7 @@ App preview
 --------------
 
 <div align="center">
-  <a href="https://www.youtube.com/watch?v=a9iwx5rW8G0"><img src="screen_shot/img9.png" width ="200" alt="IMAGE ALT TEXT"></a>
+  <a href="https://www.youtube.com/watch?v=a9iwx5rW8G0"><img src="screen_shot/img_preview.png" width ="200" alt="IMAGE ALT TEXT"></a>
 </div>
 
 Screen shots
