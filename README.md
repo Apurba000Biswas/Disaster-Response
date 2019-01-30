@@ -25,11 +25,6 @@ Pre-requisites
 - Android Build Tools v26.1.0
 - Android Support Repository v26.3.0
 
-Code style
---------------
-
-Standard
-
 App preview
 --------------
 
