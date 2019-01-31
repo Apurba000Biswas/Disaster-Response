@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Network;
 
 /** public class QueryUtils class
  *

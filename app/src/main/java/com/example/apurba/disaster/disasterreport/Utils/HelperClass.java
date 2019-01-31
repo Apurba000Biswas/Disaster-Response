@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Utils;
 
 /* HelperClass class
 
@@ -13,6 +13,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.content.ContextCompat;
+
+import com.example.apurba.disaster.disasterreport.R;
 
 import java.text.DecimalFormat;
 

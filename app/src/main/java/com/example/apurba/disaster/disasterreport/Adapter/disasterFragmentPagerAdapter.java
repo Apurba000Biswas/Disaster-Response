@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Adapter;
 
 /** disasterFragmentPagerAdapter class
  *
@@ -16,6 +16,12 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment;
+import com.example.apurba.disaster.disasterreport.Fragment.FloodFragment;
+import com.example.apurba.disaster.disasterreport.Fragment.OtherFragment;
+import com.example.apurba.disaster.disasterreport.Fragment.StatisticsFragment;
+import com.example.apurba.disaster.disasterreport.R;
 
 public class disasterFragmentPagerAdapter extends FragmentPagerAdapter {
 

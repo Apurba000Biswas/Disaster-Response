@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Adapter;
 
 /*
  * Created by Apurba on 8/17/2018.
@@ -12,6 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.apurba.disaster.disasterreport.Activities.EarthQuakeDetailsActivity;
+import com.example.apurba.disaster.disasterreport.DataModel.EarthQuakeItem;
+import com.example.apurba.disaster.disasterreport.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

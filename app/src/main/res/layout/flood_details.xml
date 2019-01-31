@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="16dp"
-        tools:context="com.example.apurba.disaster.disasterreport.FloodDetailsActivity">
+        tools:context="com.example.apurba.disaster.disasterreport.Activities.FloodDetailsActivity">
 
             <LinearLayout
                 android:id="@+id/severityLevel_holder"

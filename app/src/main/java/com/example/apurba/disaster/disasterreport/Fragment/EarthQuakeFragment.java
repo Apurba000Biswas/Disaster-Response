@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Fragment;
 
 /** EarthQuakeFragment class
  *
@@ -27,6 +27,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apurba.disaster.disasterreport.DataModel.EarthQuakeItem;
+import com.example.apurba.disaster.disasterreport.Adapter.EarthQuakeItemAdapterRecycler;
+import com.example.apurba.disaster.disasterreport.Loader.EarthquakeLoader;
+import com.example.apurba.disaster.disasterreport.Utils.HelperClass;
+import com.example.apurba.disaster.disasterreport.R;
 import com.example.apurba.disaster.disasterreport.database.DisasterDatabaseLoader;
 
 import java.util.ArrayList;

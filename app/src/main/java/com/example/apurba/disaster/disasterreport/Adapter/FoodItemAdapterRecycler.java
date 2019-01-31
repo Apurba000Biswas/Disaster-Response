@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Adapter;
 
 /*
  * Created by Apurba on 4/24/2018.
@@ -17,16 +17,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.apurba.disaster.disasterreport.Activities.FloodDetailsActivity;
+import com.example.apurba.disaster.disasterreport.DataModel.FloodItem;
+import com.example.apurba.disaster.disasterreport.Utils.HelperClass;
+import com.example.apurba.disaster.disasterreport.R;
+
 import java.util.List;
 
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE1;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE2;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE3;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE4;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE5;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE6;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE7;
-import static com.example.apurba.disaster.disasterreport.FloodFragment.EXTRA_MESSAGE8;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE1;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE2;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE3;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE4;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE5;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE6;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE7;
+import static com.example.apurba.disaster.disasterreport.Fragment.FloodFragment.EXTRA_MESSAGE8;
 
 public class FoodItemAdapterRecycler extends
         RecyclerView.Adapter<FoodItemAdapterRecycler.ViewHolder>{

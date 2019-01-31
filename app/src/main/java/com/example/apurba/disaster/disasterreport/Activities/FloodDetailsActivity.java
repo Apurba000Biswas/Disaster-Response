@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Activities;
 
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -12,6 +12,10 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.apurba.disaster.disasterreport.Fragment.FloodFragment;
+import com.example.apurba.disaster.disasterreport.Utils.HelperClass;
+import com.example.apurba.disaster.disasterreport.R;
 
 
 /**

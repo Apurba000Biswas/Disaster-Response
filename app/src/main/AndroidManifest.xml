@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,34 +23,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name=".Activities.SettingsActivity"
             android:label="@string/settings_title"
             android:theme="@style/PreferenceTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.apurba.disaster.disasterreport.MainActivity" />
+                android:value="com.example.apurba.disaster.disasterreport.Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".EarthQuakeDetailsActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".Activities.EarthQuakeDetailsActivity"
+            android:parentActivityName=".Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".FloodDetailsActivity"
+            android:name=".Activities.FloodDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".WebsiteViewActivity"
+            android:name=".Activities.WebsiteViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
 
         <provider
@@ -58,10 +58,10 @@
             android:authorities="com.example.apurba.disaster.disasterreport"
             android:exported="false" />
 
-        <activity android:name=".StatisticsLocationDetailsActivity">
+        <activity android:name=".Activities.StatisticsLocationDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".Activities.MainActivity" />
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Adapter;
 
 /*
  * Created by Apurba on 8/14/2018.
@@ -13,9 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.apurba.disaster.disasterreport.Activities.StatisticsLocationDetailsActivity;
+import com.example.apurba.disaster.disasterreport.R;
+import com.example.apurba.disaster.disasterreport.DataModel.StatisticsLocation;
+
 import java.util.List;
 
-import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_1;
+import static com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment.EXTRA_MESSAGE_1;
 
 public class StatisticsLocationAdapter extends
         RecyclerView.Adapter<StatisticsLocationAdapter.ViewHolder> {

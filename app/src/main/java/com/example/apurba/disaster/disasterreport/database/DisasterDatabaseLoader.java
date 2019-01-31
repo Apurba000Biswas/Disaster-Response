@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.example.apurba.disaster.disasterreport.EarthQuakeItem;
+import com.example.apurba.disaster.disasterreport.DataModel.EarthQuakeItem;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,6 +23,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment;
+import com.example.apurba.disaster.disasterreport.DataModel.EarthQuakeItem;
+import com.example.apurba.disaster.disasterreport.R;
+import com.example.apurba.disaster.disasterreport.Adapter.StatisticsDetailsAdapter;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
 
 import java.util.ArrayList;

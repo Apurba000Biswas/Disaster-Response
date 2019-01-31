@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.DataModel;
 
 /** public class EarthQuakeItem class:
  *

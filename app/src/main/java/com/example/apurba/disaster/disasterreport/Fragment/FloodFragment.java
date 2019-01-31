@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Fragment;
 
 
 import android.content.ActivityNotFoundException;
@@ -16,9 +16,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.apurba.disaster.disasterreport.Activities.WebsiteViewActivity;
+import com.example.apurba.disaster.disasterreport.DataModel.FloodItem;
+import com.example.apurba.disaster.disasterreport.Loader.FloodLoader;
+import com.example.apurba.disaster.disasterreport.Adapter.FoodItemAdapterRecycler;
+import com.example.apurba.disaster.disasterreport.Utils.HelperClass;
+import com.example.apurba.disaster.disasterreport.R;
 
 import java.util.ArrayList;
 import java.util.List;

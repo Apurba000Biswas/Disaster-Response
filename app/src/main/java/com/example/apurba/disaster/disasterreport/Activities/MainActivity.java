@@ -1,5 +1,5 @@
 
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Activities;
 /** -------------DISASTER REPORT APP---------------------
  *
  * Group :
@@ -53,6 +53,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.apurba.disaster.disasterreport.R;
+import com.example.apurba.disaster.disasterreport.Adapter.disasterFragmentPagerAdapter;
 
 /** MainActivity class:
  * created by Apurba Biswas

@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Loader;
 
 /** public class EarthquakeLoader extends AsyncTaskLoader<List<EarthQuakeItem>> class
  *
@@ -11,6 +11,9 @@ import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.example.apurba.disaster.disasterreport.DataModel.EarthQuakeItem;
+import com.example.apurba.disaster.disasterreport.Network.QueryUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

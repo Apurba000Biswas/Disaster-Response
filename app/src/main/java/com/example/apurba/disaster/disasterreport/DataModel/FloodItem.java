@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.DataModel;
 
 /*
  * Created by Apurba on 3/14/2018.

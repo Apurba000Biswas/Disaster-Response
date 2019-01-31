@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Activities;
 
 /** public class EarthQuakeDetailsActivity class:
  *
@@ -23,6 +23,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment;
+import com.example.apurba.disaster.disasterreport.Utils.HelperClass;
+import com.example.apurba.disaster.disasterreport.R;
 
 public class EarthQuakeDetailsActivity extends AppCompatActivity {
 

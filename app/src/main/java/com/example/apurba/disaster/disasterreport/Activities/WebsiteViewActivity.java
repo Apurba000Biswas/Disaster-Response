@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Activities;
 
 /*
  * Created by Apurba on 4/21/2018.
@@ -9,7 +9,6 @@ package com.example.apurba.disaster.disasterreport;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
@@ -28,6 +27,11 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment;
+import com.example.apurba.disaster.disasterreport.Fragment.FloodFragment;
+import com.example.apurba.disaster.disasterreport.Fragment.OtherFragment;
+import com.example.apurba.disaster.disasterreport.R;
 
 public class WebsiteViewActivity extends AppCompatActivity {
 

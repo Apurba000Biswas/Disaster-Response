@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Adapter;
 
 /** EarthQuakeItemAdapterRecycler class:
 
@@ -17,14 +17,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.apurba.disaster.disasterreport.Activities.EarthQuakeDetailsActivity;
+import com.example.apurba.disaster.disasterreport.DataModel.EarthQuakeItem;
+import com.example.apurba.disaster.disasterreport.Utils.HelperClass;
+import com.example.apurba.disaster.disasterreport.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_1;
-import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_2;
-import static com.example.apurba.disaster.disasterreport.EarthQuakeFragment.EXTRA_MESSAGE_3;
+import static com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment.EXTRA_MESSAGE_1;
+import static com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment.EXTRA_MESSAGE_2;
+import static com.example.apurba.disaster.disasterreport.Fragment.EarthQuakeFragment.EXTRA_MESSAGE_3;
 
 public class EarthQuakeItemAdapterRecycler extends
         RecyclerView.Adapter<EarthQuakeItemAdapterRecycler.ViewHolder>{

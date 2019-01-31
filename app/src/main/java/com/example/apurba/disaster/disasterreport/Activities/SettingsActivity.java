@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Activities;
 
 /*
  * Created by Apurba on 3/13/2018.
@@ -15,6 +15,8 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.apurba.disaster.disasterreport.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

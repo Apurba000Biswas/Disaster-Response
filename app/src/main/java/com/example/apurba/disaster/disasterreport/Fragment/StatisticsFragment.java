@@ -1,4 +1,4 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Fragment;
 
 /*
  * Created by Apurba on 8/13/2018.
@@ -24,6 +24,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.apurba.disaster.disasterreport.R;
+import com.example.apurba.disaster.disasterreport.DataModel.StatisticsLocation;
+import com.example.apurba.disaster.disasterreport.Adapter.StatisticsLocationAdapter;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract;
 import com.example.apurba.disaster.disasterreport.database.DisasterReportDbContract.EarthQuakeEntry;
 

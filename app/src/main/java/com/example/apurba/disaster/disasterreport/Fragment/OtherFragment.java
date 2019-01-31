@@ -1,14 +1,15 @@
-package com.example.apurba.disaster.disasterreport;
+package com.example.apurba.disaster.disasterreport.Fragment;
 
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
+import com.example.apurba.disaster.disasterreport.Activities.WebsiteViewActivity;
+import com.example.apurba.disaster.disasterreport.R;
 
 /**
  * A simple {@link Fragment} subclass.
