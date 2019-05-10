@@ -99,29 +99,7 @@
             android:text="@string/firstDeveloperDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <ImageView
-            android:id="@+id/first_developer_facebook"
-            android:src="@drawable/facebook_logo"
-            android:layout_width="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="40dp" />
 
-        <TextView
-
-            android:id="@+id/second_developer"
-            android:layout_marginTop="10dp"
-            android:text="@string/secondDeveloperDetails"
-            style="@style/aboutTextStyle"
-            android:layout_marginBottom="0dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <ImageView
-            android:id="@+id/second_developer_facbook"
-            android:src="@drawable/facebook_logo"
-            android:layout_width="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="40dp" />
 
         <TextView
             android:textStyle="italic"

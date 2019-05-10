@@ -154,13 +154,6 @@ public class MainActivity extends AppCompatActivity {
         TextView support = aboutView.findViewById(R.id.support);
         setWebsiteToView(support, getString(R.string.uda_quake_report));
 
-                /*
-                TextView currentDeveloperName =
-                        aboutView.findViewById(R.id.current_deveoper_name);
-                setEmailToSend(currentDeveloperName,
-                        getString(R.string.currentDeveloperEmail));
-                        */
-
         TextView projectTypeInfo = aboutView.findViewById(R.id.project_info);
         setWebsiteToView(projectTypeInfo, getString(R.string.bubtWebsiteHomePage));
 
@@ -169,13 +162,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView firstDevInfo = aboutView.findViewById(R.id.first_developer);
         setEmailToSend(firstDevInfo, getString(R.string.firstDeveloperEmail));
-        ImageView firstDevFacebook = aboutView.findViewById(R.id.first_developer_facebook);
-        setWebsiteToView(firstDevFacebook, getString(R.string.firstDeveloperFacebook));
 
-        TextView secondDevInfo = aboutView.findViewById(R.id.second_developer);
-        setEmailToSend(secondDevInfo, getString(R.string.secondDeveloperEmail));
-        ImageView secondDevFacebook = aboutView.findViewById(R.id.second_developer_facbook);
-        setWebsiteToView(secondDevFacebook, getString(R.string.secondDeveloperFacebook));
 
         TextView sourceCodeLink = aboutView.findViewById(R.id.source_code);
         setWebsiteToView(sourceCodeLink, getString(R.string.sourceCodeLink));
