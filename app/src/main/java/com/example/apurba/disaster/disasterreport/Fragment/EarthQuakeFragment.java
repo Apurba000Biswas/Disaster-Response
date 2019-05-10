@@ -195,23 +195,25 @@ public class EarthQuakeFragment extends Fragment {
 
                 Loader loader = loaderManager.getLoader(EARTHQUAKE_DATA_LOADER_ID);
                 EarthquakeLoader earthquakeLoader = (EarthquakeLoader) loader;
-                List<EarthQuakeItem> list = earthquakeLoader.getEarthQuakeList();
-                if (list != null){
-                    if ( !list.isEmpty() ){
-                        mAdapter.clearData();
-                        mAdapter.addAllData(list);
-                        recyclerView.setAdapter(mAdapter);
-                        mEmptyStateTextView.setVisibility(View.GONE);
-                        mEmptyStateImageView.setVisibility(View.GONE);
+                if(earthquakeLoader != null){
+                    List<EarthQuakeItem> list = earthquakeLoader.getEarthQuakeList();
+                    if (list != null){
+                        if ( !list.isEmpty() ){
+                            mAdapter.clearData();
+                            mAdapter.addAllData(list);
+                            recyclerView.setAdapter(mAdapter);
+                            mEmptyStateTextView.setVisibility(View.GONE);
+                            mEmptyStateImageView.setVisibility(View.GONE);
+                        }else{
+                            mEmptyStateTextView.setText(R.string.no_earthquakes);
+                            mEmptyStateImageView.setVisibility(View.GONE);
+                            loading_indicator.setVisibility(View.GONE);
+                        }
                     }else{
-                        mEmptyStateTextView.setText(R.string.no_earthquakes);
-                        mEmptyStateImageView.setVisibility(View.GONE);
+                        mEmptyStateTextView.setText(R.string.no_internet_connection);
+                        mEmptyStateImageView.setVisibility(View.VISIBLE);
                         loading_indicator.setVisibility(View.GONE);
                     }
-                }else{
-                    mEmptyStateTextView.setText(R.string.no_internet_connection);
-                    mEmptyStateImageView.setVisibility(View.VISIBLE);
-                    loading_indicator.setVisibility(View.GONE);
                 }
             }
         });

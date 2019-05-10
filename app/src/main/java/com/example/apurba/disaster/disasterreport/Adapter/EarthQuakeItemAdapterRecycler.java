@@ -80,7 +80,6 @@ public class EarthQuakeItemAdapterRecycler extends
     /** public void onBindViewHolder() method
      *  This method gets called after calling onCreateViewHolder by LayoutManager to
      *  binds all views to the view holder
-     * @param holder - its the viewHolder that gets bind with its data
      * @param position - its the position of the viewHolder in the recyclerView
      */
     @Override
