@@ -22,7 +22,7 @@
         android:orientation="vertical"
         android:background="@color/main_background"
         android:padding="16dp"
-        tools:context="com.example.apurba.disaster.disasterreport.Activities.EarthQuakeDetailsActivity">
+        tools:context="com.stu.apurba.disaster.disasterreport.Activities.EarthQuakeDetailsActivity">
 
         <TextView
             android:id="@+id/title"

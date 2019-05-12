@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.apurba.disaster.disasterreport">
+    package="com.stu.apurba.disaster.disasterreport">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
 
 
-        <activity android:name=".Activities.MainActivity">
+        <activity android:name="com.stu.apurba.disaster.disasterreport.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,45 +23,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.SettingsActivity"
+            android:name="com.stu.apurba.disaster.disasterreport.Activities.SettingsActivity"
             android:label="@string/settings_title"
             android:theme="@style/PreferenceTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.apurba.disaster.disasterreport.Activities.MainActivity" />
+                android:value="com.stu.apurba.disaster.disasterreport.Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.EarthQuakeDetailsActivity"
-            android:parentActivityName=".Activities.MainActivity"
+            android:name="com.stu.apurba.disaster.disasterreport.Activities.EarthQuakeDetailsActivity"
+            android:parentActivityName="com.stu.apurba.disaster.disasterreport.Activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value="com.stu.apurba.disaster.disasterreport.Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.FloodDetailsActivity"
+            android:name="com.stu.apurba.disaster.disasterreport.Activities.FloodDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value="com.stu.apurba.disaster.disasterreport.Activities.MainActivity" />
         </activity>
         <activity
-            android:name=".Activities.WebsiteViewActivity"
+            android:name="com.stu.apurba.disaster.disasterreport.Activities.WebsiteViewActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value="com.stu.apurba.disaster.disasterreport.Activities.MainActivity" />
         </activity>
 
         <provider
-            android:name=".database.DisasterProvider"
-            android:authorities="com.example.apurba.disaster.disasterreport"
+            android:name="com.stu.apurba.disaster.disasterreport.database.DisasterProvider"
+            android:authorities="com.stu.apurba.disaster.disasterreport"
             android:exported="false" />
 
-        <activity android:name=".Activities.StatisticsLocationDetailsActivity">
+        <activity android:name="com.stu.apurba.disaster.disasterreport.Activities.StatisticsLocationDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activities.MainActivity" />
+                android:value="com.stu.apurba.disaster.disasterreport.Activities.MainActivity" />
         </activity>
     </application>
 
